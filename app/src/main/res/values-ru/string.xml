@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Мастер</string>
+    <string name="Sign_in_with">Войти через:</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="problems_sign_in">Не можете войти</string>
+    <string name="input">Вход</string>
+    <string name="registration">Регистрация</string>
+    <string name="last_name">Фамилия</string>
+    <string name="first_name">Имя</string>
+    <string name="country">Страна</string>
+    <string name="city">Город</string>
+    <string name="phone_number">Телефон</string>
+    <string name="next">Далее</string>
+    <string name="action_settings">Настройки</string>
+</resources>
