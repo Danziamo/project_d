@@ -13,4 +13,12 @@
     <string name="phone_number">Телефон</string>
     <string name="next">Далее</string>
     <string name="action_settings">Настройки</string>
+    <string name="autorizations">Авторизация</string>
+    <string name="now">Текущие</string>
+    <string name="to_oerder">Заказать</string>
+    <string name="base_wizards">База мастеров</string>
+    <string name="history">История</string>
+    <string name="active">Активные</string>
+    <string name="orders">Заказы</string>
+    <string name="like"></string>
 </resources>
