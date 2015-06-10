@@ -1,21 +1,12 @@
 package com.mirsoft.easyfixmaster;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.mirsoft.easyfixmaster.api.Api;
-import com.mirsoft.easyfixmaster.api.SessionApi;
-import com.mirsoft.easyfixmaster.models.Session;
-import com.mirsoft.easyfixmaster.service.ServiceGenerator;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 
 /**
@@ -37,7 +28,7 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        tvInfo = (TextView) rootView.findViewById(R.id.tvInfo);
+        /*tvInfo = (TextView) rootView.findViewById(R.id.tvInfo);
         btnFetch = (Button) rootView.findViewById(R.id.btnFetch);
 
         btnFetch.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +52,7 @@ public class MainActivityFragment extends Fragment {
                     }
                 });
             }
-        });
+        });*/
 
         return rootView;
     }
