@@ -1,4 +1,4 @@
-package com.mirsoft.easyfixmaster.service;
+package com.mirsoft.easyfixmaster.api;
 
 import com.mirsoft.easyfixmaster.models.User;
 
