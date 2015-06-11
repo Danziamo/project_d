@@ -20,8 +20,8 @@ public class CustomDrawerHeader extends MaterialNavigationDrawer {
     public void init(Bundle savedInstanceState) {
 
         // create and set the header
-        View view = LayoutInflater.from(this).inflate(R.layout.custom_drawer,null);
-        setDrawerHeaderCustom(view);
+        //View view = LayoutInflater.from(this).inflate(R.layout.custom_drawer,null);
+        //setDrawerHeaderCustom(view);
 
         // create sections
         this.addSection(newSection("Section 1", new MainActivityFragment()));
