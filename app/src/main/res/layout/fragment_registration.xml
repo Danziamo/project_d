@@ -28,7 +28,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:text="New Text"
-                    android:id="@+id/textView2"
                     android:layout_alignParentTop="true"
                     android:layout_alignLeft="@+id/etLastName"
                     android:layout_alignStart="@+id/etLastName" />
@@ -52,8 +51,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:text="New Text"
-                    android:id="@+id/textView3" />
+                    android:text="New Text" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -74,8 +72,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:text="New Text"
-                    android:id="@+id/textView4" />
+                    android:text="New Text" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -97,8 +94,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:text="New Text"
-                    android:id="@+id/textView5" />
+                    android:text="New Text" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -122,8 +118,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:text="New Text"
-                    android:id="@+id/textView6" />
+                    android:text="New Text" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -165,8 +160,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:id="@+id/textView7" />
+                    android:layout_weight="0.5" />
 
                 <Button
                     android:layout_height="50dp"
