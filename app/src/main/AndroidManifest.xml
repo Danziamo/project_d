@@ -19,6 +19,10 @@
             </intent-filter>
         </activity>
 
+
+        <activity android:name=".mockedActivity.Settings" />
+        <activity android:name=".mockedActivity.Profile" />
+
         <activity
             android:name=".FixNavigationDrawer"
             android:theme="@style/MyNavigationDrawerTheme">

@@ -1,7 +1,9 @@
 package com.mirsoft.easyfixmaster;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +19,23 @@ public class MainActivityFragment extends Fragment {
     Button btnFetch;
     TextView tvInfo;
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        TextView text = new TextView(this.getActivity());
+        text.setText("Section");
+        text.setGravity(Gravity.CENTER);
+        return text;
+    }
     /*@Inject
     Provider<SessionApi> sessionApiProvider;*/
 
-    public MainActivityFragment() {
-    }
+   // public MainActivityFragment() {
+   // }
 
-    @Override
+   /* @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);*/
 
         /*tvInfo = (TextView) rootView.findViewById(R.id.tvInfo);
         btnFetch = (Button) rootView.findViewById(R.id.btnFetch);
@@ -54,6 +63,6 @@ public class MainActivityFragment extends Fragment {
             }
         });*/
 
-        return rootView;
-    }
+        //return rootView;
+   // }
 }
