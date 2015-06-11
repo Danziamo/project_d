@@ -9,6 +9,8 @@ public class User {
     @Expose
     private int id;
     @Expose
+    private String phone;
+    @Expose
     @SerializedName("first_name")
     private String firstName;
     @Expose
@@ -87,5 +89,13 @@ public class User {
         }
         final User other = (User) obj;
         return this.id == other.id;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
