@@ -13,7 +13,7 @@ import retrofit.http.Query;
 
 public interface UserApi {
     @POST("/api/v1/users")
-    User add(@Body User user);
+    void add(@Body User user, Callback<User> callback);
 
     @GET("/api/v1/users/{id}")
     void getById(@Path("id") int id, Callback<User> callback);

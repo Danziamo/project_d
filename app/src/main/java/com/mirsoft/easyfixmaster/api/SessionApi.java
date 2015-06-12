@@ -11,5 +11,5 @@ public interface SessionApi {
     void login(@Body Session session, Callback<Session> callback);
 
     @POST("/api/v1/logout/")
-    void logout(Callback<?> callback);
+    void logout(@Body Session session, Callback<?> callback);
 }

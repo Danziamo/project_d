@@ -22,9 +22,14 @@ public class User {
     @SerializedName("date_of_birth")
     private String dateOfBirth;
     @Expose
-    private String type;
+    private String role;
 
-    public User() {}
+    @Expose
+    private String token;
+
+    public User() {
+        this.role = "contractor";
+    }
 
     public int getId() {
         return id;
@@ -66,12 +71,12 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getType() {
-        return type;
+    public String getRole() {
+        return role;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRole(String type) {
+        this.role = type;
     }
 
     @Override
@@ -97,5 +102,13 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

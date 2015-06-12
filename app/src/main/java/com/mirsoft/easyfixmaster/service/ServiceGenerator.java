@@ -2,6 +2,8 @@ package com.mirsoft.easyfixmaster.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mirsoft.easyfixmaster.Settings;
+import com.mirsoft.easyfixmaster.api.SessionRequestInterceptor;
 import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.RestAdapter;
@@ -9,20 +11,21 @@ import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
 public class ServiceGenerator {
-    private static String ROOT = "http://api.openweathermap.org/data/2.5";
+    private static String ROOT = "http://192.168.0.114:8000";
     private static String MAIN_URI = "http://81.88.192.37";
 
     private ServiceGenerator() {
     }
 
-    public static <S> S createService(Class<S> serviceClass) {
+    public static <S> S createService(Class<S> serviceClass, Settings settings) {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 .create();
 
         RestAdapter.Builder builder = new RestAdapter.Builder()
-                .setEndpoint(MAIN_URI)
+                .setEndpoint(ROOT)
                 .setConverter(new GsonConverter(gson))
+                .setRequestInterceptor(new SessionRequestInterceptor(settings))
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setClient(new OkClient(new OkHttpClient()));
 

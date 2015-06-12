@@ -11,4 +11,6 @@ public class Session {
     public String password;
     @Expose
     public String token;
+    @Expose
+    public int id;
 }

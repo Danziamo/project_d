@@ -14,7 +14,6 @@ public class SessionRequestInterceptor implements RequestInterceptor{
 
     @Override
     public void intercept(RequestFacade request) {
-        request.addHeader("Content-type", "application/json");
         String token = settings.getAccessToken();
         if (token.isEmpty()) return;
         request.addHeader("Authorization", "Token " + token);
