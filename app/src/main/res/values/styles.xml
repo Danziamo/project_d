@@ -1,4 +1,6 @@
-<resources>
+<resources
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -31,14 +33,17 @@
     </style>
 
     <!--MaterialEditText-->
-    <style name="EditText" parent="AppTheme">
+    <style name="EditText">
+        <!-- <item name="app:met_baseColor">@color/blacktext</item>
+        <item name="app:met_underlineColor">@color/gray</item>
+        <item name="app:met_errorColor">@color/red</item>-->
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="app:met_baseColor">@color/blacktext</item>
-        <item name="app:met_underlineColor">@color/gray</item>
-        <item name="app:met_errorColor">@color/red</item>
         <item name="android:singleLine">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
     </style>
+
+
 
 
     <style name="ToolbarTheme"></style>

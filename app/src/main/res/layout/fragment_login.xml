@@ -12,109 +12,75 @@
     <!-- TODO: Update blank fragment layout -->
 
     <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/EditText"
         app:met_baseColor="@color/blacktext"
         app:met_primaryColor="@color/blacktext"
         app:met_underlineColor="@color/gray"
-        app:met_errorColor="@color/red"
-        app:met_helperText="@string/last_name"
-        android:singleLine="true"
-        android:hint="@string/last_name"
-        android:id="@+id/view"
-        android:layout_below="@+id/view5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:met_baseColor="@color/blacktext"
-        app:met_underlineColor="@color/gray"
-        app:met_primaryColor="@color/blacktext"
         app:met_errorColor="#ff0000"
         app:met_helperText="@string/first_name"
-        android:singleLine="true"
-        app:met_floatingLabel="highlight"
-        app:met_minCharacters="5"
-        app:met_maxCharacters="10"
         android:hint="@string/first_name"
-        android:layout_below="@+id/view4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/view5" />
+        android:inputType="textPersonName"
+        android:id="@+id/etFirstName"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:met_underlineColor="@color/gray"
+        style="@style/EditText"
         app:met_baseColor="@color/blacktext"
         app:met_primaryColor="@color/blacktext"
+        app:met_underlineColor="@color/gray"
         app:met_errorColor="#ff0000"
-        android:singleLine="true"
-        app:met_floatingLabel="highlight"
-        app:met_minCharacters="5"
-        app:met_maxCharacters="10"
+        app:met_helperText="@string/last_name"
+        android:hint="@string/last_name"
+        android:inputType="textPersonName"
+        android:id="@+id/etLastName"
+        android:layout_below="@+id/etFirstName" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        style="@style/EditText"
+        app:met_baseColor="@color/blacktext"
+        app:met_primaryColor="@color/blacktext"
+        app:met_underlineColor="@color/gray"
+        app:met_errorColor="#ff0000"
         app:met_helperText="@string/country"
         android:hint="@string/country"
-        android:id="@+id/view4"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/etCountry"
+        android:layout_below="@+id/etLastName" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/EditText"
         app:met_baseColor="@color/blacktext"
-        app:met_underlineColor="@color/gray"
         app:met_primaryColor="@color/blacktext"
+        app:met_underlineColor="@color/gray"
         app:met_errorColor="#ff0000"
-        android:singleLine="true"
-        app:met_floatingLabel="highlight"
-        app:met_minCharacters="5"
-        app:met_maxCharacters="10"
         app:met_helperText="@string/city"
         android:hint="@string/city"
-        android:layout_below="@+id/view3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="35dp" />
+        android:id="@+id/etCity"
+        android:layout_below="@+id/etCountry" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/EditText"
         app:met_baseColor="@color/blacktext"
         app:met_primaryColor="@color/blacktext"
         app:met_underlineColor="@color/gray"
         app:met_errorColor="#ff0000"
-        app:met_floatingLabel="highlight"
-        app:met_minCharacters="5"
-        app:met_maxCharacters="10"
-        android:singleLine="true"
-        android:hint="@string/phone_number"
         app:met_helperText="@string/phone_number"
-        android:layout_below="@+id/view2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/view3" />
+        android:hint="@string/phone_number"
+        android:inputType="phone"
+        android:id="@+id/etPhone"
+        android:layout_below="@+id/etCity"
+/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/EditText"
         app:met_baseColor="@color/blacktext"
         app:met_primaryColor="@color/blacktext"
         app:met_underlineColor="@color/gray"
         app:met_errorColor="#ff0000"
-        app:met_floatingLabel="highlight"
-        app:met_minCharacters="5"
-        app:met_maxCharacters="10"
-        android:hint="@string/password"
         app:met_helperText="@string/password"
-        android:layout_below="@+id/view"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/view2" />
-
-
-
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:id="@+id/etPassword"
+        android:layout_below="@+id/etPhone" />
 </RelativeLayout>
