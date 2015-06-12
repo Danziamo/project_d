@@ -1,7 +1,7 @@
 package com.mirsoft.easyfixmaster;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 
 public class MainActivity extends ActionBarActivity {
@@ -16,8 +16,8 @@ public class MainActivity extends ActionBarActivity {
         finish();*/
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new MainActivityFragment())
+            getFragmentManager().beginTransaction()
+                    .add(R.id.container, LoginFragment.newInstance(null, null))
                     .commit();
         }
     }
