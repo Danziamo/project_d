@@ -11,8 +11,14 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Intent intent = new Intent(this, FixNavigationDrawer.class);
-        Intent intent = new Intent(this, TestSIgnUp.class);
+        /*Intent intent = new Intent(this, TestSIgnUp.class);
         startActivity(intent);
-        finish();
+        finish();*/
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new MainActivityFragment())
+                    .commit();
+        }
     }
 }
