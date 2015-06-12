@@ -30,6 +30,17 @@
 
     </style>
 
+    <!--MaterialEditText-->
+    <style name="EditText" parent="AppTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="app:met_baseColor">@color/blacktext</item>
+        <item name="app:met_underlineColor">@color/gray</item>
+        <item name="app:met_errorColor">@color/red</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+
     <style name="ToolbarTheme"></style>
 
     <style name="AppTheme.Base"></style>
