@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.mirsoft.easyfixmaster.TestSIgnUp">
+
+    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
+        android:id="@+id/tvInfo"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:gravity="center"
+        android:id="@+id/btnRun"
+        android:layout_centerInParent="true">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btnInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Get User"
+        android:layout_below="@+id/btnRun"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnInfo"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btnLogout"
+        android:text="Logout"/>
+
+</RelativeLayout>
