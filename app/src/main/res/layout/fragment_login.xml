@@ -5,82 +5,94 @@
     android:layout_height="match_parent"
     tools:context="com.mirsoft.easyfixmaster.LoginFragment"
     android:background="@color/white_blue"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id="@+id/zz">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/EditText"
-        app:met_baseColor="@color/blacktext"
-        app:met_primaryColor="@color/blacktext"
-        app:met_underlineColor="@color/gray"
-        app:met_errorColor="#ff0000"
-        app:met_helperText="@string/first_name"
-        android:hint="@string/first_name"
-        android:inputType="textPersonName"
-        android:id="@+id/etFirstName"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView3" >
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/EditText"
-        app:met_baseColor="@color/blacktext"
-        app:met_primaryColor="@color/blacktext"
-        app:met_underlineColor="@color/gray"
-        app:met_errorColor="#ff0000"
-        app:met_helperText="@string/last_name"
-        android:hint="@string/last_name"
-        android:inputType="textPersonName"
-        android:id="@+id/etLastName"
-        android:layout_below="@+id/etFirstName" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/EditText"
-        app:met_baseColor="@color/blacktext"
-        app:met_primaryColor="@color/blacktext"
-        app:met_underlineColor="@color/gray"
-        app:met_errorColor="#ff0000"
-        app:met_helperText="@string/country"
-        android:hint="@string/country"
-        android:id="@+id/etCountry"
-        android:layout_below="@+id/etLastName" />
+            <com.rengwuxian.materialedittext.MaterialEditText
+                style="@style/EditText"
+                app:met_baseColor="@color/blacktext"
+                app:met_primaryColor="@color/input_base_blue"
+                app:met_underlineColor="@color/gray"
+                app:met_errorColor="@color/red"
+                app:met_helperText="@string/first_name"
+                android:hint="@string/first_name"
+                android:inputType="textPersonName"
+                android:id="@+id/etFirstName"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"/>
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/EditText"
-        app:met_baseColor="@color/blacktext"
-        app:met_primaryColor="@color/blacktext"
-        app:met_underlineColor="@color/gray"
-        app:met_errorColor="#ff0000"
-        app:met_helperText="@string/city"
-        android:hint="@string/city"
-        android:id="@+id/etCity"
-        android:layout_below="@+id/etCountry" />
+            <com.rengwuxian.materialedittext.MaterialEditText
+                style="@style/EditText"
+                app:met_baseColor="@color/blacktext"
+                app:met_primaryColor="@color/input_base_blue"
+                app:met_underlineColor="@color/gray"
+                app:met_errorColor="@color/red"
+                app:met_helperText="@string/last_name"
+                android:hint="@string/last_name"
+                android:inputType="textPersonName"
+                android:id="@+id/etLastName"
+                android:layout_below="@+id/etFirstName" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/EditText"
-        app:met_baseColor="@color/blacktext"
-        app:met_primaryColor="@color/blacktext"
-        app:met_underlineColor="@color/gray"
-        app:met_errorColor="#ff0000"
-        app:met_helperText="@string/phone_number"
-        android:hint="@string/phone_number"
-        android:inputType="phone"
-        android:id="@+id/etPhone"
-        android:layout_below="@+id/etCity"
-/>
+            <com.rengwuxian.materialedittext.MaterialEditText
+                style="@style/EditText"
+                app:met_baseColor="@color/blacktext"
+                app:met_primaryColor="@color/input_base_blue"
+                app:met_underlineColor="@color/gray"
+                app:met_errorColor="@color/red"
+                app:met_helperText="@string/country"
+                android:hint="@string/country"
+                android:id="@+id/etCountry"
+                android:layout_below="@+id/etLastName" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/EditText"
-        app:met_baseColor="@color/blacktext"
-        app:met_primaryColor="@color/blacktext"
-        app:met_underlineColor="@color/gray"
-        app:met_errorColor="#ff0000"
-        app:met_helperText="@string/password"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:id="@+id/etPassword"
-        android:layout_below="@+id/etPhone" />
+            <com.rengwuxian.materialedittext.MaterialEditText
+                style="@style/EditText"
+                app:met_baseColor="@color/blacktext"
+                app:met_primaryColor="@color/input_base_blue"
+                app:met_underlineColor="@color/gray"
+                app:met_errorColor="@color/red"
+                app:met_helperText="@string/city"
+                android:hint="@string/city"
+                android:id="@+id/etCity"
+                android:layout_below="@+id/etCountry" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                style="@style/EditText"
+                app:met_baseColor="@color/blacktext"
+                app:met_primaryColor="@color/input_base_blue"
+                app:met_underlineColor="@color/gray"
+                app:met_errorColor="@color/red"
+                app:met_helperText="@string/phone_number"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:id="@+id/etPhone"
+                android:layout_below="@+id/etCity"
+        />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                style="@style/EditText"
+                app:met_baseColor="@color/blacktext"
+                app:met_primaryColor="@color/input_base_blue"
+                app:met_underlineColor="@color/gray"
+                app:met_errorColor="@color/red"
+                app:met_helperText="@string/password"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:id="@+id/etPassword"
+                android:layout_below="@+id/etPhone" />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

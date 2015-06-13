@@ -38,4 +38,6 @@ dependencies {
     compile 'com.github.gabrielemariotti.cards:cardslib-recyclerview:2.1.0'
     compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.1.0'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'        //edittext
+    //button
+    compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.3'
 }

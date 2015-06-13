@@ -1,178 +1,115 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mirsoft.easyfixmaster.RegistrationFragment">
+    tools:context="com.mirsoft.easyfixmaster.RegistrationFragment"
+    android:background="@color/white_blue"
+    android:weightSum="1"
+    android:id="@+id/zz">
+
+    <!-- TODO: Update blank fragment layout -->
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView3" >
 
-        <LinearLayout
-            android:orientation="vertical"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+            <com.rengwuxian.materialedittext.MaterialEditText
+                style="@style/EditText"
+                app:met_baseColor="@color/blacktext"
+                app:met_primaryColor="@color/input_base_blue"
+                app:met_underlineColor="@color/gray"
+                app:met_errorColor="@color/red"
+                app:met_helperText="@string/first_name"
+                android:hint="@string/first_name"
+                android:inputType="textPersonName"
+                android:id="@+id/etFirstName"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                style="@style/EditText"
+                app:met_baseColor="@color/blacktext"
+                app:met_primaryColor="@color/input_base_blue"
+                app:met_underlineColor="@color/gray"
+                app:met_errorColor="@color/red"
+                app:met_helperText="@string/last_name"
+                android:hint="@string/last_name"
+                android:inputType="textPersonName"
+                android:id="@+id/etLastName"
+                android:layout_below="@+id/etFirstName" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                style="@style/EditText"
+                app:met_baseColor="@color/blacktext"
+                app:met_primaryColor="@color/input_base_blue"
+                app:met_underlineColor="@color/gray"
+                app:met_errorColor="@color/red"
+                app:met_helperText="@string/country"
+                android:hint="@string/country"
+                android:id="@+id/etCountry"
+                android:layout_below="@+id/etLastName" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                style="@style/EditText"
+                app:met_baseColor="@color/blacktext"
+                app:met_primaryColor="@color/input_base_blue"
+                app:met_underlineColor="@color/gray"
+                app:met_errorColor="@color/red"
+                app:met_helperText="@string/city"
+                android:hint="@string/city"
+                android:id="@+id/etCity"
+                android:layout_below="@+id/etCountry" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                style="@style/EditText"
+                app:met_baseColor="@color/blacktext"
+                app:met_primaryColor="@color/input_base_blue"
+                app:met_underlineColor="@color/gray"
+                app:met_errorColor="@color/red"
+                app:met_helperText="@string/phone_number"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:id="@+id/etPhone"
+                android:layout_below="@+id/etCity"
+                />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                style="@style/EditText"
+                app:met_baseColor="@color/blacktext"
+                app:met_primaryColor="@color/input_base_blue"
+                app:met_underlineColor="@color/gray"
+                app:met_errorColor="@color/red"
+                app:met_helperText="@string/password"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:id="@+id/etPassword"
+                android:layout_below="@+id/etPhone" />
+
+            <com.dd.processbutton.FlatButton
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                android:id="@+id/lastNameRow">
+                android:text="@string/registration"
+                android:id="@+id/btnSubmit"
+                android:layout_below="@id/etPassword"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="40dp"
+                app:pb_colorNormal="@android:color/holo_blue_light"
+                app:pb_colorPressed="@android:color/holo_blue_dark"
+                app:pb_colorProgress="@color/purple_progress"
+                android:layout_marginTop="30dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="New Text"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignLeft="@+id/etLastName"
-                    android:layout_alignStart="@+id/etLastName" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:id="@+id/etLastName"
-                    android:layout_marginTop="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/firstNameRow">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="New Text" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:id="@+id/etFirstName"
-                    android:layout_marginTop="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/countryRow">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="New Text" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:id="@+id/etCountry"
-                    android:layout_marginTop="10dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/cityRow">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="New Text" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:id="@+id/etCity"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="10dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/phoneRow">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="New Text" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:inputType="phone"
-                    android:ems="10"
-                    android:id="@+id/etPhone"
-                    android:phoneNumber="true" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/passwordRow"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:inputType="textPassword"
-                    android:ems="10"
-                    android:id="@+id/editText"
-                    android:text="etPassword" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:id="@+id/submitRow"
-                android:weightSum="2">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5" />
-
-                <Button
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:text="Next"
-                    android:id="@+id/button"
-                    android:layout_gravity="center_horizontal"
-                    android:textAlignment="center" />
-
-            </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
 </RelativeLayout>

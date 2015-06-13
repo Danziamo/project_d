@@ -20,5 +20,8 @@
     <string name="history">История</string>
     <string name="active">Активные</string>
     <string name="orders">Заказы</string>
+    <string name="change">Поменять</string>
+    <string name="my_rating">Рейтинг</string>
+    <string name="feedbacks">Отзывы</string>
     <string name="like"></string>
 </resources>

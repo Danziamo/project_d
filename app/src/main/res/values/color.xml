@@ -5,7 +5,9 @@
     <color name="white_blue">#E6F0F7</color>
     <color name="blacktext">#000000</color>
     <color name="white">#fcfcfc</color>
-    <color name="red">#E01E30</color>
+    <color name="red">#DD2C00</color>
     <color name="blacktext2">#0f0d00</color>
-    <color name="gray">#bdbdbd</color>
+    <color name="gray">#bbb</color>
+    <color name="input_blue">#0288D1</color>
+    <color name="input_base_blue">#0288D1</color>
 </resources>
