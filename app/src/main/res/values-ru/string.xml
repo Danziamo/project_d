@@ -23,5 +23,7 @@
     <string name="change">Поменять</string>
     <string name="my_rating">Рейтинг</string>
     <string name="feedbacks">Отзывы</string>
+    <string name="forget_password">Забыли пароль?</string>
+    <string name="license">Лицензия</string>
     <string name="like"></string>
 </resources>
