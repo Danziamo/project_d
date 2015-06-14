@@ -4,7 +4,7 @@
     >
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
     </style>
 
@@ -35,9 +35,6 @@
 
     <!--MaterialEditText-->
     <style name="Input">
-        <!-- <item name="app:met_baseColor">@color/blacktext</item>
-        <item name="app:met_underlineColor">@color/gray</item>
-        <item name="app:met_errorColor">@color/red</item>-->
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:singleLine">true</item>
@@ -45,10 +42,10 @@
     </style>
 
     <style name="Input.Material" parent="Input">
-        <item name="app:met_baseColor">@color/blacktext</item>
-        <item name="app:met_primaryColor">@color/input_base_blue</item>
-        <item name="app:met_underlineColor">@color/gray</item>
-        <item name="app:met_errorColor">@color/red</item>
+        <item name="met_baseColor">@color/blacktext</item>
+        <item name="met_primaryColor">@color/input_base_blue</item>
+        <item name="met_underlineColor">@color/gray</item>
+        <item name="met_errorColor">@color/red</item>
     </style>
 
     <style name="Input.Material.First" parent="Input.Material">
@@ -63,9 +60,9 @@
     </style>
 
     <style name="Button.Material" parent="Button">
-        <item name="app:pb_colorNormal">@android:color/holo_blue_light</item>
-        <item name="app:pb_colorPressed">@android:color/holo_blue_dark</item>
-        <item name="app:pb_colorProgress">@android:color/holo_purple</item>
+        <item name="pb_colorNormal">@android:color/holo_blue_light</item>
+        <item name="pb_colorPressed">@android:color/holo_blue_dark</item>
+        <item name="pb_colorProgress">@android:color/holo_purple</item>
     </style>
 
     <style name="Button.Material.Login" parent="Button.Material">

@@ -25,5 +25,11 @@
     <string name="feedbacks">Отзывы</string>
     <string name="forget_password">Забыли пароль?</string>
     <string name="license">Лицензия</string>
+    <string name="icon_orders">&#xf022;</string>
+    <string name="icon_users">&#xf007;</string>
+    <string name="icon_history">&#xf017;</string>
+    <string name="icon_orders_text">Заказы</string>
+    <string name="icon_users_text">Мои заказы</string>
+    <string name="icon_history_text">История</string>
     <string name="like"></string>
 </resources>
