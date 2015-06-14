@@ -6,20 +6,21 @@
     tools:context="com.mirsoft.easyfixmaster.LoginFragment"
     android:background="@color/white_blue"
     android:weightSum="1"
-    android:id="@+id/zz">
+    android:id="@+id/zz"
+    android:paddingLeft="20dp">
 
     <!-- TODO: Update blank fragment layout -->
 
+
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView3" >
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:layout_gravity="center_vertical">
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 style="@style/EditText"
@@ -30,57 +31,10 @@
                 app:met_helperText="@string/first_name"
                 android:hint="@string/first_name"
                 android:inputType="textPersonName"
-                android:id="@+id/etFirstName"
+                android:id="@+id/etLogin"
+                android:layout_centerVertical="true"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"/>
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/EditText"
-                app:met_baseColor="@color/blacktext"
-                app:met_primaryColor="@color/input_base_blue"
-                app:met_underlineColor="@color/gray"
-                app:met_errorColor="@color/red"
-                app:met_helperText="@string/last_name"
-                android:hint="@string/last_name"
-                android:inputType="textPersonName"
-                android:id="@+id/etLastName"
-                android:layout_below="@+id/etFirstName" />
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/EditText"
-                app:met_baseColor="@color/blacktext"
-                app:met_primaryColor="@color/input_base_blue"
-                app:met_underlineColor="@color/gray"
-                app:met_errorColor="@color/red"
-                app:met_helperText="@string/country"
-                android:hint="@string/country"
-                android:id="@+id/etCountry"
-                android:layout_below="@+id/etLastName" />
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/EditText"
-                app:met_baseColor="@color/blacktext"
-                app:met_primaryColor="@color/input_base_blue"
-                app:met_underlineColor="@color/gray"
-                app:met_errorColor="@color/red"
-                app:met_helperText="@string/city"
-                android:hint="@string/city"
-                android:id="@+id/etCity"
-                android:layout_below="@+id/etCountry" />
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/EditText"
-                app:met_baseColor="@color/blacktext"
-                app:met_primaryColor="@color/input_base_blue"
-                app:met_underlineColor="@color/gray"
-                app:met_errorColor="@color/red"
-                app:met_helperText="@string/phone_number"
-                android:hint="@string/phone_number"
-                android:inputType="phone"
-                android:id="@+id/etPhone"
-                android:layout_below="@+id/etCity"
-        />
+                android:layout_centerHorizontal="true"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 style="@style/EditText"
@@ -92,7 +46,34 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:id="@+id/etPassword"
-                android:layout_below="@+id/etPhone" />
+                android:layout_below="@+id/etLogin" />
+
+            <com.dd.processbutton.FlatButton
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:id="@+id/btnSubmit"
+                android:layout_below="@id/etPassword"
+                android:layout_centerHorizontal="true"
+                app:pb_colorNormal="@android:color/holo_blue_light"
+                app:pb_colorPressed="@android:color/holo_blue_dark"
+                app:pb_colorProgress="@color/purple_progress"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="30dp" />
+
+            <com.dd.processbutton.FlatButton
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="@string/change"
+                android:id="@+id/forgetPassword"
+                android:layout_below="@id/btnSubmit"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="30dp" />
         </RelativeLayout>
     </ScrollView>
+
 </RelativeLayout>

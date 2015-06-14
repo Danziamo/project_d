@@ -17,7 +17,7 @@ public class MainActivity extends ActionBarActivity {
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, ProfileFragment.newInstance(null, null))
+                    .add(R.id.container, LoginFragment.newInstance(null, null))
                     .commit();
         }
     }
