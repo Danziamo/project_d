@@ -56,27 +56,17 @@
                     android:layout_weight="0.6">
 
                     <com.rengwuxian.materialedittext.MaterialEditText
-                        style="@style/EditText"
-                        app:met_baseColor="@color/blacktext"
-                        app:met_primaryColor="@color/input_base_blue"
-                        app:met_underlineColor="@color/gray"
-                        app:met_errorColor="@color/red"
+                        style="@style/Input.Material.First"
                         app:met_helperText="@string/first_name"
                         android:hint="@string/first_name"
                         android:inputType="textPersonName"
                         android:id="@+id/etFirstName"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/masterRatingBar"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
-                        style="@style/EditText"
-                        app:met_baseColor="@color/blacktext"
-                        app:met_primaryColor="@color/input_base_blue"
-                        app:met_underlineColor="@color/gray"
-                        app:met_errorColor="@color/red"
+                        style="@style/Input.Material"
                         app:met_helperText="@string/last_name"
                         android:hint="@string/last_name"
                         android:inputType="textPersonName"
@@ -92,8 +82,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.4"
                     android:weightSum="1"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingLeft="10dp">
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -114,55 +103,35 @@
 
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/EditText"
-                app:met_baseColor="@color/blacktext"
-                app:met_primaryColor="@color/input_base_blue"
-                app:met_underlineColor="@color/gray"
-                app:met_errorColor="@color/red"
+                style="@style/Input.Material"
                 app:met_helperText="@string/country"
                 android:hint="@string/country"
                 android:id="@+id/etProfession"
                 android:layout_below="@+id/topLayout" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/EditText"
-                app:met_baseColor="@color/blacktext"
-                app:met_primaryColor="@color/input_base_blue"
-                app:met_underlineColor="@color/gray"
-                app:met_errorColor="@color/red"
+                style="@style/Input.Material"
                 app:met_helperText="@string/city"
                 android:hint="@string/city"
                 android:id="@+id/etLicense"
                 android:layout_below="@+id/etProfession" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/EditText"
-                app:met_baseColor="@color/blacktext"
-                app:met_primaryColor="@color/input_base_blue"
-                app:met_underlineColor="@color/gray"
-                app:met_errorColor="@color/red"
+                style="@style/Input.Material"
                 app:met_helperText="@string/license"
                 android:hint="@string/license"
                 android:id="@+id/etCountry"
                 android:layout_below="@+id/etLicense" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/EditText"
-                app:met_baseColor="@color/blacktext"
-                app:met_primaryColor="@color/input_base_blue"
-                app:met_underlineColor="@color/gray"
-                app:met_errorColor="@color/red"
+                style="@style/Input.Material"
                 app:met_helperText="@string/city"
                 android:hint="@string/city"
                 android:id="@+id/etCity"
                 android:layout_below="@+id/etCountry" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/EditText"
-                app:met_baseColor="@color/blacktext"
-                app:met_primaryColor="@color/input_base_blue"
-                app:met_underlineColor="@color/gray"
-                app:met_errorColor="@color/red"
+                style="@style/Input.Material"
                 app:met_helperText="@string/phone_number"
                 android:hint="@string/phone_number"
                 android:inputType="phone"
@@ -171,11 +140,7 @@
                 />
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/EditText"
-                app:met_baseColor="@color/blacktext"
-                app:met_primaryColor="@color/input_base_blue"
-                app:met_underlineColor="@color/gray"
-                app:met_errorColor="@color/red"
+                style="@style/Input.Material"
                 app:met_helperText="@string/password"
                 android:hint="@string/password"
                 android:inputType="textPassword"
@@ -183,17 +148,11 @@
                 android:layout_below="@+id/etPhone" />
 
             <com.dd.processbutton.FlatButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Button.Material"
                 android:text="@string/change"
                 android:id="@+id/btnSubmit"
                 android:layout_below="@id/etPassword"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="40dp"
-                app:pb_colorNormal="@android:color/holo_blue_light"
-                app:pb_colorPressed="@android:color/holo_blue_dark"
-                app:pb_colorProgress="@color/purple_progress"
                 android:layout_marginTop="30dp" />
 
 

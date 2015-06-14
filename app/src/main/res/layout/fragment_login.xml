@@ -23,25 +23,15 @@
             android:layout_gravity="center_vertical">
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/EditText"
-                app:met_baseColor="@color/blacktext"
-                app:met_primaryColor="@color/input_base_blue"
-                app:met_underlineColor="@color/gray"
-                app:met_errorColor="@color/red"
+                style="@style/Input.Material.First"
                 app:met_helperText="@string/first_name"
                 android:hint="@string/first_name"
                 android:inputType="textPersonName"
                 android:id="@+id/etLogin"
-                android:layout_centerVertical="true"
-                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/EditText"
-                app:met_baseColor="@color/blacktext"
-                app:met_primaryColor="@color/input_base_blue"
-                app:met_underlineColor="@color/gray"
-                app:met_errorColor="@color/red"
+                style="@style/Input.Material"
                 app:met_helperText="@string/password"
                 android:hint="@string/password"
                 android:inputType="textPassword"
@@ -49,30 +39,18 @@
                 android:layout_below="@+id/etLogin" />
 
             <com.dd.processbutton.FlatButton
+                style="@style/Button.Material.Login"
                 android:layout_width="250dp"
-                android:layout_height="wrap_content"
                 android:text="@string/login"
                 android:id="@+id/btnSubmit"
-                android:layout_below="@id/etPassword"
-                android:layout_centerHorizontal="true"
-                app:pb_colorNormal="@android:color/holo_blue_light"
-                app:pb_colorPressed="@android:color/holo_blue_dark"
-                app:pb_colorProgress="@color/purple_progress"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:layout_marginTop="30dp" />
+                android:layout_below="@id/etPassword" />
 
             <com.dd.processbutton.FlatButton
+                style="@style/Button.Material.Login"
                 android:layout_width="250dp"
-                android:layout_height="wrap_content"
                 android:text="@string/forget_password"
                 android:id="@+id/forgetPassword"
-                android:layout_below="@id/btnSubmit"
-                android:layout_centerHorizontal="true"
-                android:background="@android:color/transparent"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:layout_marginTop="30dp" />
+                android:layout_below="@id/btnSubmit" />
         </RelativeLayout>
     </ScrollView>
 

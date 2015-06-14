@@ -1,5 +1,6 @@
 <resources
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="com.rengwuxian.materialedittext.MaterialEditText"
     >
 
     <!-- Base application theme. -->
@@ -33,7 +34,7 @@
     </style>
 
     <!--MaterialEditText-->
-    <style name="EditText">
+    <style name="Input">
         <!-- <item name="app:met_baseColor">@color/blacktext</item>
         <item name="app:met_underlineColor">@color/gray</item>
         <item name="app:met_errorColor">@color/red</item>-->
@@ -43,7 +44,35 @@
         <item name="android:layout_centerHorizontal">true</item>
     </style>
 
+    <style name="Input.Material" parent="Input">
+        <item name="app:met_baseColor">@color/blacktext</item>
+        <item name="app:met_primaryColor">@color/input_base_blue</item>
+        <item name="app:met_underlineColor">@color/gray</item>
+        <item name="app:met_errorColor">@color/red</item>
+    </style>
 
+    <style name="Input.Material.First" parent="Input.Material">
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="Button.Material" parent="Button">
+        <item name="app:pb_colorNormal">@android:color/holo_blue_light</item>
+        <item name="app:pb_colorPressed">@android:color/holo_blue_dark</item>
+        <item name="app:pb_colorProgress">@android:color/holo_purple</item>
+    </style>
+
+    <style name="Button.Material.Login" parent="Button.Material">
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:layout_marginTop">30dp</item>
+    </style>
 
 
     <style name="ToolbarTheme"></style>
