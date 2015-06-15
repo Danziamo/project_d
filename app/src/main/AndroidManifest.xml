@@ -28,6 +28,10 @@
             android:label="@string/title_activity_test_sign_up" >
         </activity>
         <activity
+            android:name=".SplashActivity"
+            android:label="@string/title_activity_splash" >
+        </activity>
+        <activity
             android:name=".TabsActivity"
             android:theme="@style/AppTheme"
             android:label="@string/title_activity_tabs" >
