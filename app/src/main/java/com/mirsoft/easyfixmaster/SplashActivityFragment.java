@@ -1,6 +1,8 @@
 package com.mirsoft.easyfixmaster;
 
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +12,17 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class SplashActivityFragment extends Fragment {
+    Button btnLogin;
+    Button btnSignUp;
+    TextView tvInfo;
 
     public SplashActivityFragment() {
     }
@@ -28,9 +35,38 @@ public class SplashActivityFragment extends Fragment {
         Animation animation = new TranslateAnimation(1500,0,0,1000);
         animation.setDuration(1500);
         splashLayout.startAnimation(animation);
+        tvInfo = (TextView) view.findViewById(R.id.tvInfo);
+        btnLogin = (Button) view.findViewById(R.id.btnLogin);
+        btnSignUp = (Button) view.findViewById(R.id.btnSignUp);
+        btnSignUp.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSignUp();
+            }
+        });
+
+        btnLogin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLogin();
+            }
+        });
         ///slideToLeft(splashLayout);
         return view;
     }
+
+    private void openLogin() {
+        getActivity().getFragmentManager().beginTransaction()
+                .replace(R.id.fragment, LoginFragment.newInstance(null, null))
+                .commit();
+    }
+
+    private void openSignUp() {
+        getActivity().getFragmentManager().beginTransaction()
+                .replace(R.id.fragment, RegistrationFragment.newInstance(null, null))
+                .commit();
+    }
+
 
 
    /* // To animate view slide out from left to right
@@ -85,3 +121,4 @@ public class SplashActivityFragment extends Fragment {
         btnSignup.setOnClickListener(this);*/
 
 }
+
