@@ -49,7 +49,7 @@
                 style="@style/Button.Material.Login"
                 android:layout_width="250dp"
                 android:text="@string/forget_password"
-                android:id="@+id/forgetPassword"
+                android:id="@+id/btnForgotPassword"
                 android:layout_below="@id/btnSubmit" />
         </RelativeLayout>
     </ScrollView>
