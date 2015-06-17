@@ -13,14 +13,14 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         //Intent intent = new Intent(this, FixNavigationDrawer.class);
         //Intent intent = new Intent(this, TabsActivity.class);
-        Intent intent = new Intent(this, SplashActivity.class);
+        /*Intent intent = new Intent(this, SplashActivity.class);
         startActivity(intent);
-        finish();
+        finish();*/
 
-        /*if (savedInstanceState == null) {
+        if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, ProfileFragment.newInstance(null, null))
+                    .add(R.id.container, TestFragment.newInstance(null, null))
                     .commit();
-        }*/
+        }
     }
 }

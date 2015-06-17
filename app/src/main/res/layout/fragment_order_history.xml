@@ -9,13 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tamashow"
-            android:layout_centerInParent="true"
-            android:id="@+id/tvInfo"/>
-
+        <it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card:list_card_layout_resourceID="@layout/native_recyclerview_card_layout"
+            android:id="@+id/carddemo_recyclerview"/>
 
     </RelativeLayout>
 </FrameLayout>
