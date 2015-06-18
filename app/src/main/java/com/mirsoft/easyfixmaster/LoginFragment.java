@@ -8,6 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.mirsoft.easyfixmaster.api.SessionApi;
+import com.mirsoft.easyfixmaster.models.Session;
+import com.mirsoft.easyfixmaster.service.ServiceGenerator;
+import com.rengwuxian.materialedittext.MaterialEditText;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 /**
@@ -16,6 +27,9 @@ import android.widget.Button;
  * create an instance of this fragment.
  */
 public class LoginFragment extends Fragment {
+
+    MaterialEditText etPhone;
+    MaterialEditText etPassword;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -63,6 +77,18 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
+        etPhone = (MaterialEditText)view.findViewById(R.id.etLogin);
+        etPassword = (MaterialEditText)view.findViewById(R.id.etPassword);
+
+        Button btnSignIn = (Button)view.findViewById(R.id.btnSubmit);
+
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeLogin();
+            }
+        });
+
         Button btnForgotPassword = (Button)view.findViewById(R.id.btnForgotPassword);
         btnForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,5 +103,42 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
+    private void makeLogin() {
+        String password = etPassword.getText().toString().trim();
+        String username = etPhone.getText().toString().trim();
+        boolean isError = false;
 
+        if (username.isEmpty()) {
+            etPhone.setError("Не может быть пустым");
+            isError = true;
+        }
+
+        if (password.isEmpty()) {
+            etPassword.setError("Не может быть пустым");
+            isError = true;
+        }
+
+        if (isError) return;
+
+        Session session = new Session();
+        session.username = username;
+        session.password = password;
+        final Settings settings = new Settings(getActivity());
+
+        SessionApi api = ServiceGenerator.createService(SessionApi.class, settings);
+        api.login(session, new Callback<Session>() {
+            @Override
+            public void success(Session session, Response response) {
+                settings.setAccessToken(session.token);
+                Intent intent = new Intent(getActivity(), FixNavigationDrawer.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

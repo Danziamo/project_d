@@ -11,7 +11,7 @@ import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
 public class ServiceGenerator {
-    private static String ROOT = "http://192.168.0.114:8000";
+    private static String ROOT = "http://192.168.0.107:1337";
     private static String MAIN_URI = "http://81.88.192.37";
 
     private ServiceGenerator() {

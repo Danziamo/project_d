@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel
+  ns = "http://schemas.android.com?import=com.android.tools.idea.editors.navigation.model.*">
+  <locations  
+    class = "java.util.ArrayList">
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.mirsoft.easyfixmaster.MainActivity"/>
+      <point      
+        x = "2240"      
+        y = "40"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.mirsoft.easyfixmaster.TabsActivity"/>
+      <point      
+        x = "208"      
+        y = "1628"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.mirsoft.easyfixmaster.FixNavigationDrawer"/>
+      <point      
+        x = "3388"      
+        y = "1004"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.mirsoft.easyfixmaster.TestSIgnUp"/>
+      <point      
+        x = "1156"      
+        y = "1752"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.MenuState"      
+        className = "com.mirsoft.easyfixmaster.SplashActivity"/>
+      <point      
+        x = "1764"      
+        y = "248"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.mirsoft.easyfixmaster.SplashActivity"/>
+      <point      
+        x = "500"      
+        y = "100"/>
+    </statePointEntry>
+  </locations>
+</navigationModel>

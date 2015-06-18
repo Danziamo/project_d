@@ -56,14 +56,18 @@ public class SplashActivityFragment extends Fragment {
     }
 
     private void openLogin() {
+        String backStateName = getActivity().getFragmentManager().getClass().getName();
         getActivity().getFragmentManager().beginTransaction()
                 .replace(R.id.fragment, LoginFragment.newInstance(null, null))
+                .addToBackStack(backStateName)
                 .commit();
     }
 
     private void openSignUp() {
+        String backStateName = getActivity().getFragmentManager().getClass().getName();
         getActivity().getFragmentManager().beginTransaction()
                 .replace(R.id.fragment, RegistrationFragment.newInstance(null, null))
+                .addToBackStack(null)
                 .commit();
     }
 
