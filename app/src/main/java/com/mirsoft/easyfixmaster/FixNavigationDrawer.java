@@ -1,5 +1,6 @@
 package com.mirsoft.easyfixmaster;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -46,4 +47,5 @@ public class FixNavigationDrawer extends MaterialNavigationDrawer {
     public void onChangeAccount(MaterialAccount materialAccount) {
 
     }
+
 }

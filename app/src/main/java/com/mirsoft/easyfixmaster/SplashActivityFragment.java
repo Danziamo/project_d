@@ -35,6 +35,7 @@ public class SplashActivityFragment extends Fragment {
         Animation animation = new TranslateAnimation(1500,0,0,1000);
         animation.setDuration(1500);
         splashLayout.startAnimation(animation);
+        checkSession();
         tvInfo = (TextView) view.findViewById(R.id.tvInfo);
         btnLogin = (Button) view.findViewById(R.id.btnLogin);
         btnSignUp = (Button) view.findViewById(R.id.btnSignUp);
@@ -53,6 +54,14 @@ public class SplashActivityFragment extends Fragment {
         });
         ///slideToLeft(splashLayout);
         return view;
+    }
+
+    private void checkSession() {
+        Settings settings = new Settings(getActivity());
+        if (settings.getAccessToken().isEmpty()) return;
+        Intent intent = new Intent(getActivity(), FixNavigationDrawer.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     private void openLogin() {

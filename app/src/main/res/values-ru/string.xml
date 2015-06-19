@@ -32,4 +32,7 @@
     <string name="icon_users_text">Мои заказы</string>
     <string name="icon_history_text">История</string>
     <string name="like"></string>
+    <string name="accountactivate">Вам будет выслано смс с кодом\n подтверждения вашего номера.\n Введите его в поле ниже</string>
+    <string name="codesms">Код с СМС</string>
+    <string name="btn_authorization">Авторизация</string>
 </resources>
