@@ -1,6 +1,7 @@
 package com.mirsoft.easyfixmaster;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.mirsoft.easyfixmaster.api.SessionApi;
 import com.mirsoft.easyfixmaster.models.Session;
 import com.mirsoft.easyfixmaster.service.ServiceGenerator;
@@ -30,6 +32,8 @@ public class LoginFragment extends Fragment {
 
     MaterialEditText etPhone;
     MaterialEditText etPassword;
+    MaterialDialog dialog;
+    private boolean mTask = false;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -104,6 +108,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void makeLogin() {
+        if (mTask) return;
         String password = etPassword.getText().toString().trim();
         String username = etPhone.getText().toString().trim();
         boolean isError = false;
@@ -125,10 +130,12 @@ public class LoginFragment extends Fragment {
         session.password = password;
         final Settings settings = new Settings(getActivity());
 
+        showProgress(true);
         SessionApi api = ServiceGenerator.createService(SessionApi.class, settings);
         api.login(session, new Callback<Session>() {
             @Override
             public void success(Session session, Response response) {
+                showProgress(false);
                 settings.setAccessToken(session.token);
                 Intent intent = new Intent(getActivity(), FixNavigationDrawer.class);
                 startActivity(intent);
@@ -137,8 +144,23 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void failure(RetrofitError error) {
+                showProgress(false);
                 Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void showProgress(final boolean state) {
+        mTask = state;
+        if (state) {
+            MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity())
+                    .title("Авторизация")
+                    .content("Пожалуйста подождите")
+                    .progress(true, 0);
+            dialog = builder.build();
+            dialog.show();
+        } else {
+            dialog.dismiss();
+        }
     }
 }

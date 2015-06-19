@@ -70,7 +70,7 @@ public class TestFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_test, container, false);
 
-        ArrayList<Card> cards = new ArrayList<Card>();
+        ArrayList<Card> cards = new ArrayList<>();
         for (int i = 0; i<12; i++) {
             // Create a Card
             Card card = new Card(getActivity());
@@ -80,7 +80,8 @@ public class TestFragment extends Fragment {
             card.setTitle("Петров");
 
             CardThumbnail thumb = new CardThumbnail(getActivity());
-            switch (i%4) {
+            int m = (int)(Math.random()*100);
+            switch (m%4) {
                 case 0:
                     thumb.setDrawableResource(R.drawable.decoration);
                     break;

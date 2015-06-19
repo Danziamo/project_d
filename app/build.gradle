@@ -20,6 +20,9 @@ android {
 }
 
 repositories {
+    repositories {
+        maven { url 'https://dl.bintray.com/drummer-aidan/maven' }
+    }
     mavenCentral()
 }
 
@@ -40,4 +43,5 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.1.4'        //edittext
     //button
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.3'
+    compile 'com.afollestad:material-dialogs:0.7.6.0'
 }
