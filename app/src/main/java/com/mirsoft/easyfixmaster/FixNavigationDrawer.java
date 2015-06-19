@@ -26,7 +26,7 @@ public class FixNavigationDrawer extends MaterialNavigationDrawer {
 
         //this.setAccountListener(this);
         this.addSection(newSection("Уведомления", new MainActivityFragment()));
-        this.addSection(newSection("История заказов", OrderHistoryFragment.newInstance(null, null)));
+        this.addSection(newSection("История заказов", new MainActivityFragment()));
         this.addSection(newSection("Помощь", TestFragment.newInstance(null, null)));
         this.addSection(newSection("Рекомендовать программу", new MainActivityFragment()));
         this.addSection(newSection("О программе", new MainActivityFragment()));

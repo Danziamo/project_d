@@ -76,7 +76,7 @@ public class SplashActivityFragment extends Fragment {
         String backStateName = getActivity().getFragmentManager().getClass().getName();
         getActivity().getFragmentManager().beginTransaction()
                 .replace(R.id.fragment, RegistrationFragment.newInstance(null, null))
-                .addToBackStack(null)
+                .addToBackStack(backStateName)
                 .commit();
     }
 

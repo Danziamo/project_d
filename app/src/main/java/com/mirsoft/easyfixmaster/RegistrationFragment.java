@@ -155,10 +155,17 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         api.add(user, new Callback<User>() {
             @Override
             public void success(User user, Response response) {
-                settings.setAccessToken(user.getToken());
+
+                String backStateName = getActivity().getFragmentManager().getClass().getName();
+                getActivity().getFragmentManager().beginTransaction()
+                        .replace(R.id.fragment, AccountActivationFragment.newInstance(null, null))
+                        .addToBackStack(backStateName)
+                        .commit();
+
+                /*settings.setAccessToken(user.getToken());
                 Intent intent = new Intent(getActivity(), FixNavigationDrawer.class);
                 startActivity(intent);
-                getActivity().finish();
+                getActivity().finish();*/
             }
 
             @Override
