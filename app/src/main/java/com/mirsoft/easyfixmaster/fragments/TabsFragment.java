@@ -1,4 +1,4 @@
-package com.mirsoft.easyfixmaster;
+package com.mirsoft.easyfixmaster.fragments;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -8,16 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mirsoft.easyfixmaster.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FeedbackFragment.OnFragmentInteractionListener} interface
+ * {@link TabsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FeedbackFragment#newInstance} factory method to
+ * Use the {@link TabsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FeedbackFragment extends Fragment {
+public class TabsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,11 +37,11 @@ public class FeedbackFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FeedbackFragment.
+     * @return A new instance of fragment TabsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FeedbackFragment newInstance(String param1, String param2) {
-        FeedbackFragment fragment = new FeedbackFragment();
+    public static TabsFragment newInstance(String param1, String param2) {
+        TabsFragment fragment = new TabsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -47,7 +49,7 @@ public class FeedbackFragment extends Fragment {
         return fragment;
     }
 
-    public FeedbackFragment() {
+    public TabsFragment() {
         // Required empty public constructor
     }
 
@@ -64,7 +66,7 @@ public class FeedbackFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feedback, container, false);
+        return inflater.inflate(R.layout.fragment_tabs, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -96,7 +98,7 @@ public class FeedbackFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.

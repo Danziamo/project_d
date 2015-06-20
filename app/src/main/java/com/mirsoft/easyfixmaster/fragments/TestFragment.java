@@ -1,4 +1,4 @@
-package com.mirsoft.easyfixmaster;
+package com.mirsoft.easyfixmaster.fragments;
 
 
 import android.os.Bundle;
@@ -10,12 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mirsoft.easyfixmaster.R;
+import com.mirsoft.easyfixmaster.utils.RecyclerViewSimpleDivider;
 import com.mirsoft.easyfixmaster.adapters.OrderAdapter;
 import com.mirsoft.easyfixmaster.models.Order;
 import com.mirsoft.easyfixmaster.models.Specialty;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

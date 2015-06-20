@@ -1,15 +1,15 @@
 package com.mirsoft.easyfixmaster;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.mirsoft.easyfixmaster.fragments.MainActivityFragment;
+import com.mirsoft.easyfixmaster.fragments.TestFragment;
+
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
-import it.neokree.materialnavigationdrawer.elements.MaterialAccount;
-import it.neokree.materialnavigationdrawer.elements.listeners.MaterialAccountListener;
 
 public class FixNavigationDrawer extends MaterialNavigationDrawer {
     private static final int SELECT_PICTURE = 1;

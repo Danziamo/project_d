@@ -1,6 +1,5 @@
 package com.mirsoft.easyfixmaster;
 
-import android.app.TabActivity;
 import android.graphics.Typeface;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -8,11 +7,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.TabHost;
-import android.widget.TextView;
+
+import com.mirsoft.easyfixmaster.utils.TypefaceSpan;
 
 
 public class TabsActivity extends ActionBarActivity implements ActionBar.TabListener {

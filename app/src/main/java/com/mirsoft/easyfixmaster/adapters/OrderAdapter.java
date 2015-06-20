@@ -15,9 +15,6 @@ import com.mirsoft.easyfixmaster.models.Order;
 
 import java.util.ArrayList;
 
-/**
- * Created by danta on 6/16/2015.
- */
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
     private ArrayList<Order> items;
     private int itemLayout;

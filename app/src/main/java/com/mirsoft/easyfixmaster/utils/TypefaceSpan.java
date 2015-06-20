@@ -1,4 +1,4 @@
-package com.mirsoft.easyfixmaster;
+package com.mirsoft.easyfixmaster.utils;
 
 import android.content.Context;
 import android.graphics.Paint;

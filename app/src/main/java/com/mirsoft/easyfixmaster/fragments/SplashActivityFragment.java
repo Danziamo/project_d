@@ -1,8 +1,7 @@
-package com.mirsoft.easyfixmaster;
+package com.mirsoft.easyfixmaster.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,12 @@ import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.mirsoft.easyfixmaster.FixNavigationDrawer;
+import com.mirsoft.easyfixmaster.R;
+import com.mirsoft.easyfixmaster.Settings;
+import com.mirsoft.easyfixmaster.fragments.LoginFragment;
+import com.mirsoft.easyfixmaster.fragments.RegistrationFragment;
 
 
 /**

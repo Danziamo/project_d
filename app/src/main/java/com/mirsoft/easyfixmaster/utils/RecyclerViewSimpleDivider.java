@@ -1,10 +1,12 @@
-package com.mirsoft.easyfixmaster;
+package com.mirsoft.easyfixmaster.utils;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.mirsoft.easyfixmaster.R;
 
 public class RecyclerViewSimpleDivider extends RecyclerView.ItemDecoration {
     private Drawable mDivider;

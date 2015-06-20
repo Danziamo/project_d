@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_blue"
-    tools:context="com.mirsoft.easyfixmaster.AccountActivationFragment">
+    tools:context="com.mirsoft.easyfixmaster.fragments.AccountActivationFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

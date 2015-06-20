@@ -1,4 +1,4 @@
-package com.mirsoft.easyfixmaster;
+package com.mirsoft.easyfixmaster.fragments;
 
 
 import android.content.Intent;
@@ -9,18 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 import android.view.View.OnClickListener;
 
-import com.mirsoft.easyfixmaster.api.SessionApi;
-import com.mirsoft.easyfixmaster.models.Session;
-import com.mirsoft.easyfixmaster.service.ServiceGenerator;
+import com.mirsoft.easyfixmaster.FixNavigationDrawer;
+import com.mirsoft.easyfixmaster.R;
 import com.rengwuxian.materialedittext.MaterialEditText;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * A simple {@link Fragment} subclass.
