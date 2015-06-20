@@ -5,17 +5,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialAccount;
 import it.neokree.materialnavigationdrawer.elements.listeners.MaterialAccountListener;
 
 public class FixNavigationDrawer extends MaterialNavigationDrawer {
+    private static final int SELECT_PICTURE = 1;
     @Override
     public void init(Bundle savedInstanceState) {
 
         // create and set the header
         View view = LayoutInflater.from(this).inflate(R.layout.custom_drawer,null);
+
+        ImageButton btnImage = (ImageButton)view.findViewById(R.id.imageView);
+        btnImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FixNavigationDrawer.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
         setDrawerHeaderCustom(view);
 
 /*public class FixNavigationDrawer extends MaterialNavigationDrawer implements MaterialAccountListener {
@@ -37,15 +49,4 @@ public class FixNavigationDrawer extends MaterialNavigationDrawer {
         /*this.addSection(newSection("Section 3", R.drawable.ic_mic_white_24dp, new FragmentButton()).setSectionColor(Color.parseColor("#9c27b0")));
         this.addSection(newSection("Section", R.drawable.ic_hotel_grey600_24dp, new FragmentButton()).setSectionColor(Color.parseColor("#03a9f4")));*/
     }
-
-    //@Override
-    public void onAccountOpening(MaterialAccount materialAccount) {
-
-    }
-
-    //@Override
-    public void onChangeAccount(MaterialAccount materialAccount) {
-
-    }
-
 }

@@ -47,6 +47,7 @@
         <item name="met_primaryColor">@color/input_base_blue</item>
         <item name="met_underlineColor">@color/gray</item>
         <item name="met_errorColor">@color/red</item>
+        <item name="met_clearButton">true</item>
     </style>
 
     <style name="Input.Material.First" parent="Input.Material">
@@ -71,22 +72,6 @@
         <item name="android:paddingRight">20dp</item>
         <item name="android:layout_marginTop">30dp</item>
     </style>
-
-    <style name="card_thumbnail_image">
-        <item name="android:layout_width">@dimen/card_thumbnail_width</item>
-        <item name="android:layout_height">@dimen/card_thumbnail_height</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_marginLeft">5dp</item>
-        <item name="android:layout_marginRight">5dp</item>
-        <item name="android:scaleType">centerCrop</item>
-    </style>
-
-    <style name="card_thumbnail_outer_layout">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
 
     <style name="ToolbarTheme"></style>
 

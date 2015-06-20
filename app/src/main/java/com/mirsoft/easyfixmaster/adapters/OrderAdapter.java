@@ -1,28 +1,33 @@
 package com.mirsoft.easyfixmaster.adapters;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mirsoft.easyfixmaster.R;
 import com.mirsoft.easyfixmaster.models.Order;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by danta on 6/16/2015.
  */
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
-    private List<Order> items;
+    private ArrayList<Order> items;
     private int itemLayout;
+    private final Context mContext;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public OrderAdapter(List<Order> items, int layout) {
+    public OrderAdapter(ArrayList<Order> items, int layout, Context context) {
         this.items = items;
         this.itemLayout = layout;
+        this.mContext = context;
     }
 
     // Provide a reference to the views for each data item
@@ -35,7 +40,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         public TextView mReasonView;
         public ViewHolder(View v) {
             super(v);
-            image = (ImageView) itemView.findViewById(R.id.image);
+            image = (ImageView) itemView.findViewById(R.id.imageOrder);
             mAddressView = (TextView) itemView.findViewById(R.id.tvAddress);
             mReasonView = (TextView) itemView.findViewById(R.id.tvReason);
         }
@@ -49,17 +54,33 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(itemLayout, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         //holder.mTextView.setText(mDataset[position]);
-
+        Order item = items.get(position);
+        holder.mAddressView.setText(item.getAddress());
+        holder.mReasonView.setText(item.getDescription());
+        switch (item.getSpecialty().getId()%4) {
+            case 0:
+                holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.plumbing));
+                break;
+            case 1:
+                holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.electricity));
+                break;
+            case 2:
+                holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.repairing));
+                break;
+            case 3:
+                holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.decoration));
+                break;
+        }
+        holder.itemView.setTag(item);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

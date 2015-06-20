@@ -3,19 +3,19 @@ package com.mirsoft.easyfixmaster;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mirsoft.easyfixmaster.adapters.OrderAdapter;
+import com.mirsoft.easyfixmaster.models.Order;
+import com.mirsoft.easyfixmaster.models.Specialty;
+
 import java.util.ArrayList;
-
-import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.CardThumbnail;
-import it.gmariotti.cardslib.library.view.CardListView;
-import it.gmariotti.cardslib.library.view.CardViewNative;
-
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,43 +70,125 @@ public class TestFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_test, container, false);
 
-        ArrayList<Card> cards = new ArrayList<>();
-        for (int i = 0; i<12; i++) {
-            // Create a Card
-            Card card = new Card(getActivity());
-            // Create a CardHeader
-            // Add Header to card
-            //header.setTitle("Работник: " + i);
-            card.setTitle("Петров");
-
-            CardThumbnail thumb = new CardThumbnail(getActivity());
-            int m = (int)(Math.random()*100);
-            switch (m%4) {
-                case 0:
-                    thumb.setDrawableResource(R.drawable.decoration);
-                    break;
-                case 1:
-                    thumb.setDrawableResource(R.drawable.plumbing);
-                    break;
-                case 2:
-                    thumb.setDrawableResource(R.drawable.electricity);
-                    break;
-                default:
-                    thumb.setDrawableResource(R.drawable.repairing);
-            }
-            card.addCardThumbnail(thumb);
-
-            cards.add(card);
-        }
-
-        CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
-        CardListView listView = (CardListView)view.findViewById(R.id.myList);
-        if (listView != null) {
-            listView.setAdapter(mCardArrayAdapter);
-        }
+        RecyclerView rv = (RecyclerView)view.findViewById(R.id.rvOrders);
+        rv.addItemDecoration(new RecyclerViewSimpleDivider(getActivity()));
+        rv.setHasFixedSize(true);
+        rv.setAdapter(new OrderAdapter(getData(), R.layout.list_item_order, getActivity()));
+        rv.setItemAnimator(new DefaultItemAnimator());
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
     }
 
+    public ArrayList<Order> getData() {
+        ArrayList<Order> list = new ArrayList<>();
+        Specialty plomber = new Specialty(1, "плотник", "plumber", "slave");
+        Specialty electric = new Specialty(2, "электрик", "electricity", null);
+        Specialty repair = new Specialty(3, "ремонт", "repair", null);
+        Specialty decorator = new Specialty(4, "декоратор", "decorator", null);
+        list.add(new Order(1, "tam", "to", plomber));
+        list.add(new Order(2, "tut", "eto", electric));
+        list.add(new Order(3, "kak", "tak", repair));
+        list.add(new Order(4, "nu", "tak", decorator));
+        list.add(new Order(5, "nu", "tak", decorator));
+        list.add(new Order(7, "nu", "tak", plomber));
+        list.add(new Order(11, "nu", "tak", repair));
+        list.add(new Order(23, "nu", "tak", decorator));
+        list.add(new Order(41, "nu", "tak", decorator));
+        list.add(new Order(11, "nu", "tak", electric));
+        list.add(new Order(55, "nu", "tak", electric));
 
+        list.add(new Order(1, "tam", "to", plomber));
+        list.add(new Order(2, "tut", "eto", electric));
+        list.add(new Order(3, "kak", "tak", repair));
+        list.add(new Order(4, "nu", "tak", decorator));
+        list.add(new Order(5, "nu", "tak", decorator));
+        list.add(new Order(7, "nu", "tak", plomber));
+        list.add(new Order(11, "nu", "tak", repair));
+        list.add(new Order(23, "nu", "tak", decorator));
+        list.add(new Order(41, "nu", "tak", decorator));
+        list.add(new Order(11, "nu", "tak", electric));
+        list.add(new Order(55, "nu", "tak", electric));
+        list.add(new Order(1, "tam", "to", plomber));
+        list.add(new Order(2, "tut", "eto", electric));
+        list.add(new Order(3, "kak", "tak", repair));
+        list.add(new Order(4, "nu", "tak", decorator));
+        list.add(new Order(5, "nu", "tak", decorator));
+        list.add(new Order(7, "nu", "tak", plomber));
+        list.add(new Order(11, "nu", "tak", repair));
+        list.add(new Order(23, "nu", "tak", decorator));
+        list.add(new Order(41, "nu", "tak", decorator));
+        list.add(new Order(11, "nu", "tak", electric));
+        list.add(new Order(55, "nu", "tak", electric));
+        list.add(new Order(1, "tam", "to", plomber));
+        list.add(new Order(2, "tut", "eto", electric));
+        list.add(new Order(3, "kak", "tak", repair));
+        list.add(new Order(4, "nu", "tak", decorator));
+        list.add(new Order(5, "nu", "tak", decorator));
+        list.add(new Order(7, "nu", "tak", plomber));
+        list.add(new Order(11, "nu", "tak", repair));
+        list.add(new Order(23, "nu", "tak", decorator));
+        list.add(new Order(41, "nu", "tak", decorator));
+        list.add(new Order(11, "nu", "tak", electric));
+        list.add(new Order(55, "nu", "tak", electric));
+        list.add(new Order(1, "tam", "to", plomber));
+        list.add(new Order(2, "tut", "eto", electric));
+        list.add(new Order(3, "kak", "tak", repair));
+        list.add(new Order(4, "nu", "tak", decorator));
+        list.add(new Order(5, "nu", "tak", decorator));
+        list.add(new Order(7, "nu", "tak", plomber));
+        list.add(new Order(11, "nu", "tak", repair));
+        list.add(new Order(23, "nu", "tak", decorator));
+        list.add(new Order(41, "nu", "tak", decorator));
+        list.add(new Order(11, "nu", "tak", electric));
+        list.add(new Order(55, "nu", "tak", electric));
+        list.add(new Order(1, "tam", "to", plomber));
+        list.add(new Order(2, "tut", "eto", electric));
+        list.add(new Order(3, "kak", "tak", repair));
+        list.add(new Order(4, "nu", "tak", decorator));
+        list.add(new Order(5, "nu", "tak", decorator));
+        list.add(new Order(7, "nu", "tak", plomber));
+        list.add(new Order(11, "nu", "tak", repair));
+        list.add(new Order(23, "nu", "tak", decorator));
+        list.add(new Order(41, "nu", "tak", decorator));
+        list.add(new Order(11, "nu", "tak", electric));
+        list.add(new Order(55, "nu", "tak", electric));
+        list.add(new Order(1, "tam", "to", plomber));
+        list.add(new Order(2, "tut", "eto", electric));
+        list.add(new Order(3, "kak", "tak", repair));
+        list.add(new Order(4, "nu", "tak", decorator));
+        list.add(new Order(5, "nu", "tak", decorator));
+        list.add(new Order(7, "nu", "tak", plomber));
+        list.add(new Order(11, "nu", "tak", repair));
+        list.add(new Order(23, "nu", "tak", decorator));
+        list.add(new Order(41, "nu", "tak", decorator));
+        list.add(new Order(11, "nu", "tak", electric));
+        list.add(new Order(55, "nu", "tak", electric));
+        list.add(new Order(1, "tam", "to", plomber));
+        list.add(new Order(2, "tut", "eto", electric));
+        list.add(new Order(3, "kak", "tak", repair));
+        list.add(new Order(4, "nu", "tak", decorator));
+        list.add(new Order(5, "nu", "tak", decorator));
+        list.add(new Order(7, "nu", "tak", plomber));
+        list.add(new Order(11, "nu", "tak", repair));
+        list.add(new Order(23, "nu", "tak", decorator));
+        list.add(new Order(41, "nu", "tak", decorator));
+        list.add(new Order(11, "nu", "tak", electric));
+        list.add(new Order(55, "nu", "tak", electric));
+        list.add(new Order(1, "tam", "to", plomber));
+        list.add(new Order(2, "tut", "eto", electric));
+        list.add(new Order(3, "kak", "tak", repair));
+        list.add(new Order(4, "nu", "tak", decorator));
+        list.add(new Order(5, "nu", "tak", decorator));
+        list.add(new Order(7, "nu", "tak", plomber));
+        list.add(new Order(11, "nu", "tak", repair));
+        list.add(new Order(23, "nu", "tak", decorator));
+        list.add(new Order(41, "nu", "tak", decorator));
+        list.add(new Order(11, "nu", "tak", electric));
+        list.add(new Order(55, "nu", "tak", electric));
+
+
+
+        return list;
+    }
 }

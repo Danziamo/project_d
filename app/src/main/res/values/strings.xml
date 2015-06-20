@@ -13,5 +13,6 @@
     <string name="title_activity_test_sign_up">TestSignUpActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_tabs">TabsActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>

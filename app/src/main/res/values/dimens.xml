@@ -20,18 +20,4 @@
     <dimen name="font_normal">15sp</dimen>
     <dimen name="font_small">12sp</dimen>
 
-    <!-- cardslib library -->
-
-    <!--overriding cards -->
-    <dimen name="card_base_empty_height">42dp</dimen>
-
-    <dimen name="card_thumbnail_height">40dp</dimen>
-    <dimen name="card_thumbnail_width">40dp</dimen>
-
-    <!--overriding list_card -->
-    <dimen name="list_card_padding_left">0dp</dimen>
-    <dimen name="list_card_padding_right">0dp</dimen>
-    <dimen name="list_card_padding_bottom">1dp</dimen>
-    <dimen name="list_card_padding_top">1dp</dimen>
-
 </resources>

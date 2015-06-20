@@ -5,20 +5,10 @@
     android:layout_height="match_parent"
     tools:context="com.mirsoft.easyfixmaster.TestFragment">
 
-
-    <it.gmariotti.cardslib.library.view.CardListView
-        android:id="@+id/myList"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvOrders"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        card:list_card_layout_resourceID="@layout/list_card_thumbnail_layout"
-        style="@style/list_card.thumbnail"/>
-
-    <!--<it.gmariotti.cardslib.library.view.CardViewNative
-        android:id="@+id/carddemo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="12dp"/>-->
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

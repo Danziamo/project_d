@@ -33,8 +33,16 @@
         </activity>
         <activity
             android:name=".TabsActivity"
-            android:theme="@style/AppTheme"
-            android:label="@string/title_activity_tabs" >
+            android:label="@string/title_activity_tabs"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:parentActivityName=".FixNavigationDrawer" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mirsoft.easyfixmaster.FixNavigationDrawer" />
         </activity>
     </application>
 
