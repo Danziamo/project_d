@@ -3,7 +3,9 @@ package com.mirsoft.easyfixmaster.models;
 import com.google.gson.annotations.Expose;
 import com.mirsoft.easyfixmaster.R;
 
-public class Specialty {
+import java.io.Serializable;
+
+public class Specialty implements Serializable {
     @Expose
     private int id;
     @Expose

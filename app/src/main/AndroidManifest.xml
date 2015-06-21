@@ -25,6 +25,7 @@
         </activity>
         <activity
             android:name=".TestSIgnUp"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_activity_test_sign_up" >
         </activity>
         <activity
@@ -39,6 +40,14 @@
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
+            android:parentActivityName=".FixNavigationDrawer" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mirsoft.easyfixmaster.FixNavigationDrawer" />
+        </activity>
+        <activity
+            android:name=".OrderDetailActivity"
+            android:label="@string/title_activity_order_detail"
             android:parentActivityName=".FixNavigationDrawer" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

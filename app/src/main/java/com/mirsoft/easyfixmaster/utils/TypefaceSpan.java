@@ -7,9 +7,6 @@ import android.text.TextPaint;
 import android.text.style.MetricAffectingSpan;
 import android.util.LruCache;
 
-/**
- * Created by taitu on 6/14/15.
- */
 public class TypefaceSpan extends MetricAffectingSpan {
     /** An <code>LruCache</code> for previously loaded typefaces. */
     private static LruCache<String, Typeface> sTypefaceCache =

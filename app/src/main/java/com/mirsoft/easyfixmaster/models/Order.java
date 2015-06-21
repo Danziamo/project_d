@@ -1,8 +1,11 @@
 package com.mirsoft.easyfixmaster.models;
 
 import com.google.gson.annotations.Expose;
+import com.mirsoft.easyfixmaster.common.OrderType;
 
-public class Order {
+import java.io.Serializable;
+
+public class Order implements Serializable {
 
     @Expose
     private int id;
@@ -18,17 +21,20 @@ public class Order {
     @Expose
     private String description;
     @Expose
-    private String type;
+    private Enum status;
 
     @Expose
     private Specialty specialty;
 
-    public Order() {}
+    public Order() {
+        this.status = OrderType.NEW;
+    }
     public Order(int id, String address, String description, Specialty specialty) {
         this.id = id;
         this.address = address;
         this.description = description;
         this.specialty = specialty;
+        this.status = OrderType.NEW;
     }
 
     public int getId() {
@@ -79,12 +85,12 @@ public class Order {
         this.description = description;
     }
 
-    public String getType() {
-        return type;
+    public Enum getStatus() {
+        return status;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setStatus(Enum status) {
+        this.status = status;
     }
 
     public double getLatitude() {

@@ -10,4 +10,9 @@
     <color name="gray">#bbb</color>
     <color name="input_blue">#0288D1</color>
     <color name="input_base_blue">#0288D1</color>
+
+    <!-- toolbar and tabs -->
+    <color name="Toolbar.ColorPrimary">#00897B</color>
+    <color name="Toolbar.ColorPrimaryDark">#00695C</color>
+    <color name="Toolbar.TabsScrollColor">#004D40</color>
 </resources>

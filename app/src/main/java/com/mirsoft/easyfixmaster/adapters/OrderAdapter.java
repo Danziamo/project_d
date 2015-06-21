@@ -1,7 +1,9 @@
 package com.mirsoft.easyfixmaster.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mirsoft.easyfixmaster.OrderDetailActivity;
 import com.mirsoft.easyfixmaster.R;
+import com.mirsoft.easyfixmaster.common.OrderType;
 import com.mirsoft.easyfixmaster.models.Order;
 
 import java.util.ArrayList;
@@ -51,6 +55,17 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(itemLayout, parent, false);
         // set the view's size, margins, paddings and layout parameters
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Order order = (Order)v.getTag();
+                Intent intent = new Intent(mContext, OrderDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("ORDER", order);
+                intent.putExtra("bundle", bundle);
+                mContext.startActivity(intent);
+            }
+        });
         return new ViewHolder(v);
     }
 

@@ -2,8 +2,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/Toolbar.ColorPrimary</item>
+        <item name="colorPrimaryDark">@color/Toolbar.ColorPrimaryDark</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/Toolbar.ColorPrimary</item>
+        <item name="colorPrimaryDark">@color/Toolbar.ColorPrimaryDark</item>
     </style>
 
     <style name="MyNavigationDrawerTheme" parent="MaterialNavigationDrawerTheme">
