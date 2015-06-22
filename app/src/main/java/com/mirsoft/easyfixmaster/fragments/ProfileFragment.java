@@ -10,11 +10,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+
+
 
 import com.mirsoft.easyfixmaster.R;
 import com.mirsoft.easyfixmaster.ReviewFragment;
 
+
+
 public class ProfileFragment extends Fragment {
+
+    private ImageView imageViewProfilePicture;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -65,6 +74,8 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         ImageView photoView = (ImageView)view.findViewById(R.id.imageViewProfilePicture);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.foto);
+        photoView.setImageBitmap(icon);
         photoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

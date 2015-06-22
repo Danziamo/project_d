@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.mirsoft.easyfixmaster.fragments.MainActivityFragment;
 import com.mirsoft.easyfixmaster.fragments.TestFragment;
@@ -19,7 +20,8 @@ public class FixNavigationDrawer extends MaterialNavigationDrawer {
         // create and set the header
         View view = LayoutInflater.from(this).inflate(R.layout.custom_drawer,null);
 
-        ImageButton btnImage = (ImageButton)view.findViewById(R.id.imageView);
+        ImageView btnImage = (ImageView)view.findViewById(R.id.iVphoto);
+
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

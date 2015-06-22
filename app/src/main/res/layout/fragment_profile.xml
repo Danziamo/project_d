@@ -24,12 +24,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="left"
                 android:text="@string/my_rating"
                 android:layout_toLeftOf="@+id/ratingBar"/>
 
             <RatingBar
-                android:layout_width="160dp"
-                android:layout_height="40dp"
+                style="?android:attr/ratingBarStyleSmall"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/ratingBar"
                 android:isIndicator="true"
                 android:layout_centerHorizontal="true"
@@ -39,6 +42,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:text="@string/feedbacks"
                 android:id="@+id/tvRatings"
                 android:layout_toRightOf="@+id/ratingBar" />
@@ -83,21 +87,23 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.4"
-                    android:weightSum="1"
-                    android:paddingLeft="10dp">
+                    android:layout_gravity="center"
+                    android:paddingLeft="20dp">
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:id="@+id/imageViewProfilePicture"
-                        android:layout_weight="0.7"/>
+                    <com.mirsoft.easyfixmaster.utils.RoundedImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/foto"
+                        android:id="@+id/imageViewProfilePicture" />
 
                     <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
+                        android:layout_width="80dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="10dp"
                         android:text="@string/change"
                         android:id="@+id/button"
-                        android:layout_weight="0.3"
+
                         android:background="@color/input_base_blue"/>
 
                 </LinearLayout>
