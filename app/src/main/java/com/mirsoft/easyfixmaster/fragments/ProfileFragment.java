@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.mirsoft.easyfixmaster.R;
+import com.mirsoft.easyfixmaster.ReviewFragment;
 
 public class ProfileFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -66,6 +69,16 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 changePhoto();
+            }
+        });
+
+        TextView ratingView = (TextView)view.findViewById(R.id.tvRatings);
+        ratingView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.container, ReviewFragment.newInstance(null, null))
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

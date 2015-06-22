@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,9 +60,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             public void onClick(View v) {
                 TextView tvDescription = (TextView)v.findViewById(R.id.tvDescription);
                 if (tvDescription.getMaxLines() == 2) {
-                    tvDescription.setMaxLines(0);
+                    tvDescription.setMaxLines(Integer.MAX_VALUE);
+                    tvDescription.setEllipsize(null);
                 } else {
                     tvDescription.setMaxLines(2);
+                    tvDescription.setEllipsize(TextUtils.TruncateAt.END);
                 }
             }
         });

@@ -17,12 +17,6 @@ import com.mirsoft.easyfixmaster.utils.RecyclerViewSimpleDivider;
 
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ReviewFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ReviewFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,9 +66,8 @@ public class ReviewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_review, container, false);
 
         RecyclerView rv = (RecyclerView)view.findViewById(R.id.rvReviews);
-        rv.addItemDecoration(new RecyclerViewSimpleDivider(getActivity()));
         rv.setHasFixedSize(true);
-        rv.setAdapter(new ReviewAdapter(getData(), R.layout.list_item_order, getActivity()));
+        rv.setAdapter(new ReviewAdapter(getData(), R.layout.list_item_review, getActivity()));
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -85,7 +78,7 @@ public class ReviewFragment extends Fragment {
         ArrayList<Review> list = new ArrayList<>();
 
         for (int i = 0; i <= 50; ++i) {
-            list.add(new Review(i + 1, "Vasya Pupkin", 3.5f, "Polnoe gavno"));
+            list.add(new Review(i + 1, "Vasya Pupkin", 3.5f, "Polnoe gavno fadsf aslkdf jahsdkjfhaskdjfhaksdjfh asjd fgjaksdhfashdkfhasdkfjhadskjf hakjsd hfkjasdhfkjasdhfkjadhf kjasdh fkjasdhf jaksdhf kjasdhf " + String.valueOf(i)));
         }
 
         return list;
