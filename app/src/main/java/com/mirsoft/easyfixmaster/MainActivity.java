@@ -12,8 +12,8 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Intent intent = new Intent(this, FixNavigationDrawer.class);
-        //Intent intent = new Intent(this, TabsActivity.class);
-        Intent intent = new Intent(this, SplashActivity.class);
+        Intent intent = new Intent(this, TabsActivity.class);
+        //Intent intent = new Intent(this, SplashActivity.class);
         startActivity(intent);
         finish();
 

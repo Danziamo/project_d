@@ -87,8 +87,10 @@ public class ProfileFragment extends Fragment {
         ratingView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.container, ReviewFragment.newInstance(null, null))
-                        .addToBackStack(null)
+                String backStateName = getActivity().getFragmentManager().getClass().getName();
+                getActivity().getFragmentManager().beginTransaction()
+                        .replace(R.id.container, ReviewFragment.newInstance(null, null))
+                        .addToBackStack(backStateName)
                         .commit();
             }
         });

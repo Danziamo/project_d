@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.mirsoft.easyfixmaster.FixNavigationDrawer;
 import com.mirsoft.easyfixmaster.R;
 import com.mirsoft.easyfixmaster.Settings;
-import com.mirsoft.easyfixmaster.fragments.LoginFragment;
-import com.mirsoft.easyfixmaster.fragments.RegistrationFragment;
 
 
 /**

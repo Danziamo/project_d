@@ -45,8 +45,5 @@ public class TestSIgnUp extends AppCompatActivity {
 
         tabs.setViewPager(viewPager);
 
-
-        //tabHost = (MaterialTabHost)findViewById(R.id.materialTabHost);
-
     }
 }

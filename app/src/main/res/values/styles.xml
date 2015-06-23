@@ -2,15 +2,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/Toolbar.ColorPrimary</item>
         <item name="colorPrimaryDark">@color/Toolbar.ColorPrimaryDark</item>
     </style>
 
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="tabGravity">fill</item>
+        <item name="android:fontFamily">font/font-awesome.ttf</item>
+        <item name="tabMode">fixed</item>
+    </style>
+
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>
+        <item name="tabIndicatorColor">#0000FF</item>
+    </style>
+
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/Toolbar.ColorPrimary</item>
         <item name="colorPrimaryDark">@color/Toolbar.ColorPrimaryDark</item>
+        <item name="android:tabWidgetStyle">@style/MyCustomTabLayout</item>
     </style>
 
     <style name="MyNavigationDrawerTheme" parent="MaterialNavigationDrawerTheme">
