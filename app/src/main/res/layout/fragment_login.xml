@@ -22,28 +22,40 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical">
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/Input.Material.First"
-                app:met_helperText="@string/first_name"
-                android:hint="@string/first_name"
-                android:inputType="textPersonName"
-                android:id="@+id/etLogin"
-                android:layout_centerHorizontal="true"/>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/tilLogin">
+                <EditText
+                    style="@style/Input.Material.First"
+                    app:met_helperText="@string/login"
+                    android:inputType="textPersonName"
+                    android:text="@string/login"
+                    android:id="@+id/etLogin"
+                    android:layout_centerHorizontal="true"/>
+            </android.support.design.widget.TextInputLayout>
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                style="@style/Input.Material"
-                app:met_helperText="@string/password"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:id="@+id/etPassword"
-                android:layout_below="@+id/etLogin" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tilPassword"
+                android:layout_below="@+id/tilLogin">
+                <EditText
+                    style="@style/Input.Material"
+                    app:met_helperText="@string/password"
+                    android:text="@string/password"
+                    android:inputType="textPassword"
+                    android:id="@+id/etPassword"
+                    android:layout_below="@+id/etLogin" />
+            </android.support.design.widget.TextInputLayout>
 
             <com.dd.processbutton.FlatButton
                 style="@style/Button.Material.Login"
                 android:layout_width="250dp"
                 android:text="@string/login"
                 android:id="@+id/btnSubmit"
-                android:layout_below="@id/etPassword" />
+                android:layout_below="@id/tilPassword" />
 
             <com.dd.processbutton.FlatButton
                 style="@style/Button.Material.Login"

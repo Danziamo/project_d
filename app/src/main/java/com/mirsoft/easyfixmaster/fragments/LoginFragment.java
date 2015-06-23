@@ -4,10 +4,12 @@ package com.mirsoft.easyfixmaster.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -31,8 +33,11 @@ import retrofit.client.Response;
  */
 public class LoginFragment extends Fragment {
 
-    MaterialEditText etPhone;
-    MaterialEditText etPassword;
+
+    TextInputLayout etPhone;
+    TextInputLayout etPassword;
+    //MaterialEditText etPhone;
+    //MaterialEditText etPassword;
     MaterialDialog dialog;
     private boolean mTask = false;
     // TODO: Rename parameter arguments, choose names that match
@@ -82,8 +87,16 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        etPhone = (MaterialEditText)view.findViewById(R.id.etLogin);
-        etPassword = (MaterialEditText)view.findViewById(R.id.etPassword);
+        //etPhone = (MaterialEditText)view.findViewById(R.id.etLogin);
+        //etPassword = (MaterialEditText)view.findViewById(R.id.etPassword);
+
+        etPhone = (TextInputLayout)view.findViewById(R.id.tilLogin);
+        etPhone.setErrorEnabled(true);
+        etPhone.setHint(getString(R.string.login));
+
+
+        etPassword  = (TextInputLayout)view.findViewById(R.id.tilPassword);
+        etPassword.setHint(getString(R.string.password));
 
         Button btnSignIn = (Button)view.findViewById(R.id.btnSubmit);
 
@@ -110,8 +123,12 @@ public class LoginFragment extends Fragment {
 
     private void makeLogin() {
         if (mTask) return;
-        String password = etPassword.getText().toString().trim();
-        String username = etPhone.getText().toString().trim();
+        String password;
+        //password = etPassword.getText().toString().trim();
+        password = etPassword.getEditText().getText().toString().trim();
+        String username;
+        //username = etPhone.getText().toString().trim();
+        username = etPhone.getEditText().getText().toString().trim();
         boolean isError = false;
 
         if (username.isEmpty()) {
