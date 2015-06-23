@@ -15,5 +15,6 @@
     <string name="title_activity_tabs">TabsActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_order_detail">OrderDetailActivity</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
