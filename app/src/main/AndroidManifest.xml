@@ -20,17 +20,12 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/MyNavigationDrawerTheme" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".FixNavigationDrawer"
-            android:theme="@style/MyNavigationDrawerTheme" >
         </activity>
         <activity
             android:name=".TestSIgnUp"
@@ -49,18 +44,18 @@
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
-            android:parentActivityName=".FixNavigationDrawer" >
+            android:parentActivityName=".TabsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mirsoft.easyfixmaster.FixNavigationDrawer" />
+                android:value="com.mirsoft.easyfixmaster.TabsActivity" />
         </activity>
         <activity
             android:name=".OrderDetailActivity"
             android:label="@string/title_activity_order_detail"
-            android:parentActivityName=".FixNavigationDrawer" >
+            android:parentActivityName=".TabsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mirsoft.easyfixmaster.FixNavigationDrawer" />
+                android:value="com.mirsoft.easyfixmaster.TabsActivity" />
         </activity>
 
         <meta-data

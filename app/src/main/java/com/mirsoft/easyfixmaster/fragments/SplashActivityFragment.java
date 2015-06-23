@@ -13,9 +13,9 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mirsoft.easyfixmaster.FixNavigationDrawer;
 import com.mirsoft.easyfixmaster.R;
 import com.mirsoft.easyfixmaster.Settings;
+import com.mirsoft.easyfixmaster.TabsActivity;
 
 
 /**
@@ -61,7 +61,7 @@ public class SplashActivityFragment extends Fragment {
     private void checkSession() {
         Settings settings = new Settings(getActivity());
         if (settings.getAccessToken().isEmpty()) return;
-        Intent intent = new Intent(getActivity(), FixNavigationDrawer.class);
+        Intent intent = new Intent(getActivity(), TabsActivity.class);
         startActivity(intent);
         getActivity().finish();
     }

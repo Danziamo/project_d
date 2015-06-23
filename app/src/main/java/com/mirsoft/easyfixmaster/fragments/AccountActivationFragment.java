@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 
-import com.mirsoft.easyfixmaster.FixNavigationDrawer;
 import com.mirsoft.easyfixmaster.R;
+import com.mirsoft.easyfixmaster.TabsActivity;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 /**
@@ -86,7 +86,7 @@ public class AccountActivationFragment extends Fragment {
     }
 
     private void openDrawer(){
-        Intent intent = new Intent(getActivity(), FixNavigationDrawer.class);
+        Intent intent = new Intent(getActivity(), TabsActivity.class);
         startActivity(intent);
         getActivity().finish();
     }

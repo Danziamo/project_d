@@ -12,9 +12,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.mirsoft.easyfixmaster.FixNavigationDrawer;
 import com.mirsoft.easyfixmaster.R;
 import com.mirsoft.easyfixmaster.Settings;
+import com.mirsoft.easyfixmaster.TabsActivity;
 import com.mirsoft.easyfixmaster.api.SessionApi;
 import com.mirsoft.easyfixmaster.models.Session;
 import com.mirsoft.easyfixmaster.service.ServiceGenerator;
@@ -110,7 +110,7 @@ public class LoginFragment extends Fragment {
         btnForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FixNavigationDrawer.class);
+                Intent intent = new Intent(getActivity(), TabsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 getActivity().finish();
@@ -154,7 +154,7 @@ public class LoginFragment extends Fragment {
             public void success(Session session, Response response) {
                 showProgress(false);
                 settings.setAccessToken(session.token);
-                Intent intent = new Intent(getActivity(), FixNavigationDrawer.class);
+                Intent intent = new Intent(getActivity(), TabsActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }
