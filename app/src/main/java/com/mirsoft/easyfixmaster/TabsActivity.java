@@ -1,5 +1,6 @@
 package com.mirsoft.easyfixmaster;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -16,9 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mirsoft.easyfixmaster.adapters.TabsPagerAdapter;
+import com.mirsoft.easyfixmaster.utils.RoundedImageView;
 import com.mirsoft.easyfixmaster.utils.SlidingTabLayout;
 
 public class TabsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +31,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     TabsPagerAdapter pagerAdapter;
     ViewPager viewPager;
     SlidingTabLayout tabLayout;
+    NavigationView navigationView;
 
     private final Handler mDrawerActionHandler = new Handler();
     private DrawerLayout mDrawerLayout;
@@ -45,6 +49,8 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         viewPager = (ViewPager)findViewById(R.id.pager);
         tabLayout = (SlidingTabLayout)findViewById(R.id.tabs);
+
+        viewPager.setOffscreenPageLimit(4);
         String[] titles = new String[]{
                 getString(R.string.icon_map),
                 getString(R.string.icon_orders),
@@ -86,8 +92,18 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
             mNavItemId = savedInstanceState.getInt(NAV_ITEM_ID);
         }
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.inflateHeaderView(R.layout.custom_drawer);
+        RoundedImageView imageView = (RoundedImageView)header.findViewById(R.id.iVphoto);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TabsActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // select the correct nav menu item
         navigationView.getMenu().findItem(mNavItemId).setChecked(true);

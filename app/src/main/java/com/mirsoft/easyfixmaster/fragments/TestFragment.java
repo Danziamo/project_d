@@ -3,6 +3,7 @@ package com.mirsoft.easyfixmaster.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -78,6 +79,45 @@ public class TestFragment extends Fragment {
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            int mLastFirstVisibleItem = 0;
+            boolean scroll_down;
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (scroll_down) {
+                    ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+                } else {
+                    ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 70) {
+                    //scroll down
+                    scroll_down = true;
+
+                } else if (dy < -5) {
+                    //scroll up
+                    scroll_down = false;
+                }
+
+                /*final int currentFirstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+
+                if (currentFirstVisibleItem > this.mLastFirstVisibleItem) {
+                    ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+                } else if (currentFirstVisibleItem < this.mLastFirstVisibleItem) {
+                    ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+                }
+
+                this.mLastFirstVisibleItem = currentFirstVisibleItem;*/
+            }
+        });
+
         return view;
     }
 
@@ -99,97 +139,8 @@ public class TestFragment extends Fragment {
         list.add(new Order(11, "+996551221445","nu", "tak", electric, 42.840480, 74.618191));
         list.add(new Order(55, "+996551221445","nu", "tak", electric, 42.837118, 74.614747));
 
-        list.add(new Order(1, "tam", "to", plomber));
-        list.add(new Order(2, "tut", "eto", electric));
-        list.add(new Order(3, "kak", "tak", repair));
-        list.add(new Order(4, "nu", "tak", decorator));
-        list.add(new Order(5, "nu", "tak", decorator));
-        list.add(new Order(7, "nu", "tak", plomber));
-        list.add(new Order(11, "nu", "tak", repair));
-        list.add(new Order(23, "nu", "tak", decorator));
-        list.add(new Order(41, "nu", "tak", decorator));
-        list.add(new Order(11, "nu", "tak", electric));
-        list.add(new Order(55, "nu", "tak", electric));
-        list.add(new Order(1, "tam", "to", plomber));
-        list.add(new Order(2, "tut", "eto", electric));
-        list.add(new Order(3, "kak", "tak", repair));
-        list.add(new Order(4, "nu", "tak", decorator));
-        list.add(new Order(5, "nu", "tak", decorator));
-        list.add(new Order(7, "nu", "tak", plomber));
-        list.add(new Order(11, "nu", "tak", repair));
-        list.add(new Order(23, "nu", "tak", decorator));
-        list.add(new Order(41, "nu", "tak", decorator));
-        list.add(new Order(11, "nu", "tak", electric));
-        list.add(new Order(55, "nu", "tak", electric));
-        list.add(new Order(1, "tam", "to", plomber));
-        list.add(new Order(2, "tut", "eto", electric));
-        list.add(new Order(3, "kak", "tak", repair));
-        list.add(new Order(4, "nu", "tak", decorator));
-        list.add(new Order(5, "nu", "tak", decorator));
-        list.add(new Order(7, "nu", "tak", plomber));
-        list.add(new Order(11, "nu", "tak", repair));
-        list.add(new Order(23, "nu", "tak", decorator));
-        list.add(new Order(41, "nu", "tak", decorator));
-        list.add(new Order(11, "nu", "tak", electric));
-        list.add(new Order(55, "nu", "tak", electric));
-        list.add(new Order(1, "tam", "to", plomber));
-        list.add(new Order(2, "tut", "eto", electric));
-        list.add(new Order(3, "kak", "tak", repair));
-        list.add(new Order(4, "nu", "tak", decorator));
-        list.add(new Order(5, "nu", "tak", decorator));
-        list.add(new Order(7, "nu", "tak", plomber));
-        list.add(new Order(11, "nu", "tak", repair));
-        list.add(new Order(23, "nu", "tak", decorator));
-        list.add(new Order(41, "nu", "tak", decorator));
-        list.add(new Order(11, "nu", "tak", electric));
-        list.add(new Order(55, "nu", "tak", electric));
-        list.add(new Order(1, "tam", "to", plomber));
-        list.add(new Order(2, "tut", "eto", electric));
-        list.add(new Order(3, "kak", "tak", repair));
-        list.add(new Order(4, "nu", "tak", decorator));
-        list.add(new Order(5, "nu", "tak", decorator));
-        list.add(new Order(7, "nu", "tak", plomber));
-        list.add(new Order(11, "nu", "tak", repair));
-        list.add(new Order(23, "nu", "tak", decorator));
-        list.add(new Order(41, "nu", "tak", decorator));
-        list.add(new Order(11, "nu", "tak", electric));
-        list.add(new Order(55, "nu", "tak", electric));
-        list.add(new Order(1, "tam", "to", plomber));
-        list.add(new Order(2, "tut", "eto", electric));
-        list.add(new Order(3, "kak", "tak", repair));
-        list.add(new Order(4, "nu", "tak", decorator));
-        list.add(new Order(5, "nu", "tak", decorator));
-        list.add(new Order(7, "nu", "tak", plomber));
-        list.add(new Order(11, "nu", "tak", repair));
-        list.add(new Order(23, "nu", "tak", decorator));
-        list.add(new Order(41, "nu", "tak", decorator));
-        list.add(new Order(11, "nu", "tak", electric));
-        list.add(new Order(55, "nu", "tak", electric));
-        list.add(new Order(1, "tam", "to", plomber));
-        list.add(new Order(2, "tut", "eto", electric));
-        list.add(new Order(3, "kak", "tak", repair));
-        list.add(new Order(4, "nu", "tak", decorator));
-        list.add(new Order(5, "nu", "tak", decorator));
-        list.add(new Order(7, "nu", "tak", plomber));
-        list.add(new Order(11, "nu", "tak", repair));
-        list.add(new Order(23, "nu", "tak", decorator));
-        list.add(new Order(41, "nu", "tak", decorator));
-        list.add(new Order(11, "nu", "tak", electric));
-        list.add(new Order(55, "nu", "tak", electric));
-        list.add(new Order(1, "tam", "to", plomber));
-        list.add(new Order(2, "tut", "eto", electric));
-        list.add(new Order(3, "kak", "tak", repair));
-        list.add(new Order(4, "nu", "tak", decorator));
-        list.add(new Order(5, "nu", "tak", decorator));
-        list.add(new Order(7, "nu", "tak", plomber));
-        list.add(new Order(11, "nu", "tak", repair));
-        list.add(new Order(23, "nu", "tak", decorator));
-        list.add(new Order(41, "nu", "tak", decorator));
-        list.add(new Order(11, "nu", "tak", electric));
-        list.add(new Order(55, "nu", "tak", electric));
-
-
-
         return list;
     }
+
+
 }
