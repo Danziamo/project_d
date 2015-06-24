@@ -1,5 +1,6 @@
 package com.mirsoft.easyfixmaster.models;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.Expose;
 import com.mirsoft.easyfixmaster.common.OrderType;
 
@@ -35,6 +36,17 @@ public class Order implements Serializable {
         this.description = description;
         this.specialty = specialty;
         this.status = OrderType.NEW;
+    }
+
+    public Order(int id, String phone, String address, String description, Specialty specialty, double latitude, double longitude) {
+        this.id = id;
+        this.address = address;
+        this.description = description;
+        this.specialty = specialty;
+        this.status = OrderType.NEW;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.phone = phone;
     }
 
     public int getId() {
@@ -107,5 +119,10 @@ public class Order implements Serializable {
 
     public void setSpecialty(Specialty specialty) {
         this.specialty = specialty;
+    }
+
+    public LatLng getLatLng() {
+        if (latitude == 0 || longitude == 0) return null;
+        return new LatLng(this.latitude, this.longitude);
     }
 }

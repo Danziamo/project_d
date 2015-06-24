@@ -13,7 +13,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/tvInfo"
+            android:layout_above="@+id/tvInfo"
             android:text="Login"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="100dp"
@@ -22,7 +22,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/tvInfo"
+            android:layout_above="@+id/tvInfo"
             android:text="Sign Up"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="100dp"

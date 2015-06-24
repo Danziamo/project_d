@@ -6,7 +6,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.mirsoft.easyfixmaster.MapFragment;
 import com.mirsoft.easyfixmaster.fragments.TestFragment;
+
+import java.util.Map;
 
 public class TabsPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -21,10 +24,12 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return TestFragment.newInstance(null, null);
+                return MapFragment.newInstance(null, null);
             case 1:
                 return TestFragment.newInstance(null, null);
             case 2:
+                return TestFragment.newInstance(null, null);
+            case 3:
                 return TestFragment.newInstance(null, null);
             default:
                 return null;

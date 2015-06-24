@@ -32,6 +32,29 @@
             android:layout_height="0dp"
             android:layout_width="match_parent"
             android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottomButtonGroupLayout">
+            <Button
+                android:layout_width="0dp"
+                android:fontFamily="fonts/font-awesome.ttf"
+                android:text="Карта"
+                android:id="@+id/btnMap"
+                android:background="@color/Toolbar.ColorPrimary"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:fontFamily="fonts/font-awesome.ttf"
+                android:text="Список"
+                android:id="@+id/btnList"
+                android:background="@color/Toolbar.ColorPrimary"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"/>
+        </LinearLayout>
     </LinearLayout>
 
     <!-- The navigation drawer -->

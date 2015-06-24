@@ -12,7 +12,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mirsoft.easyfixmaster.adapters.TabsPagerAdapter;
@@ -43,6 +46,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         viewPager = (ViewPager)findViewById(R.id.pager);
         tabLayout = (SlidingTabLayout)findViewById(R.id.tabs);
         String[] titles = new String[]{
+                getString(R.string.icon_map),
                 getString(R.string.icon_orders),
                 getString(R.string.icon_users),
                 getString(R.string.icon_history)};
@@ -59,6 +63,22 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
 
         tabLayout.setViewPager(viewPager);
         tabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.white));
+
+        Button btnMap = (Button)findViewById(R.id.btnMap);
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(0);
+            }
+        });
+
+        Button btnList = (Button)findViewById(R.id.btnList);
+        btnList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(1);
+            }
+        });
 
         if (null == savedInstanceState) {
             mNavItemId = R.id.drawer_item_1;
@@ -130,5 +150,12 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     protected void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(NAV_ITEM_ID, mNavItemId);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_tabs, menu);
+        return true;
     }
 }
