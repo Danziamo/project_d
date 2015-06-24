@@ -22,13 +22,10 @@ import com.mirsoft.easyfixmaster.ReviewFragment;
 
 
 public class ProfileFragment extends Fragment {
-
-    private ImageView imageViewProfilePicture;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static final int SELECT_PICTURE = 1;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -73,16 +70,6 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        ImageView photoView = (ImageView)view.findViewById(R.id.imageViewProfilePicture);
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.foto);
-        photoView.setImageBitmap(icon);
-        photoView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changePhoto();
-            }
-        });
-
         TextView ratingView = (TextView)view.findViewById(R.id.tvRatings);
         ratingView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,14 +83,6 @@ public class ProfileFragment extends Fragment {
         });
 
         return view;
-    }
-
-    private void changePhoto() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,
-                "Select Picture"), SELECT_PICTURE);
     }
 
     /**
