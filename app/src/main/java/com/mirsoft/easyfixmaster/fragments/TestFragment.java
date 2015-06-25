@@ -79,45 +79,6 @@ public class TestFragment extends Fragment {
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            int mLastFirstVisibleItem = 0;
-            boolean scroll_down;
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-                if (scroll_down) {
-                    ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-                } else {
-                    ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                if (dy > 70) {
-                    //scroll down
-                    scroll_down = true;
-
-                } else if (dy < -5) {
-                    //scroll up
-                    scroll_down = false;
-                }
-
-                /*final int currentFirstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
-
-                if (currentFirstVisibleItem > this.mLastFirstVisibleItem) {
-                    ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-                } else if (currentFirstVisibleItem < this.mLastFirstVisibleItem) {
-                    ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-                }
-
-                this.mLastFirstVisibleItem = currentFirstVisibleItem;*/
-            }
-        });
-
         return view;
     }
 

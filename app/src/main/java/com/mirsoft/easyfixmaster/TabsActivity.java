@@ -30,7 +30,8 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     private static final String NAV_ITEM_ID = "navItemId";
     TabsPagerAdapter pagerAdapter;
     ViewPager viewPager;
-    SlidingTabLayout tabLayout;
+    //SlidingTabLayout tabLayout;
+    TabLayout tabLayout;
     NavigationView navigationView;
 
     private final Handler mDrawerActionHandler = new Handler();
@@ -48,43 +49,24 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         viewPager = (ViewPager)findViewById(R.id.pager);
-        tabLayout = (SlidingTabLayout)findViewById(R.id.tabs);
+        tabLayout = (TabLayout)findViewById(R.id.tabLayout);
 
         viewPager.setOffscreenPageLimit(4);
-        String[] titles = new String[]{
+        /*String[] titles = new String[]{
                 getString(R.string.icon_map),
                 getString(R.string.icon_orders),
                 getString(R.string.icon_users),
-                getString(R.string.icon_history)};
+                getString(R.string.icon_history)};*/
+        String[] titles = new String[]{
+                "Карта",
+                getString(R.string.icon_orders_text),
+                getString(R.string.icon_users_text),
+                getString(R.string.icon_history_text)};
         pagerAdapter = new TabsPagerAdapter(getSupportFragmentManager(), titles);
         viewPager.setAdapter(pagerAdapter);
 
-        tabLayout.setDistributeEvenly(true);
-        tabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.Toolbar_TabsScrollColor);
-            }
-        });
-
-        tabLayout.setViewPager(viewPager);
-        tabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.white));
-
-        Button btnMap = (Button)findViewById(R.id.btnMap);
-        btnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewPager.setCurrentItem(0);
-            }
-        });
-
-        Button btnList = (Button)findViewById(R.id.btnList);
-        btnList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewPager.setCurrentItem(1);
-            }
-        });
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
         if (null == savedInstanceState) {
             mNavItemId = R.id.drawer_item_1;
