@@ -7,9 +7,9 @@ import retrofit.http.Body;
 import retrofit.http.POST;
 
 public interface SessionApi {
-    @POST("/api/v1/login/")
+    @POST("/login/")
     void login(@Body Session session, Callback<Session> callback);
 
-    @POST("/api/v1/logout/")
+    @POST("/logout/")
     void logout(@Body Session session, Callback<?> callback);
 }

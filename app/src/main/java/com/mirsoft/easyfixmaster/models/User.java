@@ -3,9 +3,10 @@ package com.mirsoft.easyfixmaster.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable{
     @Expose
     private int id;
     @Expose
@@ -110,5 +111,19 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", phone='" + phone + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", role='" + role + '\'' +
+                ", token='" + token + '\'' +
+                '}';
     }
 }

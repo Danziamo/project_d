@@ -4,6 +4,7 @@ package com.mirsoft.easyfixmaster;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mirsoft.easyfixmaster.models.Order;
@@ -105,13 +107,16 @@ public class MapFragment extends Fragment implements GoogleMap.OnInfoWindowClick
         ArrayList<Order>orderList = getData();
         for (int i = 0; i < orderList.size(); ++i) {
             Order order = orderList.get(i);
-            Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(order.getLatLng()).title(order.getSpecialty().getName()));
-            mOrderMarkerMap.put(marker, order);
+            LatLng position = order.getLatLng();
+            if (position != null) {
+                Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(order.getLatLng()).title(order.getSpecialty().getName()));
+                mOrderMarkerMap.put(marker, order);
+            }
         }
     }
 
     private ArrayList<Order> getData() {
-        ArrayList<Order> list = new ArrayList<>();
+        /*ArrayList<Order> list = new ArrayList<>();
         Specialty plomber = new Specialty(1, "плотник", "plumber", "slave");
         Specialty electric = new Specialty(2, "электрик", "electricity", null);
         Specialty repair = new Specialty(3, "ремонт", "repair", null);
@@ -128,7 +133,9 @@ public class MapFragment extends Fragment implements GoogleMap.OnInfoWindowClick
         list.add(new Order(41, "+996551221445","nu", "tak", decorator, 42.844580, 74.629891));
         list.add(new Order(11, "+996551221445","nu", "tak", electric, 42.840480, 74.618191));
         list.add(new Order(55, "+996551221445","nu", "tak", electric, 42.837118, 74.614747));
-        return list;
+        return list;*/
+        mOrderMarkerMap.clear();
+        return ((TabsActivity)getActivity()).getNewOrders();
     }
 
     @Override

@@ -70,7 +70,7 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        TextView ratingView = (TextView)view.findViewById(R.id.tvRatings);
+        /*TextView ratingView = (TextView)view.findViewById(R.id.tvRatings);
         ratingView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +80,7 @@ public class ProfileFragment extends Fragment {
                         .addToBackStack(backStateName)
                         .commit();
             }
-        });
+        });*/
 
         return view;
     }

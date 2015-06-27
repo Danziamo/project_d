@@ -19,10 +19,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mirsoft.easyfixmaster.adapters.TabsPagerAdapter;
+import com.mirsoft.easyfixmaster.api.OrderApi;
+import com.mirsoft.easyfixmaster.common.OrderType;
+import com.mirsoft.easyfixmaster.models.Order;
+import com.mirsoft.easyfixmaster.service.ServiceGenerator;
 import com.mirsoft.easyfixmaster.utils.RoundedImageView;
 import com.mirsoft.easyfixmaster.utils.SlidingTabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class TabsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -30,9 +42,9 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     private static final String NAV_ITEM_ID = "navItemId";
     TabsPagerAdapter pagerAdapter;
     ViewPager viewPager;
-    //SlidingTabLayout tabLayout;
     TabLayout tabLayout;
     NavigationView navigationView;
+    private ArrayList<Order> mOrderList;
 
     private final Handler mDrawerActionHandler = new Handler();
     private DrawerLayout mDrawerLayout;
@@ -97,6 +109,56 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         mDrawerToggle.syncState();
 
         navigate(mNavItemId);
+
+        mOrderList = new ArrayList<>();
+        getOrdersList();
+    }
+
+    private void getOrdersList() {
+        Settings settings = new Settings(TabsActivity.this);
+        OrderApi api = ServiceGenerator.createService(OrderApi.class, settings);
+        api.getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
+            @Override
+            public void success(ArrayList<Order> orders, Response response) {
+                if (orders.size() > 0) {
+                    mOrderList = orders;
+                    Intent data = new Intent("fragmentupdater");
+                    TabsActivity.this.sendBroadcast(data);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(TabsActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public ArrayList<Order> getNewOrders() {
+        ArrayList<Order> list = new ArrayList<>();
+        for (int i = 0; i < mOrderList.size(); ++i) {
+            if (mOrderList.get(i).getStatus() == OrderType.NEW)
+                list.add(mOrderList.get(i));
+        }
+        return list;
+    }
+
+    public ArrayList<Order> getActiveOrders() {
+        ArrayList<Order> list = new ArrayList<>();
+        for (int i = 0; i < mOrderList.size(); ++i) {
+            if (mOrderList.get(i).getStatus() == OrderType.ACTIVE || mOrderList.get(i).getStatus() == OrderType.PENDING)
+                list.add(mOrderList.get(i));
+        }
+        return list;
+    }
+
+    public ArrayList<Order> getFinishedOrders() {
+        ArrayList<Order> list = new ArrayList<>();
+        for (int i = 0; i < mOrderList.size(); ++i) {
+            if (mOrderList.get(i).getStatus() == OrderType.FINISHED)
+                list.add(mOrderList.get(i));
+        }
+        return list;
     }
 
     private void navigate(final int itemId) {

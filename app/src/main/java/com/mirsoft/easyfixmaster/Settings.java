@@ -54,6 +54,14 @@ public class Settings {
         editor.apply();
     }
 
+    public int getUserId () {
+        return getIntValue("user_id");
+    }
+
+    public void setUserId(int userId) {
+        putIntValue("user_id", userId);
+    }
+
     public String getEndpoint() {
         return getStringValue("endpoint");
     }

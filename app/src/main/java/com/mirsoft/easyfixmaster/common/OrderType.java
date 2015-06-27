@@ -3,10 +3,18 @@ package com.mirsoft.easyfixmaster.common;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public enum OrderType {
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public enum OrderType implements Serializable {
+    @SerializedName("new")
     NEW,
+    @SerializedName("pending")
     PENDING,
+    @SerializedName("active")
     ACTIVE,
+    @SerializedName("finished")
     FINISHED;
 
     @Override

@@ -1,6 +1,10 @@
 package com.mirsoft.easyfixmaster.fragments;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -10,14 +14,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.mirsoft.easyfixmaster.R;
+import com.mirsoft.easyfixmaster.Settings;
+import com.mirsoft.easyfixmaster.TabsActivity;
+import com.mirsoft.easyfixmaster.api.OrderApi;
+import com.mirsoft.easyfixmaster.common.OrderType;
+import com.mirsoft.easyfixmaster.service.ServiceGenerator;
 import com.mirsoft.easyfixmaster.utils.RecyclerViewSimpleDivider;
 import com.mirsoft.easyfixmaster.adapters.OrderAdapter;
 import com.mirsoft.easyfixmaster.models.Order;
 import com.mirsoft.easyfixmaster.models.Specialty;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,23 +46,25 @@ public class TestFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private OrderType mType;
     private String mParam2;
 
+    private RecyclerView rv;
+    private OrderAdapter mOrderAdapter;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
+     * @param type Parameter 1.
      * @param param2 Parameter 2.
      * @return A new instance of fragment TestFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TestFragment newInstance(String param1, String param2) {
+    public static TestFragment newInstance(OrderType type, String param2) {
         TestFragment fragment = new TestFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putSerializable(ARG_PARAM1, type);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -61,9 +78,10 @@ public class TestFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mType = (OrderType)getArguments().getSerializable(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getActivity().registerReceiver(new UpdateDateReciever(), new IntentFilter("fragmentupdater"));
     }
 
     @Override
@@ -72,10 +90,11 @@ public class TestFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_test, container, false);
 
-        RecyclerView rv = (RecyclerView)view.findViewById(R.id.rvOrders);
+        rv = (RecyclerView)view.findViewById(R.id.rvOrders);
         rv.addItemDecoration(new RecyclerViewSimpleDivider(getActivity()));
         rv.setHasFixedSize(true);
-        rv.setAdapter(new OrderAdapter(getData(), R.layout.list_item_order, getActivity()));
+        mOrderAdapter = new OrderAdapter(getData(), R.layout.list_item_order, getActivity());
+        rv.setAdapter(mOrderAdapter);
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -83,7 +102,15 @@ public class TestFragment extends Fragment {
     }
 
     public ArrayList<Order> getData() {
-        ArrayList<Order> list = new ArrayList<>();
+
+        if(mType == OrderType.NEW)
+            return  ((TabsActivity)getActivity()).getNewOrders();
+        if(mType == OrderType.ACTIVE)
+            return ((TabsActivity)getActivity()).getActiveOrders();
+        if(mType == OrderType.FINISHED)
+            return ((TabsActivity)getActivity()).getFinishedOrders();
+        return null;
+        /*ArrayList<Order> list = new ArrayList<>();
         Specialty plomber = new Specialty(1, "плотник", "plumber", "slave");
         Specialty electric = new Specialty(2, "электрик", "electricity", null);
         Specialty repair = new Specialty(3, "ремонт", "repair", null);
@@ -100,7 +127,14 @@ public class TestFragment extends Fragment {
         list.add(new Order(11, "+996551221445","nu", "tak", electric, 42.840480, 74.618191));
         list.add(new Order(55, "+996551221445","nu", "tak", electric, 42.837118, 74.614747));
 
-        return list;
+        return list;*/
+    }
+
+    public class UpdateDateReciever extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mOrderAdapter.setDataset(getData());
+        }
     }
 
 

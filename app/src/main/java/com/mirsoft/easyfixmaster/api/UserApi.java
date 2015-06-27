@@ -12,12 +12,12 @@ import retrofit.http.Path;
 import retrofit.http.Query;
 
 public interface UserApi {
-    @POST("/api/v1/users")
+    @POST("/users")
     void add(@Body User user, Callback<User> callback);
 
-    @GET("/api/v1/users/{id}")
+    @GET("/users/{id}")
     void getById(@Path("id") int id, Callback<User> callback);
 
-    @GET("/api/users")
+    @GET("/users")
     List<User> getAll(@Query("offset") int offset, @Query("limit") int limit);
 }

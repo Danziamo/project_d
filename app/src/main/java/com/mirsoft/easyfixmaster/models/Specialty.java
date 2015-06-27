@@ -12,7 +12,7 @@ public class Specialty implements Serializable {
     private String name;
     @Expose
     private String slug;
-    @Expose
+
     private String description;
 
     private int drawable;

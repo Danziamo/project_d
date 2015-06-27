@@ -78,20 +78,23 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         Order item = items.get(position);
         holder.mAddressView.setText(item.getAddress());
         holder.mReasonView.setText(item.getDescription());
-        switch (item.getSpecialty().getId()%4) {
-            case 0:
-                holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.plumbing));
-                break;
-            case 1:
-                holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.electricity));
-                break;
-            case 2:
-                holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.repairing));
-                break;
-            case 3:
-                holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.decoration));
-                break;
-        }
+        if (item.getSpecialty() != null)
+            switch (item.getSpecialty().getId()%4) {
+                case 0:
+                    holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.plumbing));
+                    break;
+                case 1:
+                    holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.electricity));
+                    break;
+                case 2:
+                    holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.repairing));
+                    break;
+                case 3:
+                    holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.decoration));
+                    break;
+            }
+        else
+            holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.foto));
         holder.itemView.setTag(item);
     }
 
@@ -99,5 +102,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void setDataset(ArrayList<Order> dataset) {
+        items = dataset;
+        // This isn't working
+        notifyItemRangeInserted(0, items.size());
+        notifyDataSetChanged();
     }
 }

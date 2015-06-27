@@ -154,6 +154,7 @@ public class LoginFragment extends Fragment {
             public void success(Session session, Response response) {
                 showProgress(false);
                 settings.setAccessToken(session.token);
+                settings.setUserId(session.id);
                 Intent intent = new Intent(getActivity(), TabsActivity.class);
                 startActivity(intent);
                 getActivity().finish();

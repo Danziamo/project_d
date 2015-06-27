@@ -10,7 +10,8 @@ public class Order implements Serializable {
 
     @Expose
     private int id;
-    private User master;
+    @Expose
+    private User client;
     @Expose
     private double latitude;
     @Expose
@@ -22,7 +23,7 @@ public class Order implements Serializable {
     @Expose
     private String description;
     @Expose
-    private Enum status;
+    private OrderType status;
 
     @Expose
     private Specialty specialty;
@@ -58,11 +59,11 @@ public class Order implements Serializable {
     }
 
     public User getMaster() {
-        return master;
+        return client;
     }
 
     public void setMaster(User master) {
-        this.master = master;
+        this.client = master;
     }
 
     public double getLongitude() {
@@ -97,11 +98,11 @@ public class Order implements Serializable {
         this.description = description;
     }
 
-    public Enum getStatus() {
+    public OrderType getStatus() {
         return status;
     }
 
-    public void setStatus(Enum status) {
+    public void setStatus(OrderType status) {
         this.status = status;
     }
 
@@ -119,10 +120,26 @@ public class Order implements Serializable {
 
     public void setSpecialty(Specialty specialty) {
         this.specialty = specialty;
+
     }
 
     public LatLng getLatLng() {
         if (latitude == 0 || longitude == 0) return null;
         return new LatLng(this.latitude, this.longitude);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", client=" + client +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", specialty=" + specialty +
+                '}';
     }
 }

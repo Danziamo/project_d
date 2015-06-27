@@ -12,7 +12,7 @@ import retrofit.converter.GsonConverter;
 
 public class ServiceGenerator {
     private static String ROOT = "http://192.168.0.107:1337";
-    private static String MAIN_URI = "http://81.88.192.37";
+    private static String MAIN_URI = "http://192.168.0.112:8000/api/v1";
 
     private ServiceGenerator() {
     }
@@ -20,10 +20,11 @@ public class ServiceGenerator {
     public static <S> S createService(Class<S> serviceClass, Settings settings) {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
         RestAdapter.Builder builder = new RestAdapter.Builder()
-                .setEndpoint(ROOT)
+                .setEndpoint(MAIN_URI)
                 .setConverter(new GsonConverter(gson))
                 .setRequestInterceptor(new SessionRequestInterceptor(settings))
                 .setLogLevel(RestAdapter.LogLevel.FULL)
