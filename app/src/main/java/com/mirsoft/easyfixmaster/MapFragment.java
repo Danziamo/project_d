@@ -1,7 +1,10 @@
 package com.mirsoft.easyfixmaster;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -70,6 +73,7 @@ public class MapFragment extends Fragment implements GoogleMap.OnInfoWindowClick
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getActivity().registerReceiver(new UpdateDateReciever(), new IntentFilter("update"));
     }
 
     @Override
@@ -116,26 +120,15 @@ public class MapFragment extends Fragment implements GoogleMap.OnInfoWindowClick
     }
 
     private ArrayList<Order> getData() {
-        /*ArrayList<Order> list = new ArrayList<>();
-        Specialty plomber = new Specialty(1, "плотник", "plumber", "slave");
-        Specialty electric = new Specialty(2, "электрик", "electricity", null);
-        Specialty repair = new Specialty(3, "ремонт", "repair", null);
-        Specialty decorator = new Specialty(4, "декоратор", "decorator", null);
-
-        list.add(new Order(1, "+996551221445", "tam", "to", plomber, 42.874329, 74.614806));
-        list.add(new Order(2, "+996551221445","tut", "eto", electric, 42.870167, 74.620386));
-        list.add(new Order(3, "+996551221445","kak", "tak", repair, 42.866095, 74.616691));
-        list.add(new Order(4, "+996551221445","nu", "tak", decorator, 42.859435, 74.614321));
-        list.add(new Order(5, "+996551221445","nu", "tak", decorator, 42.856546, 74.619347));
-        list.add(new Order(7, "+996551221445","nu", "tak", plomber, 42.852071, 74.616321));
-        list.add(new Order(11, "+996551221445","nu", "tak", repair, 42.848198, 74.618504));
-        list.add(new Order(23, "+996551221445","nu", "tak", decorator, 42.847889, 74.625330));
-        list.add(new Order(41, "+996551221445","nu", "tak", decorator, 42.844580, 74.629891));
-        list.add(new Order(11, "+996551221445","nu", "tak", electric, 42.840480, 74.618191));
-        list.add(new Order(55, "+996551221445","nu", "tak", electric, 42.837118, 74.614747));
-        return list;*/
         mOrderMarkerMap.clear();
         return ((TabsActivity)getActivity()).getNewOrders();
+    }
+
+    public class UpdateDateReciever extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            displayOnMap();
+        }
     }
 
     @Override

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,6 +6,7 @@
     tools:context="com.mirsoft.easyfixmaster.OrderDetailActivityFragment">
 
     <RelativeLayout
+        android:id="@+id/infoLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -40,7 +41,15 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mapView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnSubmit"
+        android:layout_below="@+id/infoLayout"/>
 
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Make request"/>
 
-</LinearLayout>
+</RelativeLayout>

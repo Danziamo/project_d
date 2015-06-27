@@ -45,6 +45,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     TabLayout tabLayout;
     NavigationView navigationView;
     private ArrayList<Order> mOrderList;
+    private ArrayList<Order> mFinishedOrderList;
 
     private final Handler mDrawerActionHandler = new Handler();
     private DrawerLayout mDrawerLayout;
@@ -122,7 +123,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
             public void success(ArrayList<Order> orders, Response response) {
                 if (orders.size() > 0) {
                     mOrderList = orders;
-                    Intent data = new Intent("fragmentupdater");
+                    Intent data = new Intent("update");
                     TabsActivity.this.sendBroadcast(data);
                 }
             }
@@ -130,6 +131,20 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void failure(RetrofitError error) {
                 Toast.makeText(TabsActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        api.getByUserIdAndStatuses(settings.getUserId(), "finished", new Callback<ArrayList<Order>>() {
+            @Override
+            public void success(ArrayList<Order> orders, Response response) {
+                mFinishedOrderList = orders;
+                Intent data = new Intent("updatefinished");
+                TabsActivity.this.sendBroadcast(data);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
             }
         });
     }

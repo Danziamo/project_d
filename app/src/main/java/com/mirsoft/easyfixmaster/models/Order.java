@@ -58,12 +58,12 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public User getMaster() {
+    public User getClient() {
         return client;
     }
 
-    public void setMaster(User master) {
-        this.client = master;
+    public void setClient(User client) {
+        this.client = client;
     }
 
     public double getLongitude() {
@@ -83,6 +83,8 @@ public class Order implements Serializable {
     }
 
     public String getPhone() {
+        if (this.client != null)
+            return this.client.getPhone();
         return phone;
     }
 

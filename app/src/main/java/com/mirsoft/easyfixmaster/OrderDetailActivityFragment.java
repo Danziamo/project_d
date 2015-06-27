@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -16,7 +18,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mirsoft.easyfixmaster.api.OrderApi;
 import com.mirsoft.easyfixmaster.models.Order;
+import com.mirsoft.easyfixmaster.service.ServiceGenerator;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 /**
@@ -54,7 +62,7 @@ public class OrderDetailActivityFragment extends Fragment {
                 if(event.getAction() == MotionEvent.ACTION_UP) {
                     if(event.getRawX() >= (tvPhone.getRight() - tvPhone.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse("tel:" + order.getPhone()));
+                        callIntent.setData(Uri.parse("tel:" + order.getClient().getPhone()));
                         startActivity(callIntent);
                         return true;
                     }
@@ -81,6 +89,26 @@ public class OrderDetailActivityFragment extends Fragment {
             mGoogleMap.addMarker(new MarkerOptions().position(order.getLatLng()));
             mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(order.getLatLng(), 15));
         }
+
+        Button btnSubmit = (Button)view.findViewById(R.id.btnSubmit);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Settings settings = new Settings(getActivity());
+                OrderApi api = ServiceGenerator.createService(OrderApi.class, settings);
+                api.postRequest(true, settings.getUserId(), order.getId(), new Callback<Object>() {
+                    @Override
+                    public void success(Object o, Response response) {
+                        Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
         return view;
     }
