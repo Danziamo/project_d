@@ -23,8 +23,10 @@ import android.widget.Toast;
 
 import com.mirsoft.easyfixmaster.adapters.TabsPagerAdapter;
 import com.mirsoft.easyfixmaster.api.OrderApi;
+import com.mirsoft.easyfixmaster.api.SessionApi;
 import com.mirsoft.easyfixmaster.common.OrderType;
 import com.mirsoft.easyfixmaster.models.Order;
+import com.mirsoft.easyfixmaster.models.Session;
 import com.mirsoft.easyfixmaster.service.ServiceGenerator;
 import com.mirsoft.easyfixmaster.utils.RoundedImageView;
 import com.mirsoft.easyfixmaster.utils.SlidingTabLayout;
@@ -51,6 +53,8 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private int mNavItemId;
+
+    private int progressType = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,39 +116,51 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         navigate(mNavItemId);
 
         mOrderList = new ArrayList<>();
+        mFinishedOrderList = new ArrayList<>();
         getOrdersList();
     }
 
     private void getOrdersList() {
+        progressType = 0;
+        showProgress(true);
         Settings settings = new Settings(TabsActivity.this);
         OrderApi api = ServiceGenerator.createService(OrderApi.class, settings);
         api.getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
                 if (orders.size() > 0) {
+                    progressType += 1;
+                    mOrderList.clear();
                     mOrderList = orders;
                     Intent data = new Intent("update");
                     TabsActivity.this.sendBroadcast(data);
+                    showProgress(false);
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
+                progressType += 1;
                 Toast.makeText(TabsActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                showProgress(false);
             }
         });
 
         api.getByUserIdAndStatuses(settings.getUserId(), "finished", new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
+                progressType += 1;
+                mFinishedOrderList.clear();
                 mFinishedOrderList = orders;
                 Intent data = new Intent("updatefinished");
                 TabsActivity.this.sendBroadcast(data);
+                showProgress(false);
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                progressType += 1;
+                showProgress(false);
             }
         });
     }
@@ -178,6 +194,39 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
 
     private void navigate(final int itemId) {
         // perform the actual navigation logic, updating the main content fragment etc
+        switch (itemId) {
+            case R.id.drawer_item_exit:
+                performSignOut();
+                break;
+            default:
+
+        }
+    }
+
+    private void performSignOut() {
+        final Settings settings = new Settings(TabsActivity.this);
+        SessionApi api = ServiceGenerator.createService(SessionApi.class, settings);
+        Session session = new Session();
+        api.logout(session, new Callback<Object>() {
+            @Override
+            public void success(Object o, Response response) {
+                settings.setAccessToken(null);
+                goToStartPage();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                settings.setAccessToken(null);
+                goToStartPage();
+            }
+        });
+    }
+
+    private void goToStartPage() {
+        Intent intent = new Intent(TabsActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -232,5 +281,16 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_tabs, menu);
         return true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getOrdersList();
+    }
+
+    private void showProgress(final boolean show) {
+
     }
 }

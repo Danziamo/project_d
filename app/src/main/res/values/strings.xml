@@ -9,6 +9,8 @@
     <string name="icon_history">&#xf017;</string>
     <string name="icon_map">&#xf0ac;</string>
 
+    <string name="facebook_app_id">425705327614528</string>
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_test_sign_up">TestSignUpActivity</string>

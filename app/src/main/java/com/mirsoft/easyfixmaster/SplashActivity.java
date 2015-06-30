@@ -1,11 +1,12 @@
 package com.mirsoft.easyfixmaster;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.facebook.FacebookSdk;
+import com.mirsoft.easyfixmaster.fragments.SplashActivityFragment;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -13,7 +14,15 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_splash);
+
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new SplashActivityFragment())
+                    .commit();
+        }
     }
 
 

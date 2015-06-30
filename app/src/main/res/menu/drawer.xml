@@ -7,5 +7,9 @@
         <item
             android:id="@+id/drawer_item_2"
             android:title="Меню 2"/>
+
+        <item
+            android:id="@+id/drawer_item_exit"
+            android:title="Выход"/>
     </group>
 </menu>
