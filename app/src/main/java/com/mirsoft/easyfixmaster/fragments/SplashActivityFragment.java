@@ -13,10 +13,19 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.mirsoft.easyfixmaster.R;
 import com.mirsoft.easyfixmaster.Settings;
 import com.mirsoft.easyfixmaster.TabsActivity;
+import com.mirsoft.easyfixmaster.bus.facebook.FacebookActivityResultBus;
 import com.mirsoft.easyfixmaster.common.OrderType;
+import com.mirsoft.easyfixmaster.events.facebook.FacebookActivityResultEvent;
+import com.squareup.otto.Subscribe;
 
 
 /**
@@ -26,6 +35,17 @@ public class SplashActivityFragment extends Fragment {
     Button btnLogin;
     Button btnSignUp;
     TextView tvInfo;
+    CallbackManager callbackManager;
+
+    private Object mFacebookActivityResultSubscriber = new Object() {
+        @Subscribe
+        public void onActivityResultReceived(FacebookActivityResultEvent event) {
+            int requestCode = event.getRequestCode();
+            int resultCode = event.getResultCode();
+            Intent data = event.getData();
+            onActivityResult(requestCode, resultCode, data);
+        }
+    };
 
     public SplashActivityFragment() {
     }
@@ -38,6 +58,20 @@ public class SplashActivityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FacebookActivityResultBus.getInstance().register(mFacebookActivityResultSubscriber);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        FacebookActivityResultBus.getInstance().unregister(mFacebookActivityResultSubscriber);
     }
 
     @Override
@@ -65,6 +99,26 @@ public class SplashActivityFragment extends Fragment {
                 openLogin();
             }
         });
+
+        LoginButton btnFacebookLogin = (LoginButton) view.findViewById(R.id.login_button);
+        btnFacebookLogin.setReadPermissions("public_profile");
+        btnFacebookLogin.setFragment(this);
+        btnFacebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+
+            }
+        });
         ///slideToLeft(splashLayout);
         return view;
     }
@@ -80,7 +134,7 @@ public class SplashActivityFragment extends Fragment {
     private void openLogin() {
         String backStateName = getActivity().getFragmentManager().getClass().getName();
         getActivity().getFragmentManager().beginTransaction()
-                .replace(R.id.fragment, LoginFragment.newInstance(null, null))
+                .replace(R.id.container, LoginFragment.newInstance(null, null))
                 .addToBackStack(backStateName)
                 .commit();
     }
@@ -88,63 +142,16 @@ public class SplashActivityFragment extends Fragment {
     private void openSignUp() {
         String backStateName = getActivity().getFragmentManager().getClass().getName();
         getActivity().getFragmentManager().beginTransaction()
-                .replace(R.id.fragment, RegistrationFragment.newInstance(null, null))
+                .replace(R.id.container, RegistrationFragment.newInstance(null, null))
                 .addToBackStack(backStateName)
                 .commit();
     }
 
-
-
-   /* // To animate view slide out from left to right
-    public void slideToRight(View view){
-        TranslateAnimation animate = new TranslateAnimation(0,view.getWidth(),0,0);
-        animate.setDuration(500);
-        animate.setFillAfter(true);
-        view.startAnimation(animate);
-        view.setVisibility(View.VISIBLE);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-    // To animate view slide out from right to left
-    public void slideToLeft(View view){
-        TranslateAnimation animate = new TranslateAnimation(0,-view.getWidth(),0,0);
-        animate.setDuration(500);
-        animate.setFillAfter(true);
-        view.startAnimation(animate);
-        view.setVisibility(View.VISIBLE);
-    }
-
-    // To animate view slide out from top to bottom
-    public void slideToBottom(View view){
-        TranslateAnimation animate = new TranslateAnimation(0,0,0,view.getHeight());
-        animate.setDuration(500);
-        animate.setFillAfter(true);
-        view.startAnimation(animate);
-        view.setVisibility(View.GONE);
-    }
-
-    // To animate view slide out from bottom to top
-    public void slideToTop(View view){
-        TranslateAnimation animate = new TranslateAnimation(0,0,0,-view.getHeight());
-        animate.setDuration(500);
-        animate.setFillAfter(true);
-        view.startAnimation(animate);
-        view.setVisibility(View.GONE);
-    }*/
-
-  /*  public class ButtonActivity extends MainActivity {
-        //Button View
-
-        Button btnLogin = null;
-        Button btnSignup = null;
-
-        public ButtonActivity() {
-            btnLogin = (Button) btnLogin.findViewById(View.VISIBLE);
-            btnSignup = (Button) btnSignup.findViewById(View.VISIBLE);
-        }
-    }*/
-
-// устанавливаем один обработчик для всех кнопок
-/*        btnLogin.setOnClickListener(this);
-        btnSignup.setOnClickListener(this);*/
 
 }
 

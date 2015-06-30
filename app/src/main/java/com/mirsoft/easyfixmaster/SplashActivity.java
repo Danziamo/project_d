@@ -1,20 +1,26 @@
 package com.mirsoft.easyfixmaster;
 
+import android.content.Intent;
+import android.hardware.camera2.params.Face;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
+import com.mirsoft.easyfixmaster.bus.facebook.FacebookActivityResultBus;
+import com.mirsoft.easyfixmaster.events.facebook.FacebookActivityResultEvent;
 import com.mirsoft.easyfixmaster.fragments.SplashActivityFragment;
 
 
 public class SplashActivity extends AppCompatActivity {
 
+    CallbackManager callbackManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_splash);
 
 
@@ -47,4 +53,15 @@ public class SplashActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        FacebookActivityResultBus.getInstance().postQueue(
+                new FacebookActivityResultEvent(requestCode, resultCode, data)
+        );
+
+    }
+
+
 }
