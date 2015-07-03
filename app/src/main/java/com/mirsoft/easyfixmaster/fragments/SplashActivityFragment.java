@@ -13,10 +13,15 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.mirsoft.easyfixmaster.R;
@@ -36,6 +41,8 @@ public class SplashActivityFragment extends Fragment {
     Button btnSignUp;
     TextView tvInfo;
     CallbackManager callbackManager;
+    AccessTokenTracker accessTokenTracker;
+    ProfileTracker profileTracker;
 
     private Object mFacebookActivityResultSubscriber = new Object() {
         @Subscribe
@@ -60,18 +67,51 @@ public class SplashActivityFragment extends Fragment {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
+
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(
+                    AccessToken oldAccessToken,
+                    AccessToken currentAccessToken) {
+                // Set the access token using
+                // currentAccessToken when it's loaded or set.
+            }
+        };
+
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(
+                    Profile oldProfile,
+                    Profile currentProfile) {
+
+                Profile temp = oldProfile;
+                temp = currentProfile;
+                Profile.setCurrentProfile(currentProfile);
+                // App code
+            }
+        };
     }
 
     @Override
     public void onStart() {
         super.onStart();
         FacebookActivityResultBus.getInstance().register(mFacebookActivityResultSubscriber);
+        AppEventsLogger.activateApp(getActivity());
     }
 
     @Override
     public void onStop() {
         super.onStop();
         FacebookActivityResultBus.getInstance().unregister(mFacebookActivityResultSubscriber);
+        AppEventsLogger.deactivateApp(getActivity());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        accessTokenTracker.stopTracking();
+        profileTracker.stopTracking();
+
     }
 
     @Override
@@ -106,7 +146,11 @@ public class SplashActivityFragment extends Fragment {
         btnFacebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-
+                AccessToken.getCurrentAccessToken();
+                Profile.fetchProfileForCurrentAccessToken();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, RegistrationFragment.newInstance(null, null))
+                        .commit();
             }
 
             @Override
@@ -133,7 +177,7 @@ public class SplashActivityFragment extends Fragment {
 
     private void openLogin() {
         String backStateName = getActivity().getFragmentManager().getClass().getName();
-        getActivity().getFragmentManager().beginTransaction()
+        getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, LoginFragment.newInstance(null, null))
                 .addToBackStack(backStateName)
                 .commit();
@@ -141,7 +185,7 @@ public class SplashActivityFragment extends Fragment {
 
     private void openSignUp() {
         String backStateName = getActivity().getFragmentManager().getClass().getName();
-        getActivity().getFragmentManager().beginTransaction()
+        getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, RegistrationFragment.newInstance(null, null))
                 .addToBackStack(backStateName)
                 .commit();

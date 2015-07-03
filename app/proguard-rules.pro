@@ -26,3 +26,5 @@
     @com.squareup.otto.Subscribe public *;
     @com.squareup.otto.Produce public *;
 }
+
+-keep class !android.support.v7.internal.view.menu.**,** {*;}

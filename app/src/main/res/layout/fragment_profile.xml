@@ -65,21 +65,21 @@
 
     <com.rengwuxian.materialedittext.MaterialEditText
         style="@style/Input.Material"
-        app:met_helperText="@string/country"
-        android:hint="@string/country"
-        android:id="@+id/etProfession"
-        android:layout_below="@+id/topLayout" />
+        app:met_helperText="@string/city"
+        android:hint="Специалиность"
+        android:id="@+id/etSpeciality"
+        android:layout_below="@+id/etLastName" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         style="@style/Input.Material"
         app:met_helperText="@string/city"
-        android:hint="@string/city"
+        android:hint="@string/license"
         android:id="@+id/etLicense"
-        android:layout_below="@+id/etProfession" />
+        android:layout_below="@+id/etSpeciality" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         style="@style/Input.Material"
-        app:met_helperText="@string/license"
+        app:met_helperText="@string/country"
         android:hint="@string/license"
         android:id="@+id/etCountry"
         android:layout_below="@+id/etLicense" />

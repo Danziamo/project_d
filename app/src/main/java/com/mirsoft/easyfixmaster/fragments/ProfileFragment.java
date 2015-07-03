@@ -1,24 +1,17 @@
 package com.mirsoft.easyfixmaster.fragments;
 
-import android.content.Intent;
+import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
-
-
-
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.mirsoft.easyfixmaster.R;
-import com.mirsoft.easyfixmaster.ReviewFragment;
-
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 
 public class ProfileFragment extends Fragment {
@@ -26,6 +19,11 @@ public class ProfileFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    MaterialDialog dialog;
+    MaterialEditText etSpeciality;
+    MaterialEditText etLicense;
+
+    private Integer[] list = new Integer[]{2};
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -70,19 +68,58 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        /*TextView ratingView = (TextView)view.findViewById(R.id.tvRatings);
-        ratingView.setOnClickListener(new View.OnClickListener() {
+        initSpecialityDialog();
+
+        etSpeciality = (MaterialEditText)view.findViewById(R.id.etSpeciality);
+        etSpeciality.setInputType(InputType.TYPE_NULL);
+
+        etSpeciality.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                String backStateName = getActivity().getFragmentManager().getClass().getName();
-                getActivity().getFragmentManager().beginTransaction()
-                        .replace(R.id.container, ReviewFragment.newInstance(null, null))
-                        .addToBackStack(backStateName)
-                        .commit();
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) showSpecialityDialog(true);
+                else showSpecialityDialog(false);
             }
-        });*/
+        });
+
+        etLicense = (MaterialEditText)view.findViewById(R.id.etLicense);
+
 
         return view;
+    }
+
+    private void initSpecialityDialog() {
+        String[] specs = new String[] {"Slave", "MegaSlave", "HyperSlave"};
+    }
+
+    private void showSpecialityDialog(final boolean show) {
+        String[] specs = new String[] {"Slave", "MegaSlave", "HyperSlave"};
+        if(show) {
+            MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity())
+                    .title("Opachki")
+                    .items(specs)
+                    .itemsCallbackMultiChoice(list, new MaterialDialog.ListCallbackMultiChoice() {
+                        @Override
+                        public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
+                            /**
+                             * If you use alwaysCallMultiChoiceCallback(), which is discussed below,
+                             * returning false here won't allow the newly selected check box to actually be selected.
+                             * See the limited multi choice dialog example in the sample project for details.
+                             **/
+                            list = which;
+                            etSpeciality.setText(String.valueOf(which.length));
+                            etLicense.requestFocus();
+                            return true;
+                        }
+                    })
+                    .positiveText("Choose");
+            dialog = builder.build();
+            dialog.show();
+        } else {
+            if (dialog != null)
+                dialog.dismiss();
+        }
+
+
     }
 
     /**

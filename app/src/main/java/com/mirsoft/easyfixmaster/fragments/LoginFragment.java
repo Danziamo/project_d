@@ -3,7 +3,7 @@ package com.mirsoft.easyfixmaster.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
