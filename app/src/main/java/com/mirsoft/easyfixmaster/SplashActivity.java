@@ -1,22 +1,17 @@
 package com.mirsoft.easyfixmaster;
 
 import android.content.Intent;
-import android.hardware.camera2.params.Face;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
-import com.mirsoft.easyfixmaster.bus.facebook.FacebookActivityResultBus;
-import com.mirsoft.easyfixmaster.events.facebook.FacebookActivityResultEvent;
+import com.mirsoft.easyfixmaster.common.Constants;
 import com.mirsoft.easyfixmaster.fragments.SplashActivityFragment;
 
 
 public class SplashActivity extends AppCompatActivity {
-
-    CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +52,11 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        FacebookActivityResultBus.getInstance().postQueue(
-                new FacebookActivityResultEvent(requestCode, resultCode, data)
-        );
 
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(Constants.SOCIAL_NETWORK_TAG);
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
-
 
 }

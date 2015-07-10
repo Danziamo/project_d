@@ -10,6 +10,12 @@
     <string name="icon_map">&#xf0ac;</string>
 
     <string name="facebook_app_id">425705327614528</string>
+    <string name="vk_app_id">4984814</string>
+
+    <!--<string name="ok_app_id">1096125440</string>
+    <string name="ok_public_key">CBANIGFCEBABABABA</string>
+    <string name="ok_secret_key">FF5161844C04525B64FA41A7</string>-->
+
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

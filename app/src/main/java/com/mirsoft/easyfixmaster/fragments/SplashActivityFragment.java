@@ -1,58 +1,54 @@
 package com.mirsoft.easyfixmaster.fragments;
 
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
+import com.github.gorbin.asne.core.SocialNetwork;
+import com.github.gorbin.asne.core.SocialNetworkManager;
+import com.github.gorbin.asne.core.listener.OnLoginCompleteListener;
+import com.github.gorbin.asne.core.persons.SocialPerson;
+import com.github.gorbin.asne.facebook.FacebookSocialNetwork;
+import com.github.gorbin.asne.vk.VkSocialNetwork;
 import com.mirsoft.easyfixmaster.R;
 import com.mirsoft.easyfixmaster.Settings;
+import com.mirsoft.easyfixmaster.SplashActivity;
 import com.mirsoft.easyfixmaster.TabsActivity;
-import com.mirsoft.easyfixmaster.bus.facebook.FacebookActivityResultBus;
-import com.mirsoft.easyfixmaster.common.OrderType;
-import com.mirsoft.easyfixmaster.events.facebook.FacebookActivityResultEvent;
-import com.squareup.otto.Subscribe;
+import com.mirsoft.easyfixmaster.common.Constants;
+import com.vk.sdk.VKScope;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SplashActivityFragment extends Fragment {
+public class SplashActivityFragment extends Fragment implements SocialNetworkManager.OnInitializationCompleteListener, OnLoginCompleteListener, View.OnClickListener{
+
+    public static final int FACEBOOK = 4;
+    public static final int VKONTAKTE = 5;
+    public static final int ODNOKLASSNIKI = 6;
+
     Button btnLogin;
     Button btnSignUp;
-    TextView tvInfo;
-    CallbackManager callbackManager;
-    AccessTokenTracker accessTokenTracker;
-    ProfileTracker profileTracker;
+    Button btnFacebook;
+    Button btnVkontakte;
+    Button btnOdnoklassniki;
 
-    private Object mFacebookActivityResultSubscriber = new Object() {
-        @Subscribe
-        public void onActivityResultReceived(FacebookActivityResultEvent event) {
-            int requestCode = event.getRequestCode();
-            int resultCode = event.getResultCode();
-            Intent data = event.getData();
-            onActivityResult(requestCode, resultCode, data);
-        }
-    };
+    SocialNetworkManager mSocialNetworkManager;
+    TextView tvInfo;
 
     public SplashActivityFragment() {
     }
@@ -65,53 +61,21 @@ public class SplashActivityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
-
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(
-                    AccessToken oldAccessToken,
-                    AccessToken currentAccessToken) {
-                // Set the access token using
-                // currentAccessToken when it's loaded or set.
-            }
-        };
-
-        profileTracker = new ProfileTracker() {
-            @Override
-            protected void onCurrentProfileChanged(
-                    Profile oldProfile,
-                    Profile currentProfile) {
-
-                Profile temp = oldProfile;
-                temp = currentProfile;
-                Profile.setCurrentProfile(currentProfile);
-                // App code
-            }
-        };
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        FacebookActivityResultBus.getInstance().register(mFacebookActivityResultSubscriber);
-        AppEventsLogger.activateApp(getActivity());
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        FacebookActivityResultBus.getInstance().unregister(mFacebookActivityResultSubscriber);
-        AppEventsLogger.deactivateApp(getActivity());
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        accessTokenTracker.stopTracking();
-        profileTracker.stopTracking();
-
     }
 
     @Override
@@ -132,7 +96,6 @@ public class SplashActivityFragment extends Fragment {
                 openSignUp();
             }
         });
-
         btnLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,30 +103,74 @@ public class SplashActivityFragment extends Fragment {
             }
         });
 
-        LoginButton btnFacebookLogin = (LoginButton) view.findViewById(R.id.login_button);
-        btnFacebookLogin.setReadPermissions("public_profile");
-        btnFacebookLogin.setFragment(this);
-        btnFacebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                AccessToken.getCurrentAccessToken();
-                Profile.fetchProfileForCurrentAccessToken();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, RegistrationFragment.newInstance(null, null))
-                        .commit();
+        btnFacebook = (Button)view.findViewById(R.id.facebook);
+        btnFacebook.setOnClickListener(this);
+        btnVkontakte = (Button)view.findViewById(R.id.vk);
+        btnVkontakte.setOnClickListener(this);
+        btnOdnoklassniki = (Button)view.findViewById(R.id.ok);
+        btnOdnoklassniki.setOnClickListener(this);
+
+        String FACEBOOK_KEY = getActivity().getString(R.string.facebook_app_id);
+        String VKONTAKTE_KEY = getActivity().getString(R.string.vk_app_id);
+        /*String OK_APP_ID = getActivity().getString(R.string.ok_app_id);
+        String OK_PUBLIC_KEY = getActivity().getString(R.string.ok_public_key);
+        String OK_SECRET_KEY = getActivity().getString(R.string.ok_secret_key);*/
+
+        ArrayList<String> fbScope = new ArrayList<String>();
+        fbScope.addAll(Arrays.asList("public_profile, email, user_friends"));
+
+        //FacebookSocialNetwork fbNetwork = new FacebookSocialNetwork(this, fbScope);
+
+
+        /*mSocialNetworkManager = new SocialNetworkManager();
+
+        mSocialNetworkManager.addSocialNetwork(fbNetwork);*/
+        /*mSocialNetworkManager.addSocialNetwork(vkNetwork);
+        mSocialNetworkManager.addSocialNetwork(okNetwork);*/
+        mSocialNetworkManager = (SocialNetworkManager) getFragmentManager().findFragmentByTag(Constants.SOCIAL_NETWORK_TAG);
+        if (mSocialNetworkManager == null) {
+            mSocialNetworkManager = new SocialNetworkManager();
+
+            //Init and add to manager FacebookSocialNetwork
+            FacebookSocialNetwork fbNetwork = new FacebookSocialNetwork(this, fbScope);
+            mSocialNetworkManager.addSocialNetwork(fbNetwork);
+
+
+            //Init and add to manager VkontakteSocialNetwork
+            String[] vkScope = new String[] {
+                    VKScope.FRIENDS,
+                    VKScope.WALL,
+                    VKScope.PHOTOS,
+                    VKScope.NOHTTPS,
+                    VKScope.STATUS,
+            };
+            VkSocialNetwork vkNetwork = new VkSocialNetwork(this, VKONTAKTE_KEY, vkScope);
+            mSocialNetworkManager.addSocialNetwork(vkNetwork);
+
+            /*//Init and add to manager TwitterSocialNetwork
+            TwitterSocialNetwork twNetwork = new TwitterSocialNetwork(this, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
+            mSocialNetworkManager.addSocialNetwork(twNetwork);
+
+            //Init and add to manager LinkedInSocialNetwork
+            LinkedInSocialNetwork liNetwork = new LinkedInSocialNetwork(this, LINKEDIN_CONSUMER_KEY, LINKEDIN_CONSUMER_SECRET, linkedInScope);
+            mSocialNetworkManager.addSocialNetwork(liNetwork);*/
+
+            //Initiate every network from mSocialNetworkManager
+            getFragmentManager().beginTransaction().add(mSocialNetworkManager, Constants.SOCIAL_NETWORK_TAG).commit();
+            mSocialNetworkManager.setOnInitializationCompleteListener(this);
+        } else {
+            //if manager exist - get and setup login only for initialized SocialNetworks
+            if(!mSocialNetworkManager.getInitializedSocialNetworks().isEmpty()) {
+                List<SocialNetwork> socialNetworks = mSocialNetworkManager.getInitializedSocialNetworks();
+                for (SocialNetwork socialNetwork : socialNetworks) {
+                    socialNetwork.setOnLoginCompleteListener(this);
+                    initSocialNetwork(socialNetwork);
+                }
             }
+        }
 
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException e) {
-
-            }
-        });
-        ///slideToLeft(splashLayout);
+        /*getFragmentManager().beginTransaction().add(mSocialNetworkManager, Constants.SOCIAL_NETWORK_TAG).commit();
+        mSocialNetworkManager.setOnInitializationCompleteListener(this);*/
         return view;
     }
 
@@ -192,10 +199,75 @@ public class SplashActivityFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+    public void onSocialNetworkManagerInitialized() {
+        //when init SocialNetworks - get and setup login only for initialized SocialNetworks
+        for (SocialNetwork socialNetwork : mSocialNetworkManager.getInitializedSocialNetworks()) {
+            socialNetwork.setOnLoginCompleteListener(this);
+            initSocialNetwork(socialNetwork);
+        }
     }
 
+    private void initSocialNetwork(SocialNetwork socialNetwork){
+        if(socialNetwork.isConnected()){
+            switch (socialNetwork.getID()){
+                case FACEBOOK:
+                    btnFacebook.setText("Show Facebook profile");
+                    break;
+                case VKONTAKTE:
+                    btnVkontakte.setText("Show VK profile");
+                    break;
+                /*case TWITTER:
+                    twitter.setText("Show Twitter profile");
+                    break;
+                case LINKEDIN:
+                    linkedin.setText("Show LinkedIn profile");
+                    break;*/
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onLoginSuccess(int networkId) {
+
+    }
+
+    @Override
+    public void onError(int i, String s, String s1, Object o) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        int networkId = 0;
+        switch (v.getId()){
+            case R.id.facebook:
+                networkId = FACEBOOK;
+                break;
+            case R.id.vk:
+                networkId = VKONTAKTE;
+                break;
+            /*case R.id.twitter:
+                networkId = TWITTER;
+                break;
+            case R.id.linkedin:
+                networkId = LINKEDIN;
+                break;*/
+        }
+        SocialNetwork socialNetwork = mSocialNetworkManager.getSocialNetwork(networkId);
+        if(!socialNetwork.isConnected()) {
+            if(networkId != 0) {
+                socialNetwork.requestLogin();
+            } else {
+                Toast.makeText(getActivity(), "Wrong networkId", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(getActivity(), socialNetwork.getAccessToken().token, Toast.LENGTH_LONG).show();
+        }
+    }
 }
 
