@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mirsoft.easyfixmaster" >
+    package="com.mirsoft.easyfix" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -21,11 +21,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".App"
+        android:name="com.mirsoft.easyfix.App"
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.mirsoft.easyfix.MainActivity"
             android:theme="@style/AppTheme"
             android:label="@string/app_name">
             <intent-filter>
@@ -35,34 +35,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TestSIgnUp"
+            android:name="com.mirsoft.easyfix.TestSIgnUp"
             android:label="@string/title_activity_test_sign_up"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name="com.mirsoft.easyfix.SplashActivity"
             android:label="@string/title_activity_splash" >
         </activity>
         <activity
-            android:name=".TabsActivity"
+            android:name="com.mirsoft.easyfix.TabsActivity"
             android:label="@string/title_activity_tabs"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name=".ProfileActivity"
+            android:name="com.mirsoft.easyfix.ProfileActivity"
             android:label="@string/title_activity_profile"
-            android:parentActivityName=".TabsActivity" >
+            android:parentActivityName="com.mirsoft.easyfix.TabsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mirsoft.easyfixmaster.TabsActivity" />
+                android:value="com.mirsoft.easyfix.TabsActivity" />
         </activity>
         <activity
-            android:name=".OrderDetailActivity"
+            android:name="com.mirsoft.easyfix.OrderDetailActivity"
             android:label="@string/title_activity_order_detail"
-            android:parentActivityName=".TabsActivity" >
+            android:parentActivityName="com.mirsoft.easyfix.TabsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mirsoft.easyfixmaster.TabsActivity" />
+                android:value="com.mirsoft.easyfix.TabsActivity" />
         </activity>
 
         <meta-data
@@ -73,7 +73,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name="com.mirsoft.easyfix.MapsActivity"
             android:label="@string/title_activity_maps" >
         </activity>
         <meta-data

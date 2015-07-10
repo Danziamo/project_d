@@ -6,7 +6,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
-        className = "com.mirsoft.easyfixmaster.MainActivity"/>
+        className = "com.mirsoft.easyfix.MainActivity"/>
       <point      
         x = "2240"      
         y = "40"/>
@@ -14,7 +14,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
-        className = "com.mirsoft.easyfixmaster.TabsActivity"/>
+        className = "com.mirsoft.easyfix.TabsActivity"/>
       <point      
         x = "208"      
         y = "1628"/>
@@ -22,7 +22,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
-        className = "com.mirsoft.easyfixmaster.FixNavigationDrawer"/>
+        className = "com.mirsoft.easyfix.FixNavigationDrawer"/>
       <point      
         x = "3388"      
         y = "1004"/>
@@ -30,7 +30,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
-        className = "com.mirsoft.easyfixmaster.TestSIgnUp"/>
+        className = "com.mirsoft.easyfix.TestSIgnUp"/>
       <point      
         x = "1156"      
         y = "1752"/>
@@ -38,7 +38,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.MenuState"      
-        className = "com.mirsoft.easyfixmaster.SplashActivity"/>
+        className = "com.mirsoft.easyfix.SplashActivity"/>
       <point      
         x = "1764"      
         y = "248"/>
@@ -46,7 +46,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
-        className = "com.mirsoft.easyfixmaster.SplashActivity"/>
+        className = "com.mirsoft.easyfix.SplashActivity"/>
       <point      
         x = "500"      
         y = "100"/>

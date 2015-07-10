@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.mirsoft.easyfixmaster.TestSIgnUp">
+    tools:context="com.mirsoft.easyfix.TestSIgnUp">
 
     <include android:id = "@+id/toolbar"
         layout="@layout/toolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
-    <com.mirsoft.easyfixmaster.utils.SlidingTabLayout
+    <com.mirsoft.easyfix.utils.SlidingTabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

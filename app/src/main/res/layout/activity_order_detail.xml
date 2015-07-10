@@ -10,7 +10,7 @@
 
     <fragment  android:id="@+id/fragment"
         android:layout_below="@id/toolbar"
-        android:name="com.mirsoft.easyfixmaster.OrderDetailActivityFragment"
+        android:name="com.mirsoft.easyfix.OrderDetailActivityFragment"
         tools:layout="@layout/fragment_order_detail" android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

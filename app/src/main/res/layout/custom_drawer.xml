@@ -22,7 +22,7 @@
         android:layout_below="@+id/tvTextTitle"
         android:layout_centerHorizontal="true" />
 
-    <com.mirsoft.easyfixmaster.utils.RoundedImageView
+    <com.mirsoft.easyfix.utils.RoundedImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:id="@+id/iVphoto"
