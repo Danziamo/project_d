@@ -20,11 +20,10 @@ import com.github.gorbin.asne.core.listener.OnLoginCompleteListener;
 import com.github.gorbin.asne.core.persons.SocialPerson;
 import com.github.gorbin.asne.facebook.FacebookSocialNetwork;
 import com.github.gorbin.asne.vk.VkSocialNetwork;
-import com.mirsoft.easyfixmaster.R;
-import com.mirsoft.easyfixmaster.Settings;
-import com.mirsoft.easyfixmaster.SplashActivity;
-import com.mirsoft.easyfixmaster.TabsActivity;
-import com.mirsoft.easyfixmaster.common.Constants;
+import com.mirsoft.easyfix.R;
+import com.mirsoft.easyfix.Settings;
+import com.mirsoft.easyfix.TabsActivity;
+import com.mirsoft.easyfix.common.Constants;
 import com.vk.sdk.VKScope;
 
 import java.util.ArrayList;
