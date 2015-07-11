@@ -64,15 +64,13 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
 
         viewPager.setOffscreenPageLimit(4);
         /*String[] titles = new String[]{
-                getString(R.string.icon_map),
                 getString(R.string.icon_orders),
                 getString(R.string.icon_users),
                 getString(R.string.icon_history)};*/
         String[] titles = new String[]{
-                "Карта",
-                getString(R.string.icon_orders_text),
-                getString(R.string.icon_users_text),
-                getString(R.string.icon_history_text)};
+                "Заказы",
+                "База мастеров",
+                "Мои заказы"};
         pagerAdapter = new TabsPagerAdapter(getSupportFragmentManager(), titles);
         viewPager.setAdapter(pagerAdapter);
 

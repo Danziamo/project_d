@@ -38,8 +38,10 @@ public class TestFragment extends Fragment {
     private OrderType mType;
     private String mParam2;
 
-    private RecyclerView rv;
-    private OrderAdapter mOrderAdapter;
+    private RecyclerView rvActive;
+    private RecyclerView rvOld;
+    private OrderAdapter mOrderAdapterActive;
+    private OrderAdapter mOrderAdapterOld;
 
     /**
      * Use this factory method to create a new instance of
@@ -80,15 +82,33 @@ public class TestFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_test, container, false);
 
-        rv = (RecyclerView)view.findViewById(R.id.rvOrders);
-        rv.addItemDecoration(new RecyclerViewSimpleDivider(getActivity()));
-        rv.setHasFixedSize(true);
-        mOrderAdapter = new OrderAdapter(getData(), R.layout.list_item_order, getActivity());
-        rv.setAdapter(mOrderAdapter);
-        rv.setItemAnimator(new DefaultItemAnimator());
-        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvActive = (RecyclerView)view.findViewById(R.id.rvOrdersActive);
+        rvActive.addItemDecoration(new RecyclerViewSimpleDivider(getActivity()));
+        rvActive.setHasFixedSize(true);
+        mOrderAdapterActive = new OrderAdapter(getData(OrderType.ACTIVE), R.layout.list_item_order, getActivity());
+        rvActive.setAdapter(mOrderAdapterActive);
+        rvActive.setItemAnimator(new DefaultItemAnimator());
+        rvActive.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        rvOld = (RecyclerView)view.findViewById(R.id.rvOrdersOld);
+        rvOld.addItemDecoration(new RecyclerViewSimpleDivider(getActivity()));
+        rvOld.setHasFixedSize(true);
+        mOrderAdapterOld = new OrderAdapter(getData(OrderType.FINISHED), R.layout.list_item_order, getActivity());
+        rvOld.setAdapter(mOrderAdapterActive);
+        rvOld.setItemAnimator(new DefaultItemAnimator());
+        rvOld.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
+    }
+
+    public ArrayList<Order> getData(OrderType type) {
+        if(type == OrderType.NEW)
+            return  ((TabsActivity)getActivity()).getNewOrders();
+        if(type == OrderType.ACTIVE)
+            return ((TabsActivity)getActivity()).getActiveOrders();
+        if(type == OrderType.FINISHED)
+            return ((TabsActivity)getActivity()).getFinishedOrders();
+        return null;
     }
 
     public ArrayList<Order> getData() {
@@ -105,14 +125,15 @@ public class TestFragment extends Fragment {
     public class UpdateDateReciever extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            mOrderAdapter.setDataset(getData());
+            mOrderAdapterActive.setDataset(getData(OrderType.ACTIVE));
+            mOrderAdapterOld.setDataset(getData(OrderType.FINISHED));
         }
     }
 
     public class UpdateFinishedDateReciever extends BroadcastReceiver {
     @Override
         public void onReceive(Context context, Intent intent) {
-            mOrderAdapter.setDataset(getData());
+            //mOrderAdapterActive.setDataset(getData());
         }
     }
 
