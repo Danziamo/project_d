@@ -1,5 +1,6 @@
 package com.mirsoft.easyfix.api;
 
+import com.mirsoft.easyfix.models.SocialUser;
 import com.mirsoft.easyfix.models.User;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface UserApi {
 
     @GET("/users")
     List<User> getAll(@Query("offset") int offset, @Query("limit") int limit);
+
+    @POST("/social-register")
+    void add(@Body SocialUser user, Callback<Object> callback);
 }

@@ -17,24 +17,35 @@ import android.widget.Toast;
 import com.github.gorbin.asne.core.SocialNetwork;
 import com.github.gorbin.asne.core.SocialNetworkManager;
 import com.github.gorbin.asne.core.listener.OnLoginCompleteListener;
+import com.github.gorbin.asne.core.listener.OnRequestSocialPersonCompleteListener;
 import com.github.gorbin.asne.core.persons.SocialPerson;
 import com.github.gorbin.asne.facebook.FacebookSocialNetwork;
 import com.github.gorbin.asne.vk.VkSocialNetwork;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
+import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.common.Constants;
+import com.mirsoft.easyfix.models.RestError;
+import com.mirsoft.easyfix.models.Session;
+import com.mirsoft.easyfix.models.SocialSession;
+import com.mirsoft.easyfix.service.ServiceGenerator;
 import com.vk.sdk.VKScope;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SplashActivityFragment extends Fragment implements SocialNetworkManager.OnInitializationCompleteListener, OnLoginCompleteListener, View.OnClickListener{
+public class SplashActivityFragment extends Fragment implements SocialNetworkManager.OnInitializationCompleteListener, OnLoginCompleteListener
+        , View.OnClickListener, OnRequestSocialPersonCompleteListener{
 
     public static final int FACEBOOK = 4;
     public static final int VKONTAKTE = 5;
@@ -92,7 +103,7 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
         btnSignUp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                openSignUp();
+                openSignUp(null, null);
             }
         });
         btnLogin.setOnClickListener(new OnClickListener() {
@@ -182,17 +193,20 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
     }
 
     private void openLogin() {
-        String backStateName = getActivity().getFragmentManager().getClass().getName();
+        SocialNetwork socialNetwork = mSocialNetworkManager.getSocialNetwork(FACEBOOK);
+        socialNetwork.setOnRequestCurrentPersonCompleteListener(this);
+        socialNetwork.requestCurrentPerson();
+        /*String backStateName = getActivity().getFragmentManager().getClass().getName();
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, LoginFragment.newInstance(null, null))
                 .addToBackStack(backStateName)
-                .commit();
+                .commit();*/
     }
 
-    private void openSignUp() {
+    private void openSignUp(String provider, String profileId) {
         String backStateName = getActivity().getFragmentManager().getClass().getName();
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, RegistrationFragment.newInstance(null, null))
+                .replace(R.id.container, RegistrationFragment.newInstance(provider, profileId))
                 .addToBackStack(backStateName)
                 .commit();
     }
@@ -232,12 +246,14 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
 
     @Override
     public void onLoginSuccess(int networkId) {
-
+        SocialNetwork socialNetwork = mSocialNetworkManager.getSocialNetwork(networkId);
+        socialNetwork.setOnRequestCurrentPersonCompleteListener(this);
+        socialNetwork.requestCurrentPerson();
     }
 
     @Override
     public void onError(int i, String s, String s1, Object o) {
-
+        Toast.makeText(getActivity(), s1, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -267,6 +283,47 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
         } else {
             Toast.makeText(getActivity(), socialNetwork.getAccessToken().token, Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onRequestSocialPersonSuccess(int i, SocialPerson socialPerson) {
+        final Settings settings = new Settings(getActivity());
+        SessionApi api = ServiceGenerator.createService(SessionApi.class, settings);
+        final SocialSession ss = new SocialSession();
+        ss.id = socialPerson.id;
+        ss.provider = "fb";
+        api.login(ss, new Callback<Session>() {
+            @Override
+            public void success(Session session, Response response) {
+                getActivity().startActivity(new Intent(getActivity(), TabsActivity.class));
+                settings.setUserId(session.id);
+                settings.setAccessToken(session.token);
+                getActivity().finish();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (error.getResponse() != null) {
+                    RestError body = (RestError)error.getBodyAs(RestError.class);
+                    Toast.makeText(getActivity(), body.toString(), Toast.LENGTH_SHORT).show();
+                    if (error.getResponse().getStatus() == 404) {
+                        if (body.getCode().equals("002_SOCIAL_NOT_VERIFIED")) {
+                            goToActivation(true);
+                        } else {
+                            openSignUp(ss.provider, ss.id);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    private void goToActivation(boolean isSocial) {
+        String backStateName = getActivity().getFragmentManager().getClass().getName();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, AccountActivationFragment.newInstance(isSocial, null))
+                .addToBackStack(backStateName)
+                .commit();
     }
 }
 

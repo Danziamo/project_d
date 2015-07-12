@@ -3,17 +3,27 @@ package com.mirsoft.easyfix.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.mirsoft.easyfix.R;
+import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
+import com.mirsoft.easyfix.api.SessionApi;
+import com.mirsoft.easyfix.models.ActivationCode;
+import com.mirsoft.easyfix.models.Session;
+import com.mirsoft.easyfix.service.ServiceGenerator;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +42,7 @@ public class AccountActivationFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private Boolean isSocial;
     private String mParam2;
 
 
@@ -45,10 +55,10 @@ public class AccountActivationFragment extends Fragment {
      * @return A new instance of fragment AccountActivationFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AccountActivationFragment newInstance(String param1, String param2) {
+    public static AccountActivationFragment newInstance(Boolean param1, String param2) {
         AccountActivationFragment fragment = new AccountActivationFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putBoolean(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -62,7 +72,7 @@ public class AccountActivationFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            isSocial = getArguments().getBoolean(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -78,11 +88,54 @@ public class AccountActivationFragment extends Fragment {
         btn_authorization.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDrawer();
+                activate();
             }
         });
 
         return view;
+    }
+
+    private void activate () {
+        String code = et_code_sms.getText().toString();
+        if (code.length() != 4) {
+            et_code_sms.setError("4 simvola");
+            et_code_sms.requestFocus();
+            return;
+        }
+        ActivationCode activationCode = new ActivationCode();
+        activationCode.code = code;
+        SessionApi api = ServiceGenerator.createService(SessionApi.class, new Settings(getActivity()));
+        if (isSocial) {
+            api.activateSocial(activationCode, new Callback<Session>() {
+                @Override
+                public void success(Session session, Response response) {
+                    Settings settings = new Settings(getActivity());
+                    settings.setAccessToken(session.token);
+                    settings.setUserId(session.id);
+                    openDrawer();
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(getActivity(), "Cannot activate", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            api.activate(activationCode, new Callback<Session>() {
+                @Override
+                public void success(Session session, Response response) {
+                    Settings settings = new Settings(getActivity());
+                    settings.setAccessToken(session.token);
+                    settings.setUserId(session.id);
+                    openDrawer();
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(getActivity(), "Cannot activate", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void openDrawer(){

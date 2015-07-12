@@ -56,7 +56,7 @@ public class MainActivityFragment extends Fragment {
                     }
 
                     @Override
-                    public void failure(RetrofitError error) {
+                    public void failure(RetroftiError error) {
                         tvInfo.setText(error.toString());
                     }
                 });
