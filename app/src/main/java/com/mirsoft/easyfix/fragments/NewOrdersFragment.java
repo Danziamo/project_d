@@ -56,6 +56,7 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
 
 
 
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.

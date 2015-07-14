@@ -46,6 +46,7 @@
         <activity
             android:name="com.mirsoft.easyfix.TabsActivity"
             android:label="@string/title_activity_tabs"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
@@ -59,7 +60,7 @@
         <activity
             android:name="com.mirsoft.easyfix.OrderDetailActivity"
             android:label="@string/title_activity_order_detail"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenSize"
             android:parentActivityName="com.mirsoft.easyfix.TabsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
