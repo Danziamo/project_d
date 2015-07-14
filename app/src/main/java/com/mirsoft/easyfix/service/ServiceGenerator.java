@@ -11,7 +11,7 @@ import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
 public class ServiceGenerator {
-    private static String ROOT = "http://192.168.0.107:1337/api/v1";
+    private static String ROOT = "http://192.168.0.101:1337/api/v1";
     private static String MAIN_URI = "http://192.168.0.112:8000/api/v1";
 
     private ServiceGenerator() {
@@ -24,7 +24,7 @@ public class ServiceGenerator {
                 .create();
 
         RestAdapter.Builder builder = new RestAdapter.Builder()
-                .setEndpoint(MAIN_URI)
+                .setEndpoint(ROOT)
                 .setConverter(new GsonConverter(gson))
                 .setRequestInterceptor(new SessionRequestInterceptor(settings))
                 .setLogLevel(RestAdapter.LogLevel.FULL)

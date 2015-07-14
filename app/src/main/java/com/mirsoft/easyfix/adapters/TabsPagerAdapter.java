@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.mirsoft.easyfix.fragments.MapFragment;
 import com.mirsoft.easyfix.common.OrderType;
+import com.mirsoft.easyfix.fragments.MasterListFragment;
 import com.mirsoft.easyfix.fragments.NewOrdersFragment;
 import com.mirsoft.easyfix.fragments.TestFragment;
 
@@ -24,7 +25,7 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return NewOrdersFragment.newInstance(null, null);
             case 1:
-                return NewOrdersFragment.newInstance(null, null);
+                return MasterListFragment.newInstance(null, null);
             case 2:
                 return TestFragment.newInstance(OrderType.FINISHED, null);
             default:
