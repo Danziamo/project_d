@@ -1,4 +1,4 @@
-package com.mirsoft.easyfix.service;
+package com.mirsoft.easyfix.networking.service;
 
 import com.mirsoft.easyfix.api.SessionApi;
 

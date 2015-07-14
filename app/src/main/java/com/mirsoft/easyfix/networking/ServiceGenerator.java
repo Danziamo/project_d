@@ -1,4 +1,4 @@
-package com.mirsoft.easyfix.service;
+package com.mirsoft.easyfix.networking;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,6 +28,7 @@ public class ServiceGenerator {
                 .setConverter(new GsonConverter(gson))
                 .setRequestInterceptor(new SessionRequestInterceptor(settings))
                 .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setErrorHandler(new CustomErrorHandler())
                 .setClient(new OkClient(new OkHttpClient()));
 
         RestAdapter adapter = builder.build();

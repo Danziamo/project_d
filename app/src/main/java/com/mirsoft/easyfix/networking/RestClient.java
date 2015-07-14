@@ -1,4 +1,4 @@
-package com.mirsoft.easyfix.service;
+package com.mirsoft.easyfix.networking;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -7,6 +7,7 @@ import com.mirsoft.easyfix.api.OrderApi;
 import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.api.SessionRequestInterceptor;
 import com.mirsoft.easyfix.api.UserApi;
+import com.mirsoft.easyfix.networking.service.SessionService;
 
 import dagger.Module;
 import dagger.Provides;

@@ -23,7 +23,7 @@ import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.Session;
-import com.mirsoft.easyfix.service.ServiceGenerator;
+import com.mirsoft.easyfix.networking.ServiceGenerator;
 import com.mirsoft.easyfix.utils.RoundedImageView;
 
 import java.util.ArrayList;

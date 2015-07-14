@@ -17,7 +17,7 @@ import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.models.Session;
-import com.mirsoft.easyfix.service.ServiceGenerator;
+import com.mirsoft.easyfix.networking.ServiceGenerator;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;

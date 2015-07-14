@@ -14,7 +14,7 @@ import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.api.UserApi;
 import com.mirsoft.easyfix.models.SocialUser;
 import com.mirsoft.easyfix.models.User;
-import com.mirsoft.easyfix.service.ServiceGenerator;
+import com.mirsoft.easyfix.networking.ServiceGenerator;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import retrofit.Callback;

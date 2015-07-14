@@ -19,7 +19,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mirsoft.easyfix.api.OrderApi;
 import com.mirsoft.easyfix.models.Order;
-import com.mirsoft.easyfix.service.ServiceGenerator;
+import com.mirsoft.easyfix.networking.ServiceGenerator;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;

@@ -1,4 +1,4 @@
-package com.mirsoft.easyfix.models;
+package com.mirsoft.easyfix.networking.models;
 
 import com.google.gson.annotations.Expose;
 

@@ -26,10 +26,10 @@ import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.common.Constants;
-import com.mirsoft.easyfix.models.RestError;
+import com.mirsoft.easyfix.networking.models.RestError;
 import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.models.SocialSession;
-import com.mirsoft.easyfix.service.ServiceGenerator;
+import com.mirsoft.easyfix.networking.ServiceGenerator;
 import com.vk.sdk.VKScope;
 
 import java.util.ArrayList;
