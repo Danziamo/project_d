@@ -4,6 +4,7 @@ package com.mirsoft.easyfix.fragments;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ import com.mirsoft.easyfix.OrderDetailActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.adapters.OrderAdapter;
+import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.utils.RecyclerViewSimpleDivider;
 
@@ -83,6 +85,7 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getActivity().registerReceiver(new UpdateDateReciever(), new IntentFilter("update"));
     }
 
     @Override
@@ -140,6 +143,7 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
 
     private void displayOnMap() {
         mOrderMarkerMap = new HashMap<>();
+        mGoogleMap.clear();
         ArrayList<Order> orderList = getData();
         for (int i = 0; i < orderList.size(); ++i) {
             Order order = orderList.get(i);
@@ -152,13 +156,13 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
     }
 
     private ArrayList<Order> getData() {
-        mOrderMarkerMap.clear();
         return ((TabsActivity)getActivity()).getNewOrders();
     }
 
     public class UpdateDateReciever extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            mOrderAdapter.setDataset(getData());
             displayOnMap();
         }
     }

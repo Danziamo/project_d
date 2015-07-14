@@ -9,14 +9,15 @@ import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 public interface OrderApi {
 
     @GET("/users/{id}/orders")
     void getByUserId(@Path("id") int id, Callback<ArrayList<Order>> callback);
 
-    @GET("/users/{id}/orders/?status={statuses}")
-    void getByUserIdAndStatuses(@Path("id") int id, @Path("statuses") String statuses, Callback<ArrayList<Order> > callback);
+    @GET("/users/{id}/orders")
+    void getByUserIdAndStatuses(@Path("id") int id, @Query("status") String statuses, Callback<ArrayList<Order> > callback);
 
     @GET("/list-pending-orders/{id}")
     void getPendingOrders(@Path("id") int id, Callback<ArrayList<Order> > callback);
