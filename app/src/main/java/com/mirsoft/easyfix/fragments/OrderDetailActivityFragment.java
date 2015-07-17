@@ -1,4 +1,4 @@
-package com.mirsoft.easyfix;
+package com.mirsoft.easyfix.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -17,6 +17,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mirsoft.easyfix.R;
+import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.api.OrderApi;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.networking.ServiceGenerator;

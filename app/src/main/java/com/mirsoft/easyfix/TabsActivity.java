@@ -62,7 +62,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         viewPager = (ViewPager)findViewById(R.id.pager);
         tabLayout = (TabLayout)findViewById(R.id.tabLayout);
 
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(3);
         /*String[] titles = new String[]{
                 getString(R.string.icon_orders),
                 getString(R.string.icon_users),

@@ -1,4 +1,4 @@
-package com.mirsoft.easyfix;
+package com.mirsoft.easyfix.fragments;
 
 
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.adapters.ReviewAdapter;
 import com.mirsoft.easyfix.models.Review;
 
