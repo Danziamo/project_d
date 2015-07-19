@@ -1,7 +1,9 @@
 package com.mirsoft.easyfix.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,13 +11,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.mirsoft.easyfix.ClientOrderDetailsActivity;
 import com.mirsoft.easyfix.R;
+import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.adapters.MasterAdapter;
+import com.mirsoft.easyfix.api.UserApi;
 import com.mirsoft.easyfix.models.User;
+import com.mirsoft.easyfix.networking.ServiceGenerator;
 import com.mirsoft.easyfix.utils.RecyclerViewSimpleDivider;
 
 import java.util.ArrayList;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,8 +91,35 @@ public class MasterListFragment extends Fragment {
         rvMaster.setItemAnimator(new DefaultItemAnimator());
         rvMaster.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        FloatingActionButton btnCreate = (FloatingActionButton)getActivity().findViewById(R.id.btnSwitch);
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ClientOrderDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
+        getMastersList();
+
         return view;
     }
 
+    private void getMastersList() {
+        UserApi api = ServiceGenerator.createService(UserApi.class, new Settings(getActivity()));
+        api.getAllByQuery("plumber", new Callback<ArrayList<User>>() {
+            @Override
+            public void success(ArrayList<User> users, Response response) {
+                showList(users);
+            }
 
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+    }
+
+    private void showList(ArrayList<User> users) {
+        rvAdapter.setDataset(users);
+    }
 }

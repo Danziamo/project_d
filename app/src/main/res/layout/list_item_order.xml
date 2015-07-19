@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:textColor="@color/blacktext2"
-    android:padding="10dp"
     android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/imageOrder"
+        android:padding="10dp"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:scaleType="centerCrop"/>
@@ -24,8 +24,6 @@
             android:id="@+id/tvAddress"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_toRightOf="@id/imageOrder"
-            android:layout_toEndOf="@id/imageOrder"
             android:gravity="center_vertical|end"
             android:padding="@dimen/spacing_large"
             android:textColor="@color/blacktext2"
@@ -37,9 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_weight="0.5"
-            android:layout_toRightOf="@id/imageOrder"
-            android:layout_toEndOf="@id/imageOrder"
-            android:layout_below="@id/tvAddress"
             android:gravity="center_vertical|end"
             android:padding="@dimen/spacing_large"
             android:textColor="@color/blacktext2"

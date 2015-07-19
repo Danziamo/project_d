@@ -26,5 +26,7 @@
     <string name="title_activity_order_detail">OrderDetailActivity</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_create_order">CreateOrderActivity</string>
+    <string name="title_activity_master_info">MasterInfoActivity</string>
+    <string name="title_activity_create_new_order">CreateNewOrder</string>
 
 </resources>

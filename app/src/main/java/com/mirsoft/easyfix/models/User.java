@@ -25,6 +25,11 @@ public class User implements Serializable{
     private String role;
 
     @Expose
+    private float rating;
+    @Expose
+    private int reviewsCount;
+
+    @Expose
     private String token;
 
     public User() {
@@ -53,6 +58,10 @@ public class User implements Serializable{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return this.lastName + " " + this.firstName;
     }
 
     public String getPassword() {
@@ -110,6 +119,22 @@ public class User implements Serializable{
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public float getRating() {
+        return this.rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public int getReviewsCount() {
+        return this.reviewsCount;
+    }
+
+    public void setReviewsCount(int reviewsCount) {
+        this.reviewsCount = reviewsCount;
     }
 
     @Override

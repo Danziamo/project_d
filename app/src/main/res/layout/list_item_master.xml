@@ -20,7 +20,7 @@
             android:id="@+id/tvFullName"
             android:layout_weight="1"/>
 
-        <AppCompatRatingBar
+        <android.support.v7.widget.AppCompatRatingBar
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/ratingBar"

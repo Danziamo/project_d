@@ -1,6 +1,7 @@
 package com.mirsoft.easyfix.api;
 
 import com.mirsoft.easyfix.models.Order;
+import com.mirsoft.easyfix.networking.models.NOrder;
 
 import java.util.ArrayList;
 
@@ -27,4 +28,7 @@ public interface OrderApi {
 
     @POST("/users/{userId}/orders/{orderId}/post_contractor_request")
     void postRequest(@Body Object object, @Path("userId") int userId, @Path("orderId") int orderId, Callback<Object> callback);
+
+    @POST("/users/{userId}/orders")
+    void createOrder(@Body NOrder order, @Path("userId") int userId, Callback<Order> callback);
 }

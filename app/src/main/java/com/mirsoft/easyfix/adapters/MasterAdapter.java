@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mirsoft.easyfix.MasterInfoActivity;
 import com.mirsoft.easyfix.OrderDetailActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.models.Order;
@@ -38,12 +39,14 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
+        public View mView;
         public TextView mFullNameView;
         public TextView mPhoneView;
         public TextView mReviewView;
         public AppCompatRatingBar mRatingView;
         public ViewHolder(View v) {
             super(v);
+            mView = v;
             mFullNameView = (TextView) itemView.findViewById(R.id.tvFullName);
             mPhoneView = (TextView) itemView.findViewById(R.id.tvPhone);
             mReviewView = (TextView) itemView.findViewById(R.id.tvReviews);
@@ -62,7 +65,7 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Clicked", Toast.LENGTH_SHORT).show();
+
             }
         });
         return new ViewHolder(v);
@@ -70,16 +73,25 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         //holder.mTextView.setText(mDataset[position]);
         User item = items.get(position);
         holder.mFullNameView.setText(item.getFirstName());
-        holder.mReviewView.setText(item.getRole());
+        holder.mReviewView.setText(String.valueOf(item.getReviewsCount()));
         holder.mPhoneView.setText(item.getPhone());
-        holder.mRatingView.setRating(item.getId()%6);
+        holder.mRatingView.setRating(item.getRating());
         holder.itemView.setTag(item);
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MasterInfoActivity.class);
+                intent.putExtra("MASTER", items.get(position));
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -24,7 +24,7 @@ public class ServiceGenerator {
                 .create();
 
         RestAdapter.Builder builder = new RestAdapter.Builder()
-                .setEndpoint(ROOT)
+                .setEndpoint(MAIN_URI)
                 .setConverter(new GsonConverter(gson))
                 .setRequestInterceptor(new SessionRequestInterceptor(settings))
                 .setLogLevel(RestAdapter.LogLevel.FULL)

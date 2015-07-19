@@ -3,6 +3,7 @@ package com.mirsoft.easyfix.api;
 import com.mirsoft.easyfix.models.SocialUser;
 import com.mirsoft.easyfix.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -24,4 +25,7 @@ public interface UserApi {
 
     @POST("/social-register")
     void add(@Body SocialUser user, Callback<Object> callback);
+
+    @GET("/users")
+    void getAllByQuery(@Query("specialty") String specialty, Callback<ArrayList<User> > callback);
 }

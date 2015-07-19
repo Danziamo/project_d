@@ -2,31 +2,24 @@ package com.mirsoft.easyfix;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mirsoft.easyfix.R;
-import com.mirsoft.easyfix.fragments.CreateOrderFragment;
 
-public class CreateOrderActivity extends AppCompatActivity {
+public class MasterInfoActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_order);
-
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, CreateOrderFragment.newInstance(null, null))
-                    .commit();
-        }
+        setContentView(R.layout.activity_master_info);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_create_order, menu);
+        getMenuInflater().inflate(R.menu.menu_master_info, menu);
         return true;
     }
 

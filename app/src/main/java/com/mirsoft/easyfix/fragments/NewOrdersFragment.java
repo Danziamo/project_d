@@ -124,7 +124,7 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        FloatingActionButton btnSwitch = (FloatingActionButton)view.findViewById(R.id.btnSwitch);
+        FloatingActionButton btnSwitch = (FloatingActionButton)getActivity().findViewById(R.id.btnSwitch);
         btnSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +137,6 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
                 }
             }
         });
-
 
         return view;
     }

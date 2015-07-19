@@ -86,8 +86,16 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name=".CreateOrderActivity"
+            android:name=".ClientOrderDetailsActivity"
             android:label="@string/title_activity_create_order"
+            android:parentActivityName=".TabsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mirsoft.easyfix.TabsActivity" />
+        </activity>
+        <activity
+            android:name=".MasterInfoActivity"
+            android:label="@string/title_activity_master_info"
             android:parentActivityName=".TabsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
