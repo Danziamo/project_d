@@ -16,12 +16,14 @@ import android.view.ViewGroup;
 
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.TabsActivity;
+import com.mirsoft.easyfix.adapters.SectionedOrderAdapter;
 import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.utils.RecyclerViewSimpleDivider;
 import com.mirsoft.easyfix.adapters.OrderAdapter;
 import com.mirsoft.easyfix.models.Order;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,7 +75,7 @@ public class TestFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         getActivity().registerReceiver(new UpdateDateReciever(), new IntentFilter("update"));
-        getActivity().registerReceiver(new UpdateFinishedDateReciever(), new IntentFilter("updatefinished"));
+        //getActivity().registerReceiver(new UpdateFinishedDateReciever(), new IntentFilter("updatefinished"));
     }
 
     @Override
@@ -90,13 +92,25 @@ public class TestFragment extends Fragment {
         rvActive.setItemAnimator(new DefaultItemAnimator());
         rvActive.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        rvOld = (RecyclerView)view.findViewById(R.id.rvOrdersOld);
+        /*rvOld = (RecyclerView)view.findViewById(R.id.rvOrdersOld);
         rvOld.addItemDecoration(new RecyclerViewSimpleDivider(getActivity()));
         rvOld.setHasFixedSize(true);
         mOrderAdapterOld = new OrderAdapter(getData(OrderType.FINISHED), R.layout.list_item_order, getActivity());
         rvOld.setAdapter(mOrderAdapterActive);
         rvOld.setItemAnimator(new DefaultItemAnimator());
-        rvOld.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvOld.setLayoutManager(new LinearLayoutManager(getActivity()));*/
+
+        List<SectionedOrderAdapter.Section> sections = new ArrayList<>();
+        sections.add(new SectionedOrderAdapter.Section(0, "Active"));
+        //sections.add(new SectionedOrderAdapter.Section(4, "Finished"));
+
+        SectionedOrderAdapter.Section[] dummy = new SectionedOrderAdapter.Section[sections.size()];
+        SectionedOrderAdapter mSectionedAdapter = new
+                SectionedOrderAdapter(getActivity() ,R.layout.recycledview_section,R.id.section_text, mOrderAdapterActive);
+        mSectionedAdapter.setSections(sections.toArray(dummy));
+
+        //Apply this adapter to the RecyclerView
+        rvActive.setAdapter(mSectionedAdapter);
 
         return view;
     }
@@ -126,18 +140,6 @@ public class TestFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             mOrderAdapterActive.setDataset(getData(OrderType.ACTIVE));
-            mOrderAdapterOld.setDataset(getData(OrderType.FINISHED));
         }
     }
-
-    public class UpdateFinishedDateReciever extends BroadcastReceiver {
-    @Override
-        public void onReceive(Context context, Intent intent) {
-            //mOrderAdapterActive.setDataset(getData());
-        }
-    }
-
-
-
-
 }
