@@ -79,7 +79,7 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
         //holder.mTextView.setText(mDataset[position]);
         User item = items.get(position);
         holder.mFullNameView.setText(item.getFirstName());
-        holder.mReviewView.setText(String.valueOf(item.getReviewsCount()));
+        holder.mReviewView.setText("Отзывов: " + String.valueOf(item.getReviewsCount()));
         holder.mPhoneView.setText(item.getPhone());
         holder.mRatingView.setRating(item.getRating());
         holder.itemView.setTag(item);

@@ -35,4 +35,10 @@
     <string name="accountactivate">Вам будет выслано смс с кодом\n подтверждения вашего номера.\n Введите его в поле ниже</string>
     <string name="codesms">Код с СМС</string>
     <string name="btn_authorization">Авторизация</string>
+    <string name="submit">Отправить</string>
+    <string name="profession">Профессия</string>
+    <string name="experience">Опыт</string>
+    <string name="description">Проблема</string>
+    <string name="adress">Адрес</string>
+    <string name="name">Имя</string>
 </resources>

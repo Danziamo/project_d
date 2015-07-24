@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.mirsoft.easyfix.R;
@@ -33,6 +34,7 @@ public class MasterInfoFragment extends Fragment {
     MaterialEditText etClientAddress;
     MaterialEditText etClientPhone;
     MaterialEditText etClientDescription;
+    private RatingBar mRaringBar;
 
     private User master;
 
@@ -46,6 +48,8 @@ public class MasterInfoFragment extends Fragment {
 
         master = (User)getActivity().getIntent().getSerializableExtra("MASTER");
 
+        mRaringBar = (RatingBar)view.findViewById(R.id.rating_master);
+        addListenerOnRatingBar();
         etPhone = (MaterialEditText)view.findViewById(R.id.etPhone);
         etFullName = (MaterialEditText)view.findViewById(R.id.etFullName);
         etClientAddress = (MaterialEditText)view.findViewById(R.id.etClientAddress);
@@ -65,6 +69,10 @@ public class MasterInfoFragment extends Fragment {
 
         return view;
     }
+
+    private void addListenerOnRatingBar() {
+    }
+
 
     private void createOrderRequest() {
 

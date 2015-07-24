@@ -10,14 +10,18 @@
     android:orientation="vertical"
     tools:context="com.mirsoft.easyfix.MasterInfoFragment">
 
-    <android.support.v7.widget.AppCompatRatingBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <RatingBar
+        android:id="@+id/rating_master"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:numStars="5"
+        android:stepSize="0.5"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
         style="@style/Input.Material"
-        app:met_helperText="Name"
-        android:hint="Name"
+        app:met_helperText="@string/name"
+        android:hint="@string/name"
         android:inputType="textPersonName"
         android:enabled="false"
         android:id="@+id/etFullName" />
@@ -25,19 +29,24 @@
     <com.rengwuxian.materialedittext.MaterialEditText
         style="@style/Input.Material"
         android:id="@+id/etPhone"
-        app:met_helperText="Phone"
+        app:met_helperText="@string/phone_number"
         android:hint="@string/phone_number"
         android:enabled="false"
         android:inputType="phone" />
 
+    <com.rengwuxian.materialedittext.MaterialEditText
+        style="@style/Input.Material"
+        android:id="@+id/etProfession"
+        app:met_helperText="@string/profession"
+        android:hint="@string/profession"
+        android:enabled="false"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
         style="@style/Input.Material"
-        app:met_helperText="Address"
-        android:hint="Address"
+        app:met_helperText="@string/adress"
+        android:hint="@string/adress"
         android:inputType="text"
         android:id="@+id/etClientAddress" />
-
 
     <com.rengwuxian.materialedittext.MaterialEditText
         style="@style/Input.Material"
@@ -48,8 +57,8 @@
 
     <com.rengwuxian.materialedittext.MaterialEditText
         style="@style/Input.Material"
-        app:met_helperText="description"
-        android:hint="description"
+        app:met_helperText="@string/description"
+        android:hint="@string/description"
         android:inputType="text"
         android:id="@+id/etClientDescription" />
 
@@ -57,6 +66,7 @@
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit" />
+        android:text="@string/submit"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
