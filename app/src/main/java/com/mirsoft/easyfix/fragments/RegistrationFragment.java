@@ -21,17 +21,11 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RegistrationFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RegistrationFragment extends Fragment implements View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
+    private static final String ARG_SOCIAL_PROVIDER = "socialProvider";
+    private static final String ARG_SOCIAL_PROFILE_ID = "socialProfileId";
+
     private MaterialEditText etphone;
     private MaterialEditText etpassword;
     private Button btnregistration;
@@ -41,21 +35,11 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     private String mSocialProvider;
     private String mSocialProfileId;
 
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RegistrationFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RegistrationFragment newInstance(String param1, String param2) {
+    public static RegistrationFragment newInstance(String socialProvider, String socialProfileId) {
         RegistrationFragment fragment = new RegistrationFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_SOCIAL_PROVIDER, socialProvider);
+        args.putString(ARG_SOCIAL_PROFILE_ID, socialProfileId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,8 +52,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mSocialProvider = getArguments().getString(ARG_PARAM1);
-            mSocialProfileId = getArguments().getString(ARG_PARAM2);
+            mSocialProvider = getArguments().getString(ARG_SOCIAL_PROVIDER);
+            mSocialProfileId = getArguments().getString(ARG_SOCIAL_PROFILE_ID);
         }
     }
 
@@ -121,7 +105,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             User user = new User();
             user.setPhone(phone);
             user.setPassword(password);
-            final Settings settings = new Settings(getActivity());
+//            final Settings settings = new Settings(getActivity());
             UserApi api = ServiceGenerator.createService(UserApi.class);
             api.add(user, new Callback<User>() {
                 @Override
@@ -145,7 +129,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                 }
             });
         } else {
-            final Settings settings = new Settings(getActivity());
+//            final Settings settings = new Settings(getActivity());
             UserApi api = ServiceGenerator.createService(UserApi.class);
             SocialUser user = new SocialUser();
             user.id = mSocialProfileId;

@@ -30,6 +30,7 @@ import com.mirsoft.easyfix.networking.models.RestError;
 import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.models.SocialSession;
 import com.mirsoft.easyfix.networking.ServiceGenerator;
+import com.mirsoft.easyfix.utils.SocialNetworkHelper;
 import com.vk.sdk.VKScope;
 
 import java.util.ArrayList;
@@ -44,12 +45,8 @@ import retrofit.client.Response;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SplashActivityFragment extends Fragment implements SocialNetworkManager.OnInitializationCompleteListener, OnLoginCompleteListener
+public class SplashActivityFragment extends BaseFragment implements SocialNetworkManager.OnInitializationCompleteListener, OnLoginCompleteListener
         , View.OnClickListener, OnRequestSocialPersonCompleteListener{
-
-    public static final int FACEBOOK = 4;
-    public static final int VKONTAKTE = 5;
-    public static final int ODNOKLASSNIKI = 6;
 
     Button btnLogin;
     Button btnSignUp;
@@ -92,26 +89,13 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_splash, container, false);
-        RelativeLayout splashLayout = (RelativeLayout)view.findViewById(R.id.layoutSplash);
-        Animation animation = new TranslateAnimation(1500,0,0,1000);
-        animation.setDuration(1500);
-        splashLayout.startAnimation(animation);
         checkSession();
         tvInfo = (TextView) view.findViewById(R.id.tvInfo);
         btnLogin = (Button) view.findViewById(R.id.btnLogin);
         btnSignUp = (Button) view.findViewById(R.id.btnSignUp);
-        btnSignUp.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSignUp(null, null);
-            }
-        });
-        btnLogin.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openLogin();
-            }
-        });
+
+        btnSignUp.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
 
         btnFacebook = (Button)view.findViewById(R.id.facebook);
         btnFacebook.setOnClickListener(this);
@@ -120,23 +104,11 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
         btnOdnoklassniki = (Button)view.findViewById(R.id.ok);
         btnOdnoklassniki.setOnClickListener(this);
 
-        String FACEBOOK_KEY = getActivity().getString(R.string.facebook_app_id);
         String VKONTAKTE_KEY = getActivity().getString(R.string.vk_app_id);
-        /*String OK_APP_ID = getActivity().getString(R.string.ok_app_id);
-        String OK_PUBLIC_KEY = getActivity().getString(R.string.ok_public_key);
-        String OK_SECRET_KEY = getActivity().getString(R.string.ok_secret_key);*/
 
         ArrayList<String> fbScope = new ArrayList<String>();
         fbScope.addAll(Arrays.asList("public_profile, email, user_friends"));
 
-        //FacebookSocialNetwork fbNetwork = new FacebookSocialNetwork(this, fbScope);
-
-
-        /*mSocialNetworkManager = new SocialNetworkManager();
-
-        mSocialNetworkManager.addSocialNetwork(fbNetwork);*/
-        /*mSocialNetworkManager.addSocialNetwork(vkNetwork);
-        mSocialNetworkManager.addSocialNetwork(okNetwork);*/
         mSocialNetworkManager = (SocialNetworkManager) getFragmentManager().findFragmentByTag(Constants.SOCIAL_NETWORK_TAG);
         if (mSocialNetworkManager == null) {
             mSocialNetworkManager = new SocialNetworkManager();
@@ -157,14 +129,6 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
             VkSocialNetwork vkNetwork = new VkSocialNetwork(this, VKONTAKTE_KEY, vkScope);
             mSocialNetworkManager.addSocialNetwork(vkNetwork);
 
-            /*//Init and add to manager TwitterSocialNetwork
-            TwitterSocialNetwork twNetwork = new TwitterSocialNetwork(this, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
-            mSocialNetworkManager.addSocialNetwork(twNetwork);
-
-            //Init and add to manager LinkedInSocialNetwork
-            LinkedInSocialNetwork liNetwork = new LinkedInSocialNetwork(this, LINKEDIN_CONSUMER_KEY, LINKEDIN_CONSUMER_SECRET, linkedInScope);
-            mSocialNetworkManager.addSocialNetwork(liNetwork);*/
-
             //Initiate every network from mSocialNetworkManager
             getFragmentManager().beginTransaction().add(mSocialNetworkManager, Constants.SOCIAL_NETWORK_TAG).commit();
             mSocialNetworkManager.setOnInitializationCompleteListener(this);
@@ -174,13 +138,9 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
                 List<SocialNetwork> socialNetworks = mSocialNetworkManager.getInitializedSocialNetworks();
                 for (SocialNetwork socialNetwork : socialNetworks) {
                     socialNetwork.setOnLoginCompleteListener(this);
-                    initSocialNetwork(socialNetwork);
                 }
             }
         }
-
-        /*getFragmentManager().beginTransaction().add(mSocialNetworkManager, Constants.SOCIAL_NETWORK_TAG).commit();
-        mSocialNetworkManager.setOnInitializationCompleteListener(this);*/
         return view;
     }
 
@@ -193,14 +153,22 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
     }
 
     private void openLogin() {
-        SocialNetwork socialNetwork = mSocialNetworkManager.getSocialNetwork(FACEBOOK);
-        socialNetwork.setOnRequestCurrentPersonCompleteListener(this);
-        socialNetwork.requestCurrentPerson();
-        /*String backStateName = getActivity().getFragmentManager().getClass().getName();
+        String backStateName = getActivity().getFragmentManager().getClass().getName();
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, LoginFragment.newInstance(null, null))
                 .addToBackStack(backStateName)
-                .commit();*/
+                .commit();
+    }
+
+    private void openSocialLogin(int networkId){
+        showProgress(true, "Авторизация", "Пожалуйста подождите");
+        SocialNetwork socialNetwork = mSocialNetworkManager.getSocialNetwork(networkId);
+        if(!socialNetwork.isConnected()) {
+            socialNetwork.requestLogin();
+        } else {
+            socialNetwork.setOnRequestCurrentPersonCompleteListener(this);
+            socialNetwork.requestCurrentPerson();
+        }
     }
 
     private void openSignUp(String provider, String profileId) {
@@ -216,26 +184,6 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
         //when init SocialNetworks - get and setup login only for initialized SocialNetworks
         for (SocialNetwork socialNetwork : mSocialNetworkManager.getInitializedSocialNetworks()) {
             socialNetwork.setOnLoginCompleteListener(this);
-            initSocialNetwork(socialNetwork);
-        }
-    }
-
-    private void initSocialNetwork(SocialNetwork socialNetwork){
-        if(socialNetwork.isConnected()){
-            switch (socialNetwork.getID()){
-                case FACEBOOK:
-                    btnFacebook.setText("Show Facebook profile");
-                    break;
-                case VKONTAKTE:
-                    btnVkontakte.setText("Show VK profile");
-                    break;
-                /*case TWITTER:
-                    twitter.setText("Show Twitter profile");
-                    break;
-                case LINKEDIN:
-                    linkedin.setText("Show LinkedIn profile");
-                    break;*/
-            }
         }
     }
 
@@ -261,27 +209,22 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
         int networkId = 0;
         switch (v.getId()){
             case R.id.facebook:
-                networkId = FACEBOOK;
+                networkId = SocialNetworkHelper.FACEBOOK_ID;
                 break;
             case R.id.vk:
-                networkId = VKONTAKTE;
+                networkId = SocialNetworkHelper.VKONTAKTE_ID;
                 break;
-            /*case R.id.twitter:
-                networkId = TWITTER;
+
+            case R.id.btnLogin:
+                openLogin();
                 break;
-            case R.id.linkedin:
-                networkId = LINKEDIN;
-                break;*/
+            case R.id.btnSignUp:
+                openSignUp(null, null);
+                break;
         }
-        SocialNetwork socialNetwork = mSocialNetworkManager.getSocialNetwork(networkId);
-        if(!socialNetwork.isConnected()) {
-            if(networkId != 0) {
-                socialNetwork.requestLogin();
-            } else {
-                Toast.makeText(getActivity(), "Wrong networkId", Toast.LENGTH_LONG).show();
-            }
-        } else {
-            Toast.makeText(getActivity(), socialNetwork.getAccessToken().token, Toast.LENGTH_LONG).show();
+
+        if(networkId != 0){
+            openSocialLogin(networkId);
         }
     }
 
@@ -291,10 +234,11 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
         SessionApi api = ServiceGenerator.createService(SessionApi.class);
         final SocialSession ss = new SocialSession();
         ss.id = socialPerson.id;
-        ss.provider = "fb";
+        ss.provider = SocialNetworkHelper.getKeyById(i);
         api.login(ss, new Callback<Session>() {
             @Override
             public void success(Session session, Response response) {
+                hideProgress();
                 getActivity().startActivity(new Intent(getActivity(), TabsActivity.class));
                 settings.setUserId(session.id);
                 settings.setAccessToken(session.token);
@@ -303,9 +247,9 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
 
             @Override
             public void failure(RetrofitError error) {
+                hideProgress();
                 if (error.getResponse() != null) {
                     RestError body = (RestError)error.getBodyAs(RestError.class);
-                    Toast.makeText(getActivity(), body.toString(), Toast.LENGTH_SHORT).show();
                     if (error.getResponse().getStatus() == 404) {
                         if (body.getCode().equals("002_SOCIAL_NOT_VERIFIED")) {
                             goToActivation(true);

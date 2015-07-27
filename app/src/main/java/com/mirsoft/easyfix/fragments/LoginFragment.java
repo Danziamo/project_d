@@ -29,7 +29,7 @@ import retrofit.client.Response;
  * Use the {@link LoginFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment {
+public class LoginFragment extends BaseFragment {
 
 
     TextInputLayout etPhone;
@@ -169,15 +169,6 @@ public class LoginFragment extends Fragment {
 
     private void showProgress(final boolean state) {
         mTask = state;
-        if (state) {
-            MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity())
-                    .title("Авторизация")
-                    .content("Пожалуйста подождите")
-                    .progress(true, 0);
-            dialog = builder.build();
-            dialog.show();
-        } else {
-            dialog.dismiss();
-        }
+        showProgress(state, "Авторизация", "Пожалуйста подождите");
     }
 }

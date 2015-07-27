@@ -9,9 +9,6 @@
     android:id="@+id/zz"
     android:paddingLeft="20dp">
 
-    <!-- TODO: Update blank fragment layout -->
-
-
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -28,12 +25,12 @@
                 android:layout_centerHorizontal="true"
                 android:id="@+id/tilLogin">
                 <EditText
-                    style="@style/Input.Material.First"
-                    app:met_helperText="@string/login"
-                    android:inputType="textPersonName"
-                    android:text="@string/login"
                     android:id="@+id/etLogin"
-                    android:layout_centerHorizontal="true"/>
+                    app:met_helperText="@string/login"
+                    android:inputType="phone"
+                    android:layout_centerHorizontal="true"
+                    style="@style/Input.Material.First"
+                    />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -44,7 +41,6 @@
                 <EditText
                     style="@style/Input.Material"
                     app:met_helperText="@string/password"
-                    android:text="@string/password"
                     android:inputType="textPassword"
                     android:id="@+id/etPassword"
                     android:layout_below="@+id/etLogin" />
