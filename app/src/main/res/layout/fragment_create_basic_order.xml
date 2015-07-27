@@ -1,0 +1,95 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mirsoft.easyfixmaster.debug.CreateBasicOrderFragment">
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/services"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner">
+
+    </Spinner>
+
+</LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatRatingBar
+            android:id="@+id/llratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:isIndicator="false"
+            />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tilAddress">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etadress"
+            android:singleLine="true"
+            android:hint="@string/adress"
+            android:inputType="textPostalAddress"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tilPhone">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/etPhone"
+                android:singleLine="true"
+                android:hint="@string/phone_number"
+                android:inputType="phone"/>
+
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tilDescription">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/etDescription"
+                android:hint="@string/description"
+                android:inputType="textPostalAddress"/>
+
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:text="@string/locate"
+        android:id="@+id/btnLocate"
+        android:layout_below="@id/llratingbar"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mirsoft.easyfix.fragments.ClientOrderDetailsFragment;
+import com.mirsoft.easyfixmaster.debug.CreateBasicOrderFragment;
 
 public class ClientOrderDetailsActivity extends AppCompatActivity {
 
@@ -16,7 +17,7 @@ public class ClientOrderDetailsActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, ClientOrderDetailsFragment.newInstance(null, null))
+                    .add(R.id.container, CreateBasicOrderFragment.newInstance(null, null))
                     .commit();
         }
     }

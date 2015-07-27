@@ -41,4 +41,6 @@
     <string name="description">Проблема</string>
     <string name="adress">Адрес</string>
     <string name="name">Имя</string>
+    <string name="services">Услуги</string>
+    <string name="locate">Разместить</string>
 </resources>

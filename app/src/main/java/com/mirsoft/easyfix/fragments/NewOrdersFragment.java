@@ -22,6 +22,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mirsoft.easyfix.ClientOrderDetailsActivity;
 import com.mirsoft.easyfix.OrderDetailActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.TabsActivity;
@@ -128,13 +129,8 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
         btnSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mMapView.getVisibility() == View.GONE) {
-                    mMapView.setVisibility(View.VISIBLE);
-                    rv.setVisibility(View.GONE);
-                } else {
-                    mMapView.setVisibility(View.GONE);
-                    rv.setVisibility(View.VISIBLE);
-                }
+                Intent intent = new Intent(getActivity(), ClientOrderDetailsActivity.class);
+                startActivity(intent);
             }
         });
 

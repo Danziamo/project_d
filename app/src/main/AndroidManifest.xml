@@ -86,6 +86,22 @@
             android:value="@string/facebook_app_id" />
 
         <activity
+            android:name="ru.ok.android.sdk.OkAuthActivity"
+            android:launchMode="singleTask"
+            android:configChanges="orientation">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="okauth"
+                    android:host="okXXXXXXXXX" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".ClientOrderDetailsActivity"
             android:label="@string/title_activity_create_order"
             android:parentActivityName=".TabsActivity" >
