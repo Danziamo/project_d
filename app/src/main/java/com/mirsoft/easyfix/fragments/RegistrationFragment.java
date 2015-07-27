@@ -122,7 +122,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             user.setPhone(phone);
             user.setPassword(password);
             final Settings settings = new Settings(getActivity());
-            UserApi api = ServiceGenerator.createService(UserApi.class, settings);
+            UserApi api = ServiceGenerator.createService(UserApi.class);
             api.add(user, new Callback<User>() {
                 @Override
                 public void success(User user, Response response) {
@@ -146,7 +146,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             });
         } else {
             final Settings settings = new Settings(getActivity());
-            UserApi api = ServiceGenerator.createService(UserApi.class, settings);
+            UserApi api = ServiceGenerator.createService(UserApi.class);
             SocialUser user = new SocialUser();
             user.id = mSocialProfileId;
             user.provider = mSocialProvider;

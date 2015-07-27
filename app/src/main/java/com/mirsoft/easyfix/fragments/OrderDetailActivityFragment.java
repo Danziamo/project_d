@@ -96,7 +96,7 @@ public class OrderDetailActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Settings settings = new Settings(getActivity());
-                OrderApi api = ServiceGenerator.createService(OrderApi.class, settings);
+                OrderApi api = ServiceGenerator.createService(OrderApi.class);
                 api.postRequest(true, settings.getUserId(), order.getId(), new Callback<Object>() {
                     @Override
                     public void success(Object o, Response response) {

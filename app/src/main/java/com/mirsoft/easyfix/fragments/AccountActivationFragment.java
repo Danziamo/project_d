@@ -104,7 +104,7 @@ public class AccountActivationFragment extends Fragment {
         }
         ActivationCode activationCode = new ActivationCode();
         activationCode.code = code;
-        SessionApi api = ServiceGenerator.createService(SessionApi.class, new Settings(getActivity()));
+        SessionApi api = ServiceGenerator.createService(SessionApi.class);
         if (isSocial) {
             api.activateSocial(activationCode, new Callback<Session>() {
                 @Override

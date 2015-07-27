@@ -17,22 +17,30 @@ public class ServiceGenerator {
     private ServiceGenerator() {
     }
 
-    public static <S> S createService(Class<S> serviceClass, Settings settings) {
+    private static RestAdapter getRestAdapter(boolean isContractor) {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
         RestAdapter.Builder builder = new RestAdapter.Builder()
-                .setEndpoint(ROOT)
+                .setEndpoint(MAIN_URI)
                 .setConverter(new GsonConverter(gson))
-                .setRequestInterceptor(new SessionRequestInterceptor(settings))
+                .setRequestInterceptor(new SessionRequestInterceptor(isContractor))
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setErrorHandler(new CustomErrorHandler())
                 .setClient(new OkClient(new OkHttpClient()));
 
-        RestAdapter adapter = builder.build();
+        return builder.build();
+    }
 
+    public static <S> S createService(Class<S> serviceClass) {
+        RestAdapter adapter = getRestAdapter(false);
+        return adapter.create(serviceClass);
+    }
+
+    public static <S> S createService(Class<S> serviceClass, boolean isContractor) {
+        RestAdapter adapter = getRestAdapter(isContractor);
         return adapter.create(serviceClass);
     }
 }

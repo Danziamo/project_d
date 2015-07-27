@@ -147,7 +147,7 @@ public class LoginFragment extends Fragment {
         final Settings settings = new Settings(getActivity());
 
         showProgress(true);
-        SessionApi api = ServiceGenerator.createService(SessionApi.class, settings);
+        SessionApi api = ServiceGenerator.createService(SessionApi.class);
         api.login(session, new Callback<Session>() {
             @Override
             public void success(Session session, Response response) {

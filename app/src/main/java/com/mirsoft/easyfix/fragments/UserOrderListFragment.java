@@ -1,10 +1,6 @@
 package com.mirsoft.easyfix.fragments;
 
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,9 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mirsoft.easyfix.R;
+import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.adapters.SectionedOrderAdapter;
+import com.mirsoft.easyfix.api.OrderApi;
 import com.mirsoft.easyfix.common.OrderType;
+import com.mirsoft.easyfix.networking.ServiceGenerator;
 import com.mirsoft.easyfix.utils.RecyclerViewSimpleDivider;
 import com.mirsoft.easyfix.adapters.OrderAdapter;
 import com.mirsoft.easyfix.models.Order;
@@ -25,12 +24,16 @@ import com.mirsoft.easyfix.models.Order;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TestFragment#newInstance} factory method to
+ * Use the {@link UserOrderListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TestFragment extends Fragment {
+public class UserOrderListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -51,11 +54,11 @@ public class TestFragment extends Fragment {
      *
      * @param type Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TestFragment.
+     * @return A new instance of fragment UserOrderListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TestFragment newInstance(OrderType type, String param2) {
-        TestFragment fragment = new TestFragment();
+    public static UserOrderListFragment newInstance(OrderType type, String param2) {
+        UserOrderListFragment fragment = new UserOrderListFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1, type);
         args.putString(ARG_PARAM2, param2);
@@ -63,7 +66,7 @@ public class TestFragment extends Fragment {
         return fragment;
     }
 
-    public TestFragment() {
+    public UserOrderListFragment() {
         // Required empty public constructor
     }
 
@@ -74,7 +77,7 @@ public class TestFragment extends Fragment {
             mType = (OrderType)getArguments().getSerializable(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        getActivity().registerReceiver(new UpdateDateReciever(), new IntentFilter("update"));
+        //getActivity().registerReceiver(new UpdateDateReciever(), new IntentFilter("update"));
         //getActivity().registerReceiver(new UpdateFinishedDateReciever(), new IntentFilter("updatefinished"));
     }
 
@@ -82,7 +85,7 @@ public class TestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_test, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_order_list, container, false);
 
         rvActive = (RecyclerView)view.findViewById(R.id.rvOrdersActive);
         rvActive.addItemDecoration(new RecyclerViewSimpleDivider(getActivity()));
@@ -112,7 +115,25 @@ public class TestFragment extends Fragment {
         //Apply this adapter to the RecyclerView
         rvActive.setAdapter(mSectionedAdapter);
 
+        fillData();
+
         return view;
+    }
+
+    private void fillData() {
+        Settings settings = new Settings(getActivity());
+        OrderApi api = ServiceGenerator.createService(OrderApi.class);
+        api.getByUserIdAndStatuses(settings.getUserId(), null, new Callback<ArrayList<Order>>() {
+            @Override
+            public void success(ArrayList<Order> orders, Response response) {
+                //ArrayList<Order> activeList =
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 
     public ArrayList<Order> getData(OrderType type) {
@@ -136,10 +157,10 @@ public class TestFragment extends Fragment {
         return null;
     }
 
-    public class UpdateDateReciever extends BroadcastReceiver {
+    /*public class UpdateDateReciever extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             mOrderAdapterActive.setDataset(getData(OrderType.ACTIVE));
         }
-    }
+    }*/
 }

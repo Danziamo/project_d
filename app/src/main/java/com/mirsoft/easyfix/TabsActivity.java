@@ -116,7 +116,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         progressType = 0;
         showProgress(true);
         Settings settings = new Settings(TabsActivity.this);
-        OrderApi api = ServiceGenerator.createService(OrderApi.class, settings);
+        OrderApi api = ServiceGenerator.createService(OrderApi.class);
         api.getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
@@ -197,7 +197,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
 
     private void performSignOut() {
         final Settings settings = new Settings(TabsActivity.this);
-        SessionApi api = ServiceGenerator.createService(SessionApi.class, settings);
+        SessionApi api = ServiceGenerator.createService(SessionApi.class);
         Session session = new Session();
         api.logout(session, new Callback<Object>() {
             @Override

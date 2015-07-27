@@ -86,7 +86,7 @@ public class MasterInfoFragment extends Fragment {
         order.description = desctiption;
         order.contractor = master.getId();
 
-        OrderApi api = ServiceGenerator.createService(OrderApi.class, settings);
+        OrderApi api = ServiceGenerator.createService(OrderApi.class);
         api.createOrder(order, settings.getUserId(), new Callback<Order>() {
             @Override
             public void success(Order order, Response response) {

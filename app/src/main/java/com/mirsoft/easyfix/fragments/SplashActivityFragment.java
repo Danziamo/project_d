@@ -63,8 +63,8 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
     public SplashActivityFragment() {
     }
 
-    public static TestFragment newInstance() {
-        TestFragment fragment = new TestFragment();
+    public static UserOrderListFragment newInstance() {
+        UserOrderListFragment fragment = new UserOrderListFragment();
         return fragment;
     }
 
@@ -288,7 +288,7 @@ public class SplashActivityFragment extends Fragment implements SocialNetworkMan
     @Override
     public void onRequestSocialPersonSuccess(int i, SocialPerson socialPerson) {
         final Settings settings = new Settings(getActivity());
-        SessionApi api = ServiceGenerator.createService(SessionApi.class, settings);
+        SessionApi api = ServiceGenerator.createService(SessionApi.class);
         final SocialSession ss = new SocialSession();
         ss.id = socialPerson.id;
         ss.provider = "fb";

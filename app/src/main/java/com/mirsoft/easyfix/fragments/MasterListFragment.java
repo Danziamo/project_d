@@ -105,7 +105,7 @@ public class MasterListFragment extends Fragment {
     }
 
     private void getMastersList() {
-        UserApi api = ServiceGenerator.createService(UserApi.class, new Settings(getActivity()));
+        UserApi api = ServiceGenerator.createService(UserApi.class);
         api.getAllByQuery("plumber", new Callback<ArrayList<User>>() {
             @Override
             public void success(ArrayList<User> users, Response response) {
