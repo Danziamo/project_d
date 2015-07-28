@@ -48,7 +48,7 @@ public class MainActivityFragment extends Fragment {
                 session.username = "+996557656649";
                 session.password = "qwerty";
 
-                SessionApi api = ServiceGenerator.createService(SessionApi.class);
+                SessionApi api = RestClient.createService(SessionApi.class);
                 api.login(session, new Callback<Session>() {
                     @Override
                     public void success(Session session, Response response) {

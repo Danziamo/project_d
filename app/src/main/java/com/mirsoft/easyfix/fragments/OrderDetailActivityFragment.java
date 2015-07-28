@@ -21,7 +21,7 @@ import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.api.OrderApi;
 import com.mirsoft.easyfix.models.Order;
-import com.mirsoft.easyfix.networking.ServiceGenerator;
+import com.mirsoft.easyfix.networking.RestClient;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -96,7 +96,7 @@ public class OrderDetailActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Settings settings = new Settings(getActivity());
-                OrderApi api = ServiceGenerator.createService(OrderApi.class);
+                OrderApi api = RestClient.createService(OrderApi.class);
                 api.postRequest(true, settings.getUserId(), order.getId(), new Callback<Object>() {
                     @Override
                     public void success(Object o, Response response) {

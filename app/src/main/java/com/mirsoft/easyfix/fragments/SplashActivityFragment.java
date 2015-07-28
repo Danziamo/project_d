@@ -2,15 +2,10 @@ package com.mirsoft.easyfix.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +24,7 @@ import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.networking.models.RestError;
 import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.models.SocialSession;
-import com.mirsoft.easyfix.networking.ServiceGenerator;
+import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.utils.SocialNetworkHelper;
 import com.vk.sdk.VKScope;
 
@@ -231,11 +226,10 @@ public class SplashActivityFragment extends BaseFragment implements SocialNetwor
     @Override
     public void onRequestSocialPersonSuccess(int i, SocialPerson socialPerson) {
         final Settings settings = new Settings(getActivity());
-        SessionApi api = ServiceGenerator.createService(SessionApi.class);
         final SocialSession ss = new SocialSession();
         ss.id = socialPerson.id;
         ss.provider = SocialNetworkHelper.getKeyById(i);
-        api.login(ss, new Callback<Session>() {
+        RestClient.getSessionApi(true).login(ss, new Callback<Session>() {
             @Override
             public void success(Session session, Response response) {
                 hideProgress();
@@ -249,7 +243,7 @@ public class SplashActivityFragment extends BaseFragment implements SocialNetwor
             public void failure(RetrofitError error) {
                 hideProgress();
                 if (error.getResponse() != null) {
-                    RestError body = (RestError)error.getBodyAs(RestError.class);
+                    RestError body = (RestError) error.getBodyAs(RestError.class);
                     if (error.getResponse().getStatus() == 404) {
                         if (body.getCode().equals("002_SOCIAL_NOT_VERIFIED")) {
                             goToActivation(true);

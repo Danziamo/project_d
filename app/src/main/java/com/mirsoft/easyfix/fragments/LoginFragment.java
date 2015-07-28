@@ -17,7 +17,7 @@ import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.models.Session;
-import com.mirsoft.easyfix.networking.ServiceGenerator;
+import com.mirsoft.easyfix.networking.RestClient;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -147,8 +147,7 @@ public class LoginFragment extends BaseFragment {
         final Settings settings = new Settings(getActivity());
 
         showProgress(true);
-        SessionApi api = ServiceGenerator.createService(SessionApi.class);
-        api.login(session, new Callback<Session>() {
+        RestClient.getSessionApi(true).login(session, new Callback<Session>() {
             @Override
             public void success(Session session, Response response) {
                 showProgress(false);

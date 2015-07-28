@@ -10,11 +10,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.mirsoft.easyfix.R;
-import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.api.UserApi;
 import com.mirsoft.easyfix.models.SocialUser;
 import com.mirsoft.easyfix.models.User;
-import com.mirsoft.easyfix.networking.ServiceGenerator;
+import com.mirsoft.easyfix.networking.RestClient;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import retrofit.Callback;
@@ -106,7 +105,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             user.setPhone(phone);
             user.setPassword(password);
 //            final Settings settings = new Settings(getActivity());
-            UserApi api = ServiceGenerator.createService(UserApi.class);
+            UserApi api = RestClient.createService(UserApi.class);
             api.add(user, new Callback<User>() {
                 @Override
                 public void success(User user, Response response) {
@@ -130,7 +129,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             });
         } else {
 //            final Settings settings = new Settings(getActivity());
-            UserApi api = ServiceGenerator.createService(UserApi.class);
+            UserApi api = RestClient.createService(UserApi.class);
             SocialUser user = new SocialUser();
             user.id = mSocialProfileId;
             user.provider = mSocialProvider;

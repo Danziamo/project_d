@@ -83,20 +83,4 @@
 
     <style name="AppTheme.Base"></style>
 
-    <!--StyleRatingBar-->
-
-    <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
-        <!--<item name="android:progressDrawable">@drawable/ratingstars</item>-->
-        <item name="android:minHeight">22dip</item>
-        <item name="android:maxHeight">22dip</item>
-    </style>
-
-
-    <style name="myRatingWidget.Holo.RatingBar.Indicator" parent="@android:style/Widget.RatingBar.Indicator">
-        <item name="progressDrawable">@drawable/ratingbar_holo_dark</item>
-        <item name="indeterminateDrawable">@drawable/ratingbar_holo_dark</item>
-        <item name="minHeight">35dip</item>
-        <item name="maxHeight">35dip</item>
-    </style>
-
 </resources>

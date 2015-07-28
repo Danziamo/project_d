@@ -16,7 +16,7 @@ import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.adapters.SectionedOrderAdapter;
 import com.mirsoft.easyfix.api.OrderApi;
 import com.mirsoft.easyfix.common.OrderType;
-import com.mirsoft.easyfix.networking.ServiceGenerator;
+import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.utils.RecyclerViewSimpleDivider;
 import com.mirsoft.easyfix.adapters.OrderAdapter;
 import com.mirsoft.easyfix.models.Order;
@@ -122,7 +122,7 @@ public class UserOrderListFragment extends Fragment {
 
     private void fillData() {
         Settings settings = new Settings(getActivity());
-        OrderApi api = ServiceGenerator.createService(OrderApi.class);
+        OrderApi api = RestClient.createService(OrderApi.class);
         api.getByUserIdAndStatuses(settings.getUserId(), null, new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {

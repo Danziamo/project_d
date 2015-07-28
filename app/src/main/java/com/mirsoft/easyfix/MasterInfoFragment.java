@@ -6,19 +6,15 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
-import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.api.OrderApi;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.User;
-import com.mirsoft.easyfix.networking.ServiceGenerator;
+import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.networking.models.NOrder;
 import com.rengwuxian.materialedittext.MaterialEditText;
-
-import java.util.ArrayList;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -86,7 +82,7 @@ public class MasterInfoFragment extends Fragment {
         order.description = desctiption;
         order.contractor = master.getId();
 
-        OrderApi api = ServiceGenerator.createService(OrderApi.class);
+        OrderApi api = RestClient.createService(OrderApi.class);
         api.createOrder(order, settings.getUserId(), new Callback<Order>() {
             @Override
             public void success(Order order, Response response) {

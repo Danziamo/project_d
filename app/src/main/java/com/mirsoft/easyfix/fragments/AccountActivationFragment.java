@@ -18,7 +18,7 @@ import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.models.ActivationCode;
 import com.mirsoft.easyfix.models.Session;
-import com.mirsoft.easyfix.networking.ServiceGenerator;
+import com.mirsoft.easyfix.networking.RestClient;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import retrofit.Callback;
@@ -104,7 +104,7 @@ public class AccountActivationFragment extends Fragment {
         }
         ActivationCode activationCode = new ActivationCode();
         activationCode.code = code;
-        SessionApi api = ServiceGenerator.createService(SessionApi.class);
+        SessionApi api = RestClient.createService(SessionApi.class);
         if (isSocial) {
             api.activateSocial(activationCode, new Callback<Session>() {
                 @Override

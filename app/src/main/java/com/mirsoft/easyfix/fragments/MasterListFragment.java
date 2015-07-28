@@ -11,15 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.mirsoft.easyfix.ClientOrderDetailsActivity;
 import com.mirsoft.easyfix.R;
-import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.adapters.MasterAdapter;
 import com.mirsoft.easyfix.api.UserApi;
 import com.mirsoft.easyfix.models.User;
-import com.mirsoft.easyfix.networking.ServiceGenerator;
+import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.utils.RecyclerViewSimpleDivider;
 
 import java.util.ArrayList;
@@ -105,7 +103,7 @@ public class MasterListFragment extends Fragment {
     }
 
     private void getMastersList() {
-        UserApi api = ServiceGenerator.createService(UserApi.class);
+        UserApi api = RestClient.createService(UserApi.class);
         api.getAllByQuery("plumber", new Callback<ArrayList<User>>() {
             @Override
             public void success(ArrayList<User> users, Response response) {

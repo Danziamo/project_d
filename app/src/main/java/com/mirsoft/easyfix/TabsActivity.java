@@ -23,7 +23,7 @@ import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.Session;
-import com.mirsoft.easyfix.networking.ServiceGenerator;
+import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.utils.RoundedImageView;
 
 import java.util.ArrayList;
@@ -116,7 +116,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         progressType = 0;
         showProgress(true);
         Settings settings = new Settings(TabsActivity.this);
-        OrderApi api = ServiceGenerator.createService(OrderApi.class);
+        OrderApi api = RestClient.createService(OrderApi.class);
         api.getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
@@ -197,7 +197,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
 
     private void performSignOut() {
         final Settings settings = new Settings(TabsActivity.this);
-        SessionApi api = ServiceGenerator.createService(SessionApi.class);
+        SessionApi api = RestClient.createService(SessionApi.class);
         Session session = new Session();
         api.logout(session, new Callback<Object>() {
             @Override

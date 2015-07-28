@@ -3,18 +3,23 @@ package com.mirsoft.easyfix.networking;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mirsoft.easyfix.Settings;
+import com.mirsoft.easyfix.api.OrderApi;
+import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.api.SessionRequestInterceptor;
+import com.mirsoft.easyfix.api.UserApi;
+import com.mirsoft.easyfix.models.Order;
+import com.mirsoft.easyfix.models.User;
 import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
-public class ServiceGenerator {
+public class RestClient {
     private static String ROOT = "http://192.168.0.108:1337/api/v1";
     private static String MAIN_URI = "http://192.168.0.112:8000/api/v1";
 
-    private ServiceGenerator() {
+    private RestClient() {
     }
 
     private static RestAdapter getRestAdapter(boolean isContractor) {
@@ -42,5 +47,17 @@ public class ServiceGenerator {
     public static <S> S createService(Class<S> serviceClass, boolean isContractor) {
         RestAdapter adapter = getRestAdapter(isContractor);
         return adapter.create(serviceClass);
+    }
+
+    public static OrderApi getOrderService(boolean isConctractor) {
+        return createService(OrderApi.class, isConctractor);
+    }
+
+    public static UserApi getUserService(boolean isContractor) {
+        return createService(UserApi.class, isContractor);
+    }
+
+    public static SessionApi getSessionApi(boolean isContractor) {
+        return createService(SessionApi.class, isContractor);
     }
 }
