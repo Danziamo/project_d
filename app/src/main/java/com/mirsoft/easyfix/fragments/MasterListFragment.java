@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.adapters.MasterAdapter;
 import com.mirsoft.easyfix.api.UserApi;
+import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.Specialty;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
@@ -39,6 +41,7 @@ public class MasterListFragment extends Fragment {
     private RecyclerView rvMaster;
     private MasterAdapter rvAdapter;
     private AppCompatSpinner spinner;
+    private ArrayList<Specialty> specialtyList;
 
 
     @Override
@@ -71,14 +74,27 @@ public class MasterListFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        getMastersList();
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (specialtyList.size() > 0)
+                    getMastersList(specialtyList.get(position).getSlug());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        getSpecialties();
 
         return view;
     }
 
-    private void getMastersList() {
+    private void getMastersList(String specialty) {
         UserApi api = RestClient.createService(UserApi.class);
-        api.getAllByQuery("plumber", new Callback<ArrayList<User>>() {
+        api.getAllByQuery(specialty, new Callback<ArrayList<User>>() {
             @Override
             public void success(ArrayList<User> users, Response response) {
                 showList(users);
@@ -95,7 +111,12 @@ public class MasterListFragment extends Fragment {
         RestClient.getSpecialtyApi(false).getSpecialties(new Callback<ArrayList<Specialty>>() {
             @Override
             public void success(ArrayList<Specialty> specialties, Response response) {
-                //ArrayAdapter<Specialty> aa= new ArrayAdapter<Specialty>(this, android.R.layout.simple_spinner_dropdown_item, specialties);
+                specialtyList = specialties;
+                ArrayAdapter<Specialty> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, specialties);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(adapter);
+                if (specialties.size() > 0)
+                    spinner.setSelection(0);
             }
 
             @Override

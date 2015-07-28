@@ -8,6 +8,6 @@ import retrofit.Callback;
 import retrofit.http.GET;
 
 public interface SpecialtyApi {
-    @GET("/specialty")
+    @GET("/specialties")
     void getSpecialties(Callback<ArrayList<Specialty> > callback);
 }
