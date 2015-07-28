@@ -61,21 +61,21 @@ public class OrdersAdapter extends BaseAdapter {
 //        holder.mAddressView.setText(item.getAddress());
 //        holder.mReasonView.setText(item.getDescription());
 
-        mAddressView.setText("test");
-        mReasonView.setText("Test");
+        mAddressView.setText(item.getAddress());
+        mReasonView.setText(item.getDescription());
 
         if (item.getSpecialty() != null)
-            switch (item.getSpecialty().getId()%4) {
-                case 0:
+            switch (item.getSpecialty().getId()%5) {
+                case 1:
                     image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.plumbing));
                     break;
-                case 1:
+                case 2:
                     image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.electricity));
                     break;
-                case 2:
+                case 3:
                     image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.repairing));
                     break;
-                case 3:
+                case 4:
                     image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.decoration));
                     break;
             }

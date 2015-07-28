@@ -31,16 +31,22 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.mirsoft.easyfix.ClientOrderDetailsActivity;
 import com.mirsoft.easyfix.OrderDetailActivity;
 import com.mirsoft.easyfix.R;
+import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.adapters.OrderAdapter;
 import com.mirsoft.easyfix.adapters.OrdersAdapter;
 import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.models.Order;
+import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.utils.RecyclerViewSimpleDivider;
 import com.mirsoft.easyfix.utils.Singleton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class NewOrdersFragment extends Fragment{
@@ -97,7 +103,8 @@ public class NewOrdersFragment extends Fragment{
 
         mGoogleMap.setMyLocationEnabled(true);
      //   mGoogleMap.setOnInfoWindowClickListener(this);
-        displayOnMap();
+        /*displayOnMap();*/
+        getData();
         // Perform any camera updates here
 
       /*  rv = (RecyclerView)view.findViewById(R.id.rvOrders);
@@ -159,13 +166,13 @@ public class NewOrdersFragment extends Fragment{
                 orderListView.setVisibility(View.VISIBLE);
                 toLeft();
 
-                ((TabsActivity)getActivity()).mapButton.setEnabled(true);
-                ((TabsActivity)getActivity()).ordersListButton.setEnabled(false);
+                ((TabsActivity) getActivity()).mapButton.setEnabled(true);
+                ((TabsActivity) getActivity()).ordersListButton.setEnabled(false);
             }
         });
     }
 
-    private void displayOnMap() {
+    /*private void displayOnMap() {
         mOrderMarkerMap = new HashMap<>();
         mGoogleMap.clear();
         ArrayList<Order> orderList = getData();
@@ -177,17 +184,44 @@ public class NewOrdersFragment extends Fragment{
                 mOrderMarkerMap.put(marker, order);
             }
         }
+    }*/
+
+    private void getData() {
+        Settings settings = new Settings(getActivity());
+        RestClient.getOrderService(true).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
+            @Override
+            public void success(ArrayList<Order> orders, Response response) {
+                mOrderMarkerMap = new HashMap<>();
+                mGoogleMap.clear();
+                for (int i = 0; i < orders.size(); ++i) {
+                    Order order = orders.get(i);
+                    LatLng position = order.getLatLng();
+                    if (position != null) {
+                        Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(order.getLatLng()).title(order.getSpecialty().getName()));
+                        mOrderMarkerMap.put(marker, order);
+                    }
+                }
+                ordersAdapter = new OrdersAdapter(getActivity(), R.layout.list_item_order,orders);
+                orderListView.setAdapter(ordersAdapter);
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getActivity(), "Fail", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
-    private ArrayList<Order> getData() {
+    /*private ArrayList<Order> getData() {
         return ((TabsActivity)getActivity()).getNewOrders();
-    }
+    }*/
 
     public class UpdateDateReciever extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            mOrderAdapter.setDataset(getData());
-            displayOnMap();
+            /*mOrderAdapter.setDataset(getData());
+            displayOnMap();*/
         }
     }
 

@@ -81,4 +81,9 @@ public class Specialty implements Serializable {
     public void setDrawable(int drawable) {
         this.drawable = drawable;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

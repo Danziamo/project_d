@@ -6,6 +6,7 @@ import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.api.OrderApi;
 import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.api.SessionRequestInterceptor;
+import com.mirsoft.easyfix.api.SpecialtyApi;
 import com.mirsoft.easyfix.api.UserApi;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.User;
@@ -59,5 +60,9 @@ public class RestClient {
 
     public static SessionApi getSessionApi(boolean isContractor) {
         return createService(SessionApi.class, isContractor);
+    }
+
+    public static SpecialtyApi getSpecialtyApi(boolean isContractor) {
+        return createService(SpecialtyApi.class, isContractor);
     }
 }
