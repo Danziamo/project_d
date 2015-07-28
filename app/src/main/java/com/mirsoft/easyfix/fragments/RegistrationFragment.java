@@ -112,7 +112,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
                     String backStateName = getActivity().getFragmentManager().getClass().getName();
                     getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment, AccountActivationFragment.newInstance(false, null))
+                            .replace(R.id.container, AccountActivationFragment.newInstance(false, null))
                             .addToBackStack(backStateName)
                             .commit();
 

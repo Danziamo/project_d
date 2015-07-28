@@ -41,6 +41,10 @@
     <string name="description">Проблема</string>
     <string name="adress">Адрес</string>
     <string name="name">Имя</string>
+    <string name="map">Карта</string>
+    <string name="list">Список</string>
+    <string name="my_masters">Мои Мастера</string>
+    <string name="my_clients">Мои Клиенты</string>
     <string name="services">Услуги</string>
     <string name="locate">Разместить</string>
 </resources>

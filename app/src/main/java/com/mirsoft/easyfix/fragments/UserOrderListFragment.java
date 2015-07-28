@@ -9,7 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.mirsoft.easyfix.MapsActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
@@ -20,8 +22,11 @@ import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.utils.RecyclerViewSimpleDivider;
 import com.mirsoft.easyfix.adapters.OrderAdapter;
 import com.mirsoft.easyfix.models.Order;
+import com.mirsoft.easyfix.utils.Singleton;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit.Callback;
@@ -48,6 +53,7 @@ public class UserOrderListFragment extends Fragment {
     private OrderAdapter mOrderAdapterActive;
     private OrderAdapter mOrderAdapterOld;
 
+    Singleton dc;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -82,15 +88,39 @@ public class UserOrderListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_order_list, container, false);
+        dc = Singleton.getInstance(getActivity());
+
+      //  ((TabsActivity)getActivity()).setBottomLinearLayoutState(false);
+
+        ArrayList<Order> testList = new ArrayList<>();
+        ArrayList<Order> oldList = new ArrayList<>();
+        ArrayList<Order> finalList = new ArrayList<>();
+
+        Order order = new Order();
+        testList.add(order);testList.add(order);testList.add(order);testList.add(order);
+        oldList.add(order);oldList.add(order);oldList.add(order);oldList.add(order);oldList.add(order);
+        oldList.add(order);oldList.add(order);oldList.add(order);oldList.add(order);oldList.add(order);
+
+       // Collections.copy(testList, finalList);
+      //  Collections.copy(oldList , finalList);
+
+        for(int i = 0; i < testList.size(); i++){
+            finalList.add(0, testList.get(i));
+        }
+
+        for(int i = 0; i < oldList.size(); i++){
+            finalList.add(0,oldList.get(i));
+        }
 
         rvActive = (RecyclerView)view.findViewById(R.id.rvOrdersActive);
         rvActive.addItemDecoration(new RecyclerViewSimpleDivider(getActivity()));
         rvActive.setHasFixedSize(true);
-        mOrderAdapterActive = new OrderAdapter(getData(OrderType.ACTIVE), R.layout.list_item_order, getActivity());
+       // mOrderAdapterActive = new OrderAdapter(getData(OrderType.ACTIVE), R.layout.list_item_order, getActivity());
+        mOrderAdapterActive = new OrderAdapter(finalList,R.layout.list_item_order,getActivity());
+
         rvActive.setAdapter(mOrderAdapterActive);
         rvActive.setItemAnimator(new DefaultItemAnimator());
         rvActive.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -105,7 +135,7 @@ public class UserOrderListFragment extends Fragment {
 
         List<SectionedOrderAdapter.Section> sections = new ArrayList<>();
         sections.add(new SectionedOrderAdapter.Section(0, "Active"));
-        //sections.add(new SectionedOrderAdapter.Section(4, "Finished"));
+        sections.add(new SectionedOrderAdapter.Section(testList.size(), "Finished"));
 
         SectionedOrderAdapter.Section[] dummy = new SectionedOrderAdapter.Section[sections.size()];
         SectionedOrderAdapter mSectionedAdapter = new
@@ -117,7 +147,40 @@ public class UserOrderListFragment extends Fragment {
 
         fillData();
 
+        ((TabsActivity)getActivity()).myMastersButton.setEnabled(false);
+        setBottomButtonsListeners();
+
+
         return view;
+    }
+
+    public ArrayList<Order> copy(ArrayList<Order> ar1, ArrayList<Order> ar2){
+        ArrayList<Order> fin = new ArrayList<>();
+        for(int i = 0; i < ar1.size(); i++){
+            ar2.add(ar1.get(i));
+        }
+        return fin;
+    }
+
+    public void setBottomButtonsListeners(){
+        ((TabsActivity)getActivity()).myMastersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(),"myMastersButton",Toast.LENGTH_SHORT).show();
+
+                ((TabsActivity)getActivity()).myMastersButton.setEnabled(false);
+                ((TabsActivity)getActivity()).myClientsButton.setEnabled(true);
+            }
+        });
+        ((TabsActivity)getActivity()).myClientsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(),"myClientsButton",Toast.LENGTH_SHORT).show();
+
+                ((TabsActivity)getActivity()).myMastersButton.setEnabled(true);
+                ((TabsActivity)getActivity()).myClientsButton.setEnabled(false);
+            }
+        });
     }
 
     private void fillData() {

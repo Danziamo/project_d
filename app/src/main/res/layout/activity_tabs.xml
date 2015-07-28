@@ -43,27 +43,60 @@
             android:src="@drawable/ic_map"
             android:id="@+id/btnSwitch"
             android:layout_gravity="bottom|end"
-            android:layout_margin="5dp" />
+            android:layout_marginBottom="40dp"
+            />
 
         <LinearLayout
+            android:id="@+id/orders_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/white">
 
             <Button
+                android:id="@+id/map_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tamasha"
+                android:text="@string/map"
+                android:enabled="false"
                 android:layout_weight="0.5"/>
 
             <Button
+                android:id="@+id/list_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Diesel"
+                android:text="@string/list"
                 android:layout_weight="0.5"/>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/my_orders_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:background="@color/white">
+
+            <Button
+                android:id="@+id/my_masters_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_masters"
+                android:layout_weight="0.5"/>
+
+            <Button
+                android:id="@+id/myclients_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_clients"
+                android:layout_weight="0.5"/>
+
+        </LinearLayout>
+
+
 
     </android.support.design.widget.CoordinatorLayout>
 

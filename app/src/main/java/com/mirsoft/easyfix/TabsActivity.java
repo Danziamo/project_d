@@ -12,9 +12,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.mirsoft.easyfix.adapters.TabsPagerAdapter;
@@ -25,6 +28,7 @@ import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.utils.RoundedImageView;
+import com.mirsoft.easyfix.utils.Singleton;
 
 import java.util.ArrayList;
 
@@ -43,12 +47,21 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<Order> mOrderList;
     private ArrayList<Order> mFinishedOrderList;
 
+    public Button mapButton;
+    public Button ordersListButton;
+    public Button myMastersButton;
+    public Button myClientsButton;
+    public LinearLayout ordersLayout;
+    public LinearLayout myOrderslayout;
+
     private final Handler mDrawerActionHandler = new Handler();
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private int mNavItemId;
 
     private int progressType = 0;
+
+    Singleton dc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +71,56 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);;
         setSupportActionBar(toolbar);
 
+        dc = Singleton.getInstance(this);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         viewPager = (ViewPager)findViewById(R.id.pager);
         tabLayout = (TabLayout)findViewById(R.id.tabLayout);
 
-        viewPager.setOffscreenPageLimit(3);
+        mapButton = (Button)findViewById(R.id.map_button);
+        ordersListButton = (Button)findViewById(R.id.list_button);
+        myMastersButton = (Button)findViewById(R.id.my_masters_button);
+        myClientsButton = (Button)findViewById(R.id.myclients_button);
+
+        ordersLayout = (LinearLayout)findViewById(R.id.orders_linear_layout);
+        myOrderslayout = (LinearLayout)findViewById(R.id.my_orders_linear_layout);
+
+      //  viewPager.setOffscreenPageLimit(0);
         /*String[] titles = new String[]{
                 getString(R.string.icon_orders),
                 getString(R.string.icon_users),
                 getString(R.string.icon_history)};*/
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch(position){
+                    case 0:
+                        myOrderslayout.setVisibility(View.GONE);
+                        ordersLayout.setVisibility(View.VISIBLE);
+                        break;
+                    case 1:
+                        myOrderslayout.setVisibility(View.GONE);
+                        ordersLayout.setVisibility(View.GONE);
+                        break;
+                    case 2:
+                        myOrderslayout.setVisibility(View.VISIBLE);
+                        ordersLayout.setVisibility(View.GONE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         String[] titles = new String[]{
                 "Заказы",
                 "База мастеров",
@@ -112,6 +166,8 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         getOrdersList();
     }
 
+
+
     private void getOrdersList() {
         progressType = 0;
         showProgress(true);
@@ -128,6 +184,8 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
                     TabsActivity.this.sendBroadcast(data);
                     showProgress(false);
                 }
+
+
             }
 
             @Override

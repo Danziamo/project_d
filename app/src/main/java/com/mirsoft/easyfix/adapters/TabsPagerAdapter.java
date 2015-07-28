@@ -22,13 +22,13 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return NewOrdersFragment.newInstance(null, null);
+                return new NewOrdersFragment();
             case 1:
-                return MasterListFragment.newInstance(null, null);
+                return new MasterListFragment();
             case 2:
                 return UserOrderListFragment.newInstance(OrderType.FINISHED, null);
             default:
-                return null;
+                return new NewOrdersFragment();
         }
     }
 

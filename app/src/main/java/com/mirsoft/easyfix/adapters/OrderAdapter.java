@@ -31,11 +31,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public ImageView image;
         public TextView mAddressView;
         public TextView mReasonView;
+
         public ViewHolder(View v) {
             super(v);
             image = (ImageView) itemView.findViewById(R.id.imageOrder);
@@ -44,13 +45,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         }
     }
 
+
     // Create new views (invoked by the layout manager)
     @Override
-    public OrderAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public OrderAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(itemLayout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
         // set the view's size, margins, paddings and layout parameters
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +73,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         // - replace the contents of the view with that element
         //holder.mTextView.setText(mDataset[position]);
         Order item = items.get(position);
-        holder.mAddressView.setText(item.getAddress());
-        holder.mReasonView.setText(item.getDescription());
+//        holder.mAddressView.setText(item.getAddress());
+//        holder.mReasonView.setText(item.getDescription());
+
+        holder.mAddressView.setText("test");
+        holder.mReasonView.setText("Test");
+
         if (item.getSpecialty() != null)
             switch (item.getSpecialty().getId()%4) {
                 case 0:
