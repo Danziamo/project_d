@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="drawer_open" />
-    <string name="drawer_close" />
+    <string name="app_name">Мастер</string>
+    <string name="Sign_in_with">Войти через:</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="problems_sign_in">Не можете войти</string>
+    <string name="input">Вход</string>
+    <string name="registration">Регистрация</string>
+    <string name="last_name">Фамилия</string>
+    <string name="first_name">Имя</string>
+    <string name="country">Страна</string>
+    <string name="city">Город</string>
+    <string name="phone_number">Телефон</string>
+    <string name="next">Далее</string>
+    <string name="action_settings">Настройки</string>
+    <string name="autorizations">Авторизация</string>
+    <string name="now">Текущие</string>
+    <string name="to_oerder">Заказать</string>
+    <string name="base_wizards">База мастеров</string>
+    <string name="history">История</string>
+    <string name="active">Активные</string>
+    <string name="orders">Заказы</string>
+    <string name="change">Поменять</string>
+    <string name="my_rating">Рейтинг</string>
+    <string name="feedbacks">Отзывы</string>
+    <string name="forget_password">Забыли пароль?</string>
+    <string name="license">Лицензия</string>
+    <string name="icon_orders">&#xf022;</string>
+    <string name="icon_users">&#xf007;</string>
+    <string name="icon_history">&#xf017;</string>
+    <string name="icon_orders_text">Заказы</string>
+    <string name="icon_users_text">Мои заказы</string>
+    <string name="icon_history_text">История</string>
+    <string name="like"></string>
+    <string name="accountactivate">Вам будет выслано смс с кодом\n подтверждения вашего номера.\n Введите его в поле ниже</string>
+    <string name="codesms">Код с СМС</string>
+    <string name="btn_authorization">Авторизация</string>
+    <string name="submit">Отправить</string>
+    <string name="profession">Профессия</string>
+    <string name="experience">Опыт</string>
+    <string name="description">Проблема</string>
+    <string name="adress">Адрес</string>
+    <string name="name">Имя</string>
+    <string name="map">Карта</string>
+    <string name="list">Список</string>
+    <string name="my_masters">Мои Мастера</string>
+    <string name="my_clients">Мои Клиенты</string>
+    <string name="services">Услуги</string>
+    <string name="locate">Разместить</string>
+    <string name="rating">Рейтинг не ниже:</string>
+
 </resources>
