@@ -26,7 +26,7 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new MasterListFragment();
             case 2:
-                return UserOrderListFragment.newInstance(OrderType.FINISHED, null);
+                return new UserOrderListFragment();
             default:
                 return new NewOrdersFragment();
         }

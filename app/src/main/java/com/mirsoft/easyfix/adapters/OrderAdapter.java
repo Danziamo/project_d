@@ -2,6 +2,8 @@ package com.mirsoft.easyfix.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,20 +14,24 @@ import android.widget.TextView;
 
 import com.mirsoft.easyfix.OrderDetailActivity;
 import com.mirsoft.easyfix.R;
+import com.mirsoft.easyfix.common.Constants;
+import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.models.Order;
 
 import java.util.ArrayList;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
+    private int mode;
     private ArrayList<Order> items;
     private int itemLayout;
     private final Context mContext;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public OrderAdapter(ArrayList<Order> items, int layout, Context context) {
+    public OrderAdapter(ArrayList<Order> items, int layout, Context context, int mode) {
         this.items = items;
         this.itemLayout = layout;
         this.mContext = context;
+        this.mode = mode;
     }
 
     // Provide a reference to the views for each data item
@@ -73,24 +79,31 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         // - replace the contents of the view with that element
         //holder.mTextView.setText(mDataset[position]);
         Order item = items.get(position);
-//        holder.mAddressView.setText(item.getAddress());
-//        holder.mReasonView.setText(item.getDescription());
-
-        holder.mAddressView.setText("test");
-        holder.mReasonView.setText("Test");
+        holder.mAddressView.setText(item.getAddress());
+        if (mode == Constants.ORDER_ADAPTER_MODE_NEW) {
+            holder.mReasonView.setText(item.getDescription());
+        } else {
+            holder.mReasonView.setTextColor(Color.rgb(255, 0, 0));
+            if (item.getStatus() == OrderType.ACTIVE)
+                holder.mReasonView.setText("Мастер взял ваш заказ");
+            if (item.getStatus() == OrderType.NEW)
+                holder.mReasonView.setText("Мастер не подтвердил");
+            if (item.getStatus() == OrderType.FINISHED)
+                holder.mReasonView.setText("");
+        }
 
         if (item.getSpecialty() != null)
-            switch (item.getSpecialty().getId()%4) {
-                case 0:
+            switch (item.getSpecialty().getId()%5) {
+                case 1:
                     holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.plumbing));
                     break;
-                case 1:
+                case 2:
                     holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.electricity));
                     break;
-                case 2:
+                case 3:
                     holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.repairing));
                     break;
-                case 3:
+                case 4:
                     holder.image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.decoration));
                     break;
             }

@@ -27,5 +27,7 @@ public class SessionRequestInterceptor implements RequestInterceptor{
 
         if (this.isContractor)
             request.addHeader("AUTHROLE", "218561869884004337978616805706827077109L");
+        else
+            request.addHeader("AUTHROLE", "110728838694634726063666881111550518935L");
     }
 }

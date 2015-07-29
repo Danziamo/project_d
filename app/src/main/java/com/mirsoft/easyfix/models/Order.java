@@ -26,6 +26,9 @@ public class Order implements Serializable {
     private OrderType status;
 
     @Expose
+    private User contractor;
+
+    @Expose
     private Specialty specialty;
 
     public Order() {
@@ -130,11 +133,20 @@ public class Order implements Serializable {
         return new LatLng(this.latitude, this.longitude);
     }
 
+    public User getContractor() {
+        return this.contractor;
+    }
+
+    public void setContractor(User contractor) {
+        this.contractor = contractor;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", client=" + client +
+                ", contractor=" + contractor + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 ", address='" + address + '\'' +

@@ -187,21 +187,25 @@ public class NewOrdersFragment extends Fragment{
     }*/
 
     private void getData() {
-        Settings settings = new Settings(getActivity());
+        final Settings settings = new Settings(getActivity());
         RestClient.getOrderService(true).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
+                ArrayList<Order> displayList = new ArrayList<Order>();
+                int userId = settings.getUserId();
                 mOrderMarkerMap = new HashMap<>();
                 mGoogleMap.clear();
                 for (int i = 0; i < orders.size(); ++i) {
                     Order order = orders.get(i);
+                    if (userId == order.getClient().getId()) continue;
                     LatLng position = order.getLatLng();
+                    displayList.add(order);
                     if (position != null) {
                         Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(order.getLatLng()).title(order.getSpecialty().getName()));
                         mOrderMarkerMap.put(marker, order);
                     }
                 }
-                ordersAdapter = new OrdersAdapter(getActivity(), R.layout.list_item_order,orders);
+                ordersAdapter = new OrdersAdapter(getActivity(), R.layout.list_item_order, displayList);
                 orderListView.setAdapter(ordersAdapter);
 
             }
