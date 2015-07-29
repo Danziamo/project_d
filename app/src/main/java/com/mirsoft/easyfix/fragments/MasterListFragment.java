@@ -28,6 +28,7 @@ import com.mirsoft.easyfix.models.Specialty;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.utils.RecyclerViewSimpleDivider;
+import com.mirsoft.easyfix.utils.Singleton;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,8 @@ public class MasterListFragment extends Fragment {
     private RecyclerView rvMaster;
     private MasterAdapter rvAdapter;
     private AppCompatSpinner spinner;
-    private ArrayList<Specialty> specialtyList;
+  //  private ArrayList<Specialty> specialtyList;
+    Singleton dc;
 
 
     @Override
@@ -53,6 +55,7 @@ public class MasterListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_master_list, container, false);
+        dc = Singleton.getInstance(getActivity());
 
         spinner = (AppCompatSpinner)view.findViewById(R.id.spinner);
 
@@ -78,8 +81,8 @@ public class MasterListFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (specialtyList.size() > 0)
-                    getMastersList(specialtyList.get(position).getSlug());
+                if (dc.specialtyList.size() > 0)
+                    getMastersList(dc.specialtyList.get(position).getSlug());
             }
 
             @Override
@@ -111,8 +114,8 @@ public class MasterListFragment extends Fragment {
         RestClient.getSpecialtyApi(false).getSpecialties(new Callback<ArrayList<Specialty>>() {
             @Override
             public void success(ArrayList<Specialty> specialties, Response response) {
-                specialtyList = specialties;
-                ArrayAdapter<Specialty> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, specialties);
+                dc.specialtyList = specialties;
+                ArrayAdapter<Specialty> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, dc.specialtyList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(adapter);
                 if (specialties.size() > 0)
