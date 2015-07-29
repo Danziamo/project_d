@@ -3,18 +3,30 @@ package com.mirsoft.easyfix;
 import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 
 import com.bumptech.glide.Glide;
+import com.mirsoft.easyfix.adapters.ProfilePagerAdapter;
+import com.mirsoft.easyfix.fragments.BaseFragment;
 import com.mirsoft.easyfix.fragments.ProfileFragment;
+import com.mirsoft.easyfix.fragments.ProfileInfoFragment;
 
 
 public class ProfileActivity extends AppCompatActivity {
     private static final int SELECT_PICTURE = 1;
+
+    private ViewPager viewPager;
+    private ProfilePagerAdapter pagerAdapter;
+    private TabLayout tabLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,17 +37,36 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("Tamasha");
+//        CollapsingToolbarLayout collapsingToolbar =
+//                (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
+//        collapsingToolbar.setTitle("Tamasha");
 
-        loadBackdrop();
+//        loadBackdrop();
 
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, ProfileFragment.newInstance(null, null))
-                    .commit();
-        }
+//        if (savedInstanceState == null) {
+//            getFragmentManager().beginTransaction()
+//                    .add(R.id.container, ProfileFragment.newInstance())
+//                    .commit();
+//        }
+
+
+        String[] titles = new String[]{
+                getString(R.string.my_profile),
+                getString(R.string.my_speciality)
+        };
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+
+        viewPager.setOffscreenPageLimit(2);
+
+        pagerAdapter = new ProfilePagerAdapter(getSupportFragmentManager(), titles);
+        viewPager.setAdapter(pagerAdapter);
+
+
+
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+
     }
 
     @Override
@@ -47,10 +78,10 @@ public class ProfileActivity extends AppCompatActivity {
             super.onBackPressed();
     }
 
-    private void loadBackdrop() {
-        final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        Glide.with(this).load(R.drawable.foto).centerCrop().into(imageView);
-    }
+//    private void loadBackdrop() {
+//        final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
+//        Glide.with(this).load(R.drawable.foto).centerCrop().into(imageView);
+//    }
 
     private void changePhoto() {
         Intent intent = new Intent();
@@ -58,6 +89,13 @@ public class ProfileActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,
                 "Select Picture"), SELECT_PICTURE);
+    }
+
+    private void editButtonClicked(){
+        int currentItemId = viewPager.getCurrentItem();
+
+        BaseFragment fragment = pagerAdapter.getItem(currentItemId);
+        fragment.updateViewsForEdit();
     }
 
     @Override
@@ -73,6 +111,11 @@ public class ProfileActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+        switch (id){
+            case android.R.id.home: finish(); return true;
+            case R.id.action_edit: editButtonClicked(); return true;
+        }
 
         //noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {

@@ -51,4 +51,18 @@
     <string name="btn_change">Изменить</string>
     <string name="btn_cancel">Отменить</string>
     <string name="rating">Рейтинг не ниже:</string>
+
+
+    <string name="my_profile">Мой профиль</string>
+    <string name="my_speciality">Мои профессии</string>
+    <string name="doc_presence">Наличие документов</string>
+
+    <plurals name="feedback_count">
+        <item quantity="zero">%1$d отзывов</item>
+        <item quantity="one">%1$d отзыв</item>
+        <item quantity="two">%1$d отзыва</item>
+        <item quantity="few">%1$d отзыва</item>
+        <item quantity="many">%1$d отзывов</item>
+        <item quantity="other">%1$d отзывов</item>
+    </plurals>
 </resources>

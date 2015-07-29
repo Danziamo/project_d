@@ -5,114 +5,19 @@
     android:layout_height="match_parent"
     tools:context="com.mirsoft.easyfix.fragments.ProfileFragment"
     android:background="@color/white_blue"
-    android:orientation="vertical"
-    android:id="@+id/zz">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <RelativeLayout
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_height="match_parent"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="@string/my_rating"
-            android:layout_toLeftOf="@+id/ratingBar"/>
 
-        <RatingBar
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ratingBar"
-            android:isIndicator="true"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:numStars="5" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="@string/feedbacks"
-            android:id="@+id/tvRatings"
-            android:layout_toRightOf="@+id/ratingBar" />
-    </RelativeLayout>
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material.First"
-        app:met_helperText="@string/first_name"
-        android:hint="@string/first_name"
-        android:inputType="textPersonName"
-        android:id="@+id/etFirstName"
-        android:layout_below="@+id/masterRatingBar"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent" />
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material"
-        app:met_helperText="@string/last_name"
-        android:hint="@string/last_name"
-        android:inputType="textPersonName"
-        android:id="@+id/etLastName"
-        android:layout_below="@+id/etFirstName"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent" />
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material"
-        app:met_helperText="@string/city"
-        android:hint="Специалиность"
-        android:id="@+id/etSpeciality"
-        android:layout_below="@+id/etLastName" />
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material"
-        app:met_helperText="@string/city"
-        android:hint="@string/license"
-        android:id="@+id/etLicense"
-        android:layout_below="@+id/etSpeciality" />
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material"
-        app:met_helperText="@string/country"
-        android:hint="@string/license"
-        android:id="@+id/etCountry"
-        android:layout_below="@+id/etLicense" />
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material"
-        app:met_helperText="@string/city"
-        android:hint="@string/city"
-        android:id="@+id/etCity"
-        android:layout_below="@+id/etCountry" />
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material"
-        app:met_helperText="@string/phone_number"
-        android:hint="@string/phone_number"
-        android:inputType="phone"
-        android:id="@+id/etPhone"
-        android:layout_below="@+id/etCity"
-        />
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material"
-        app:met_helperText="@string/password"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:id="@+id/etPassword"
-        android:layout_below="@+id/etPhone" />
-
-    <com.dd.processbutton.FlatButton
-        style="@style/Button.Material"
-        android:text="@string/change"
-        android:id="@+id/btnSubmit"
-        android:layout_below="@id/etPassword"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="30dp" />
 
 </LinearLayout>

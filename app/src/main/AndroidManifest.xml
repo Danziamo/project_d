@@ -42,12 +42,16 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_tabs"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile"
-            android:parentActivityName=".TabsActivity" >
+            android:label="@string/my_profile"
+            android:parentActivityName=".TabsActivity"
+            android:windowSoftInputMode="stateUnchanged|stateHidden|adjustPan"
+            android:screenOrientation="portrait"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mirsoft.easyfix.TabsActivity" />

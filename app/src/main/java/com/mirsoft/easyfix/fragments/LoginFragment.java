@@ -121,7 +121,7 @@ public class LoginFragment extends BaseFragment {
 
     private void makeLogin() {
         if (mTask) return;
-        String password;
+        final String password;
         //password = etPassword.getText().toString().trim();
         password = etPassword.getEditText().getText().toString().trim();
         String username;
@@ -153,6 +153,7 @@ public class LoginFragment extends BaseFragment {
                 showProgress(false);
                 settings.setAccessToken(session.token);
                 settings.setUserId(session.id);
+                settings.setPassword(password);
                 Intent intent = new Intent(getActivity(), TabsActivity.class);
                 startActivity(intent);
                 getActivity().finish();

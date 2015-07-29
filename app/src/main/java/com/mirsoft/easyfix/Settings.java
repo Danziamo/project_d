@@ -62,6 +62,10 @@ public class Settings {
         putIntValue("user_id", userId);
     }
 
+    public void setPassword(String password){putStringValue("password", password);}
+
+    public String getPassword(){return getStringValue("password");}
+
     public String getEndpoint() {
         return getStringValue("endpoint");
     }

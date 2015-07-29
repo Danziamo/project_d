@@ -27,6 +27,7 @@
                 <EditText
                     android:id="@+id/etLogin"
                     app:met_helperText="@string/login"
+                    android:hint="@string/login"
                     android:inputType="phone"
                     android:layout_centerHorizontal="true"
                     style="@style/Input.Material.First"
@@ -41,6 +42,7 @@
                 <EditText
                     style="@style/Input.Material"
                     app:met_helperText="@string/password"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:id="@+id/etPassword"
                     android:layout_below="@+id/etLogin" />
