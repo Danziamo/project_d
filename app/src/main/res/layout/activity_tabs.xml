@@ -52,7 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:orientation="horizontal"
-            android:background="@color/white">
+            android:background="@color/white"
+            app:layout_scrollFlags="scroll|enterAlways"
+            >
 
             <Button
                 android:id="@+id/map_button"
@@ -78,7 +80,9 @@
             android:layout_gravity="bottom"
             android:visibility="gone"
             android:orientation="horizontal"
-            android:background="@color/white">
+            android:background="@color/white"
+            app:layout_scrollFlags="scroll|enterAlways"
+            >
 
             <Button
                 android:id="@+id/my_masters_button"

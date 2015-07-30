@@ -85,7 +85,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         ordersLayout = (LinearLayout)findViewById(R.id.orders_linear_layout);
         myOrderslayout = (LinearLayout)findViewById(R.id.my_orders_linear_layout);
 
-      //  viewPager.setOffscreenPageLimit(0);
+        viewPager.setOffscreenPageLimit(3);
         /*String[] titles = new String[]{
                 getString(R.string.icon_orders),
                 getString(R.string.icon_users),

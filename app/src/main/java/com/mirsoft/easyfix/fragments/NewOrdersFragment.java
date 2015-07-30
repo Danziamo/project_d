@@ -233,16 +233,12 @@ public class NewOrdersFragment extends Fragment{
         flipper.setInAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_from_right));
         flipper.setOutAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_to_left));
         flipper.showNext();
-
-        Log.e("Anim", "Flip to oLeft");
     }
 
     public void toRight(){
         flipper.setInAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_from_left));
         flipper.setOutAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_to_right));
         flipper.showPrevious();
-
-        Log.e("Anim", "Flip to Right");
     }
 
     @Override
