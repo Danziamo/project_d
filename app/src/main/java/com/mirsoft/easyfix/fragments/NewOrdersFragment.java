@@ -212,7 +212,7 @@ public class NewOrdersFragment extends Fragment{
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(getActivity(), "Fail", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Fail", Toast.LENGTH_LONG).show(); //crash
             }
         });
     }

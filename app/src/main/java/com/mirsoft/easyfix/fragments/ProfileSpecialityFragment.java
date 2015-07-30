@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -40,7 +41,7 @@ public class ProfileSpecialityFragment extends BaseFragment implements View.OnCl
     private LinearLayout llProfileSpecialityContent;
     private ProgressBar progressBar;
     private RecyclerView rvUserSpecialties;
-    private FlatButton btnSubmit;
+    private Button btnSubmit;
 
 
     public ProfileSpecialityFragment() {
@@ -58,7 +59,7 @@ public class ProfileSpecialityFragment extends BaseFragment implements View.OnCl
         llProfileSpecialityContent = (LinearLayout)view.findViewById(R.id.llProfileSpecialityContent);
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         rvUserSpecialties = (RecyclerView)view.findViewById(R.id.rvUserSpecialties);
-        btnSubmit = (FlatButton) view.findViewById(R.id.btnSubmit);
+        btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(this);
 
         FloatingActionButton btnAdd = (FloatingActionButton) view.findViewById(R.id.btnAdd);

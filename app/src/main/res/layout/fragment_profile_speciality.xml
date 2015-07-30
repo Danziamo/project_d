@@ -13,8 +13,24 @@
             android:id="@+id/rvUserSpecialties"
             android:scrollbars="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            />
     </LinearLayout>
+    <RelativeLayout
+        android:layout_below="@id/llProfileSpecialityContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/btnSubmit"
+        style="@style/Button.Material"
+        android:text="@string/change"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="30dp"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        />
+    </RelativeLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -24,13 +40,6 @@
         android:layout_marginBottom="40dp"
         />
 
-    <com.dd.processbutton.FlatButton
-        android:id="@+id/btnSubmit"
-        style="@style/Button.Material"
-        android:text="@string/change"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="30dp"
-        android:visibility="gone"/>
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"

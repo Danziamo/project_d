@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
         <LinearLayout
             android:id="@+id/ll_profile_info_content"
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:visibility="gone">
 
             <RelativeLayout
@@ -24,27 +26,27 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/ratingBar"
                     android:gravity="left"
-                    android:text="@string/my_rating"
-                    android:layout_toLeftOf="@+id/ratingBar"/>
+                    android:text="@string/my_rating" />
 
                 <RatingBar
                     android:id="@+id/ratingBar"
+                    style="?android:attr/ratingBarStyleIndicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:isIndicator="true"
-                    android:layout_centerHorizontal="true"
                     android:layout_alignParentTop="true"
-                    android:numStars="5"
-                    style="?android:attr/ratingBarStyleIndicator"/>
+                    android:layout_centerHorizontal="true"
+                    android:isIndicator="true"
+                    android:numStars="5" />
 
                 <TextView
                     android:id="@+id/tvFeedbacks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/ratingBar"
                     android:gravity="right"
-                    android:text="@string/feedbacks"
-                    android:layout_toRightOf="@+id/ratingBar" />
+                    android:text="@string/feedbacks" />
             </RelativeLayout>
 
             <ImageView
@@ -55,136 +57,134 @@
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_last_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
+
                 <EditText
                     android:id="@+id/et_last_name"
-                    android:hint="@string/last_name"
-                    android:inputType="textPersonName"
-                    android:enabled="false"
                     style="@style/Input.Material.First"
-                    />
+                    android:enabled="false"
+                    android:hint="@string/last_name"
+                    android:inputType="textCapSentences" />
             </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_first_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
+
                 <EditText
                     android:id="@+id/et_first_name"
-                    android:hint="@string/first_name"
-                    android:inputType="textPersonName"
-                    android:enabled="false"
                     style="@style/Input.Material.First"
-                    />
+                    android:enabled="false"
+                    android:hint="@string/first_name"
+                    android:inputType="textCapSentences" />
             </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_phone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
+
                 <EditText
                     android:id="@+id/et_phone"
-                    android:hint="@string/phone_number"
-                    android:inputType="phone"
-                    android:enabled="false"
                     style="@style/Input.Material.First"
-                    />
+                    android:enabled="false"
+                    android:hint="@string/phone_number"
+                    android:inputType="phone" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
+
                 <EditText
                     android:id="@+id/et_password"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:enabled="false"
                     style="@style/Input.Material.First"
-                    />
+                    android:enabled="false"
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
 
 
+            <!--<com.rengwuxian.materialedittext.MaterialEditText-->
+            <!--style="@style/Input.Material.First"-->
+            <!--app:met_helperText="@string/first_name"-->
+            <!--android:hint="@string/first_name"-->
+            <!--android:inputType="textPersonName"-->
+            <!--android:id="@+id/etFirstName"-->
+            <!--android:layout_below="@+id/masterRatingBar"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="match_parent" />-->
 
             <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-                <!--style="@style/Input.Material.First"-->
-                <!--app:met_helperText="@string/first_name"-->
-                <!--android:hint="@string/first_name"-->
-                <!--android:inputType="textPersonName"-->
-                <!--android:id="@+id/etFirstName"-->
-                <!--android:layout_below="@+id/masterRatingBar"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_width="match_parent" />-->
+            <!--style="@style/Input.Material"-->
+            <!--app:met_helperText="@string/last_name"-->
+            <!--android:hint="@string/last_name"-->
+            <!--android:inputType="textPersonName"-->
+            <!--android:id="@+id/etLastName"-->
+            <!--android:layout_below="@+id/etFirstName"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="match_parent" />-->
 
             <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-                <!--style="@style/Input.Material"-->
-                <!--app:met_helperText="@string/last_name"-->
-                <!--android:hint="@string/last_name"-->
-                <!--android:inputType="textPersonName"-->
-                <!--android:id="@+id/etLastName"-->
-                <!--android:layout_below="@+id/etFirstName"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_width="match_parent" />-->
+            <!--style="@style/Input.Material"-->
+            <!--app:met_helperText="@string/city"-->
+            <!--android:hint="Специалиность"-->
+            <!--android:id="@+id/etSpeciality"-->
+            <!--android:layout_below="@+id/etLastName" />-->
 
             <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-                <!--style="@style/Input.Material"-->
-                <!--app:met_helperText="@string/city"-->
-                <!--android:hint="Специалиность"-->
-                <!--android:id="@+id/etSpeciality"-->
-                <!--android:layout_below="@+id/etLastName" />-->
+            <!--style="@style/Input.Material"-->
+            <!--app:met_helperText="@string/city"-->
+            <!--android:hint="@string/license"-->
+            <!--android:id="@+id/etLicense"-->
+            <!--android:layout_below="@+id/etSpeciality" />-->
 
             <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-                <!--style="@style/Input.Material"-->
-                <!--app:met_helperText="@string/city"-->
-                <!--android:hint="@string/license"-->
-                <!--android:id="@+id/etLicense"-->
-                <!--android:layout_below="@+id/etSpeciality" />-->
+            <!--style="@style/Input.Material"-->
+            <!--app:met_helperText="@string/country"-->
+            <!--android:hint="@string/license"-->
+            <!--android:id="@+id/etCountry"-->
+            <!--android:layout_below="@+id/etLicense" />-->
 
             <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-                <!--style="@style/Input.Material"-->
-                <!--app:met_helperText="@string/country"-->
-                <!--android:hint="@string/license"-->
-                <!--android:id="@+id/etCountry"-->
-                <!--android:layout_below="@+id/etLicense" />-->
+            <!--style="@style/Input.Material"-->
+            <!--app:met_helperText="@string/city"-->
+            <!--android:hint="@string/city"-->
+            <!--android:id="@+id/etCity"-->
+            <!--android:layout_below="@+id/etCountry" />-->
 
             <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-                <!--style="@style/Input.Material"-->
-                <!--app:met_helperText="@string/city"-->
-                <!--android:hint="@string/city"-->
-                <!--android:id="@+id/etCity"-->
-                <!--android:layout_below="@+id/etCountry" />-->
+            <!--style="@style/Input.Material"-->
+            <!--app:met_helperText="@string/phone_number"-->
+            <!--android:hint="@string/phone_number"-->
+            <!--android:inputType="phone"-->
+            <!--android:id="@+id/etPhone"-->
+            <!--android:layout_below="@+id/etCity"-->
+            <!--/>-->
 
             <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-                <!--style="@style/Input.Material"-->
-                <!--app:met_helperText="@string/phone_number"-->
-                <!--android:hint="@string/phone_number"-->
-                <!--android:inputType="phone"-->
-                <!--android:id="@+id/etPhone"-->
-                <!--android:layout_below="@+id/etCity"-->
-                <!--/>-->
-
-            <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-                <!--style="@style/Input.Material"-->
-                <!--app:met_helperText="@string/password"-->
-                <!--android:hint="@string/password"-->
-                <!--android:inputType="textPassword"-->
-                <!--android:id="@+id/etPassword"-->
-                <!--android:layout_below="@+id/etPhone" />-->
+            <!--style="@style/Input.Material"-->
+            <!--app:met_helperText="@string/password"-->
+            <!--android:hint="@string/password"-->
+            <!--android:inputType="textPassword"-->
+            <!--android:id="@+id/etPassword"-->
+            <!--android:layout_below="@+id/etPhone" />-->
 
             <com.dd.processbutton.FlatButton
                 android:id="@+id/btnSubmit"
                 style="@style/Button.Material"
-                android:text="@string/change"
                 android:layout_below="@id/etPassword"
                 android:layout_marginBottom="40dp"
                 android:layout_marginTop="30dp"
-                android:visibility="gone"/>
+                android:text="@string/change"
+                android:visibility="gone" />
         </LinearLayout>
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/progress_bar"/>
 
-</LinearLayout>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

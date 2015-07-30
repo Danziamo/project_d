@@ -56,6 +56,7 @@
     <string name="my_profile">Мой профиль</string>
     <string name="my_speciality">Мои профессии</string>
     <string name="doc_presence">Наличие документов</string>
+    <string name="action_edit">Редактировать</string>
 
     <plurals name="feedback_count">
         <item quantity="zero">%1$d отзывов</item>
