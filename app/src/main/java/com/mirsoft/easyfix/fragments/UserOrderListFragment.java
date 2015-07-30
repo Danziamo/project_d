@@ -9,14 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.adapters.SectionedOrderAdapter;
-import com.mirsoft.easyfix.api.OrderApi;
 import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.networking.RestClient;
@@ -83,7 +81,7 @@ public class UserOrderListFragment extends Fragment {
         rvActive.setItemAnimator(new DefaultItemAnimator());
         rvActive.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        fillData();
+        fillDataClient();
 
         ((TabsActivity)getActivity()).myMastersButton.setEnabled(false);
         setBottomButtonsListeners();
@@ -105,6 +103,7 @@ public class UserOrderListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(),"myMastersButton",Toast.LENGTH_SHORT).show();
+                fillDataClient();
 
                 ((TabsActivity)getActivity()).myMastersButton.setEnabled(false);
                 ((TabsActivity)getActivity()).myClientsButton.setEnabled(true);
@@ -114,6 +113,7 @@ public class UserOrderListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(),"myClientsButton",Toast.LENGTH_SHORT).show();
+                fillDataMaster();
 
                 ((TabsActivity)getActivity()).myMastersButton.setEnabled(true);
                 ((TabsActivity)getActivity()).myClientsButton.setEnabled(false);
@@ -121,7 +121,50 @@ public class UserOrderListFragment extends Fragment {
         });
     }
 
-    private void fillData() {
+    private void fillDataClient() {
+        final Settings settings = new Settings(getActivity());
+        RestClient.getOrderService(true).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
+            @Override
+            public void success(ArrayList<Order> orders, Response response) {
+                ArrayList<Order> activeOrders = new ArrayList<>();
+                ArrayList<Order> finishedOrders = new ArrayList<>();
+                ArrayList<Order> allOrders = new ArrayList<>();
+
+                for (int i = 0; i < orders.size(); ++i) {
+                    Order tempOrder = orders.get(i);
+                    if (tempOrder.getClient().getId() != settings.getUserId()) continue;
+                    if (tempOrder.getStatus() != OrderType.FINISHED) {
+                        activeOrders.add(tempOrder);
+                    } else {
+                        finishedOrders.add(tempOrder);
+                    }
+                }
+                allOrders.addAll(activeOrders);
+                allOrders.addAll(finishedOrders);
+
+                mOrderAdapterActive = new OrderAdapter(allOrders, R.layout.list_item_order, getActivity(), Constants.CLIENT_ORDER_ADAPTER_MODE_ACTIVE);
+
+                List<SectionedOrderAdapter.Section> sections = new ArrayList<>();
+                sections.add(new SectionedOrderAdapter.Section(0, "Active"));
+                sections.add(new SectionedOrderAdapter.Section(activeOrders.size(), "Finished"));
+
+                SectionedOrderAdapter.Section[] dummy = new SectionedOrderAdapter.Section[sections.size()];
+                SectionedOrderAdapter mSectionedAdapter = new
+                        SectionedOrderAdapter(getActivity(), R.layout.recycledview_section, R.id.section_text, mOrderAdapterActive);
+                mSectionedAdapter.setSections(sections.toArray(dummy));
+
+                //Apply this adapter to the RecyclerView
+                rvActive.setAdapter(mSectionedAdapter);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getActivity(), "Some network error", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void fillDataMaster() {
         Settings settings = new Settings(getActivity());
         RestClient.getOrderService(false).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
@@ -141,7 +184,7 @@ public class UserOrderListFragment extends Fragment {
                 allOrders.addAll(activeOrders);
                 allOrders.addAll(finishedOrders);
 
-                mOrderAdapterActive = new OrderAdapter(allOrders, R.layout.list_item_order, getActivity(), Constants.ORDER_ADAPTER_MODE_ACTIVE);
+                mOrderAdapterActive = new OrderAdapter(allOrders, R.layout.list_item_order, getActivity(), Constants.MASTER_ORDER_ADAPTER);
 
                 List<SectionedOrderAdapter.Section> sections = new ArrayList<>();
                 sections.add(new SectionedOrderAdapter.Section(0, "Active"));
@@ -149,7 +192,7 @@ public class UserOrderListFragment extends Fragment {
 
                 SectionedOrderAdapter.Section[] dummy = new SectionedOrderAdapter.Section[sections.size()];
                 SectionedOrderAdapter mSectionedAdapter = new
-                        SectionedOrderAdapter(getActivity() ,R.layout.recycledview_section,R.id.section_text, mOrderAdapterActive);
+                        SectionedOrderAdapter(getActivity(), R.layout.recycledview_section, R.id.section_text, mOrderAdapterActive);
                 mSectionedAdapter.setSections(sections.toArray(dummy));
 
                 //Apply this adapter to the RecyclerView
@@ -158,7 +201,7 @@ public class UserOrderListFragment extends Fragment {
 
             @Override
             public void failure(RetrofitError error) {
-
+                Toast.makeText(getActivity(), "Some network error", Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -34,11 +34,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TestSIgnUp"
-            android:label="@string/title_activity_test_sign_up"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
             android:name=".SplashActivity"
             android:label="@string/title_activity_splash" >
         </activity>
@@ -73,11 +68,6 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_maps_key" />
-
-        <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" >
-        </activity>
 
         <meta-data
             android:name="io.fabric.ApiKey"
