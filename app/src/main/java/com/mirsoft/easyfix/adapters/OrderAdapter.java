@@ -60,12 +60,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Order order = (Order)v.getTag();
-                Intent intent = new Intent(mContext, OrderDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("ORDER", order);
-                intent.putExtra("bundle", bundle);
-                mContext.startActivity(intent);
+                if (mode == Constants.MASTER_ORDER_ADAPTER) {
+                    Order order = (Order) v.getTag();
+                    Intent intent = new Intent(mContext, OrderDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("ORDER", order);
+                    intent.putExtra("bundle", bundle);
+                    mContext.startActivity(intent);
+                }
             }
         });
         return new ViewHolder(v);
