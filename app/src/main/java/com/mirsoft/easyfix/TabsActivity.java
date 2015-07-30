@@ -1,9 +1,11 @@
 package com.mirsoft.easyfix;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -44,6 +46,8 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     ViewPager viewPager;
     TabLayout tabLayout;
     NavigationView navigationView;
+    FloatingActionButton btnCreateOrder;
+
     private ArrayList<Order> mOrderList;
     private ArrayList<Order> mFinishedOrderList;
 
@@ -76,6 +80,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         viewPager = (ViewPager)findViewById(R.id.pager);
         tabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        btnCreateOrder = (FloatingActionButton)findViewById(R.id.btnSwitch);
 
         mapButton = (Button)findViewById(R.id.map_button);
         ordersListButton = (Button)findViewById(R.id.list_button);
@@ -84,6 +89,14 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
 
         ordersLayout = (LinearLayout)findViewById(R.id.orders_linear_layout);
         myOrderslayout = (LinearLayout)findViewById(R.id.my_orders_linear_layout);
+
+        btnCreateOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TabsActivity.this, ClientOrderDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
 
       //  viewPager.setOffscreenPageLimit(0);
         /*String[] titles = new String[]{

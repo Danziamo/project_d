@@ -128,14 +128,14 @@ public class NewOrdersFragment extends Fragment{
         orderListView.setAdapter(ordersAdapter);
 
 
-        FloatingActionButton btnSwitch = (FloatingActionButton) getActivity().findViewById(R.id.btnSwitch);
-        btnSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ClientOrderDetailsActivity.class);
-                startActivity(intent);
-            }
-        });
+//        FloatingActionButton btnSwitch = (FloatingActionButton) getActivity().findViewById(R.id.btnSwitch);
+//        btnSwitch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), ClientOrderDetailsActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
     //    ((TabsActivity)getActivity()).mapButton.setEnabled(false);
 

@@ -69,9 +69,9 @@ public class CreateBasicOrderFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_basic_order,container, false);
         dc = Singleton.getInstance(getActivity());
 
-        etadress = (EditText) view.findViewById(R.id.etadress);
+      /*  etadress = (EditText) view.findViewById(R.id.etadress);
         etPhone = (EditText) view.findViewById(R.id.etPhone);
-        etdesciption = (EditText) view.findViewById(R.id.etDescription);
+        etdesciption = (EditText) view.findViewById(R.id.etDescription);*/
         mRatingbar = (AppCompatRatingBar) view.findViewById(R.id.llratingbar);
         Button btnLocate = (Button)view.findViewById(R.id.btnLocate);
 
@@ -79,12 +79,12 @@ public class CreateBasicOrderFragment extends Fragment {
         DrawableCompat.setTint(progress, Color.BLACK);
 
        // AppCompatButton btnLocate = (AppCompatButton)getView().findViewById(R.id.btnLocate);
-        btnLocate.setOnClickListener(new View.OnClickListener() {
+       /* btnLocate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
-        });
+        });*/
         // Inflate the layout for this fragment
 
 

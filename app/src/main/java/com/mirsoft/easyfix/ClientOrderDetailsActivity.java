@@ -2,6 +2,7 @@ package com.mirsoft.easyfix;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -10,16 +11,28 @@ import com.mirsoft.easyfixmaster.debug.CreateBasicOrderFragment;
 
 public class ClientOrderDetailsActivity extends AppCompatActivity {
 
+    Toolbar create_order_toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_order);
+
+        create_order_toolbar = (Toolbar)findViewById(R.id.order_create_toolbar);
+        setSupportActionBar(create_order_toolbar);
+
+        //create_order_toolbar.setCollapsible(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, CreateBasicOrderFragment.newInstance(null, null))
                     .commit();
         }
+
+
+
     }
 
     @Override

@@ -3,35 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.mirsoft.easyfixmaster.debug.CreateBasicOrderFragment">
 
-    <LinearLayout
-        android:id="@+id/service_linear_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/services"/>
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/services_spinner">
-
-        </Spinner>
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/main_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/service_linear_layout"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/service_linear_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/services"/>
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/services_spinner">
+
+            </Spinner>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/rating_layout"
@@ -99,32 +98,35 @@
 
         </android.support.design.widget.TextInputLayout>
 
+
+        <TextView
+            android:id="@+id/request_from_masters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/master_request"
+            android:textSize="16dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/order_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notification_order"
+            android:textSize="16dp"
+            android:layout_marginTop="10dp"/>
+
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/request_from_masters"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/master_request"
-        android:layout_below="@+id/main_linear_layout"
-        android:textSize="16dp"
-        android:layout_marginTop="10dp"/>
-
-    <TextView
-        android:id="@+id/order_notification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/notification_order"
-        android:layout_below="@+id/request_from_masters"
-        android:textSize="16dp"
-        android:layout_marginTop="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/order_notification"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_below="@id/main_linear_layout"
+        android:gravity="center|bottom"
+        android:id="@+id/linearLayout">
 
         <Button
             android:layout_width="wrap_content"
@@ -144,5 +146,7 @@
             android:text="@string/locate"
             android:id="@+id/btnLocate" />
     </LinearLayout>
+
+
 
 </RelativeLayout>

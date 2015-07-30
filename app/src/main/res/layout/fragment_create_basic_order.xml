@@ -6,7 +6,9 @@
     android:orientation="vertical"
     tools:context="com.mirsoft.easyfixmaster.debug.CreateBasicOrderFragment">
 
-    <include layout="@layout/common_order_layout"/>
+    <include layout="@layout/common_order_layout" />
+
+
 
    <!--<LinearLayout-->
        <!--android:layout_width="wrap_content"-->

@@ -69,14 +69,7 @@ public class MasterListFragment extends Fragment {
 
 
 
-        FloatingActionButton btnCreate = (FloatingActionButton)getActivity().findViewById(R.id.btnSwitch);
-        btnCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ClientOrderDetailsActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
