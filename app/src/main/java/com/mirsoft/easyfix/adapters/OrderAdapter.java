@@ -2,7 +2,6 @@ package com.mirsoft.easyfix.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -80,16 +79,26 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         //holder.mTextView.setText(mDataset[position]);
         Order item = items.get(position);
         holder.mAddressView.setText(item.getAddress());
-        if (mode == Constants.ORDER_ADAPTER_MODE_NEW) {
+        if (mode == Constants.CLIENT_ORDER_ADAPTER_MODE_NEW) {
             holder.mReasonView.setText(item.getDescription());
+        } else if (mode == Constants.CLIENT_ORDER_ADAPTER_MODE_ACTIVE) {
+            holder.mReasonView.setTextColor(Color.rgb(255, 0, 0));
+            if (item.getStatus() == OrderType.ACTIVE)
+                holder.mReasonView.setText("Статус: Мастер взял ваш заказ");
+            if (item.getStatus() == OrderType.NEW && item.getContractor() != null)
+                holder.mReasonView.setText("Статус: Мастер не подтвердил");
+            if (item.getStatus() == OrderType.NEW && item.getContractor() == null)
+                holder.mReasonView.setText("Статус: Вы не подтвердили");
+            if (item.getStatus() == OrderType.FINISHED)
+                holder.mReasonView.setText("");
         } else {
             holder.mReasonView.setTextColor(Color.rgb(255, 0, 0));
             if (item.getStatus() == OrderType.ACTIVE)
-                holder.mReasonView.setText("Мастер взял ваш заказ");
-            if (item.getStatus() == OrderType.NEW && item.getContractor() != null)
-                holder.mReasonView.setText("Мастер не подтвердил");
+                holder.mReasonView.setText("Статус: Клиент вас ждет");
+            if (item.getStatus() == OrderType.NEW)
+                holder.mReasonView.setText("Статус: Вы не подтвердили");
             if (item.getStatus() == OrderType.NEW && item.getContractor() == null)
-                holder.mReasonView.setText("Вы не подтвердили");
+                holder.mReasonView.setText("Статус: Клиент не подтвердили");
             if (item.getStatus() == OrderType.FINISHED)
                 holder.mReasonView.setText("");
         }
