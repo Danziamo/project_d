@@ -57,6 +57,8 @@ public class MasterListFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_master_list, container, false);
         dc = Singleton.getInstance(getActivity());
 
+        dc.currentSelectedTabPage = 1;
+
         spinner = (AppCompatSpinner)view.findViewById(R.id.spinner);
 
         rvMaster = (RecyclerView)view.findViewById(R.id.rvMasters);
@@ -66,10 +68,6 @@ public class MasterListFragment extends Fragment {
         rvMaster.setAdapter(rvAdapter);
         rvMaster.setItemAnimator(new DefaultItemAnimator());
         rvMaster.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
-
-
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -83,6 +81,7 @@ public class MasterListFragment extends Fragment {
 
             }
         });
+
         getSpecialties();
 
         return view;

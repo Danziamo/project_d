@@ -1,6 +1,7 @@
 package com.mirsoft.easyfix.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -34,6 +35,7 @@ public class UserOrderListFragment extends Fragment {
 
     private RecyclerView rvActive;
     private OrderAdapter mOrderAdapterActive;
+    private int allClientOrdersSize = -1;
 
     Singleton dc;
 
@@ -47,10 +49,12 @@ public class UserOrderListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_order_list, container, false);
         dc = Singleton.getInstance(getActivity());
+
+        dc.currentSelectedTabPage = 2;
 
         //  ((TabsActivity)getActivity()).setBottomLinearLayoutState(false);
 
@@ -87,6 +91,7 @@ public class UserOrderListFragment extends Fragment {
         setBottomButtonsListeners();
 
 
+
         return view;
     }
 
@@ -105,6 +110,8 @@ public class UserOrderListFragment extends Fragment {
                 Toast.makeText(getActivity(),"myMastersButton",Toast.LENGTH_SHORT).show();
                 fillDataClient();
 
+                dc.isClientMode = true;
+
                 ((TabsActivity)getActivity()).myMastersButton.setEnabled(false);
                 ((TabsActivity)getActivity()).myClientsButton.setEnabled(true);
             }
@@ -115,11 +122,16 @@ public class UserOrderListFragment extends Fragment {
                 Toast.makeText(getActivity(),"myClientsButton",Toast.LENGTH_SHORT).show();
                 fillDataMaster();
 
+                dc.isClientMode = false;
+
                 ((TabsActivity)getActivity()).myMastersButton.setEnabled(true);
                 ((TabsActivity)getActivity()).myClientsButton.setEnabled(false);
             }
         });
     }
+
+
+
 
     private void fillDataClient() {
         final Settings settings = new Settings(getActivity());
@@ -142,6 +154,8 @@ public class UserOrderListFragment extends Fragment {
                 allOrders.addAll(activeOrders);
                 allOrders.addAll(finishedOrders);
 
+                allClientOrdersSize = allOrders.size();
+
                 mOrderAdapterActive = new OrderAdapter(allOrders, R.layout.list_item_order, getActivity(), Constants.CLIENT_ORDER_ADAPTER_MODE_ACTIVE);
 
                 List<SectionedOrderAdapter.Section> sections = new ArrayList<>();
@@ -155,6 +169,7 @@ public class UserOrderListFragment extends Fragment {
 
                 //Apply this adapter to the RecyclerView
                 rvActive.setAdapter(mSectionedAdapter);
+
             }
 
             @Override
@@ -205,4 +220,17 @@ public class UserOrderListFragment extends Fragment {
             }
         });
     }
+
+    public  void onResume(){
+        super.onResume();
+        fillDataClient();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        ((TabsActivity)getActivity()).myMastersButton.setEnabled(true);
+        ((TabsActivity)getActivity()).myClientsButton.setEnabled(false);
+    }
+
 }

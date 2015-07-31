@@ -3,6 +3,7 @@ package com.mirsoft.easyfix.utils;
 import android.content.Context;
 import android.widget.LinearLayout;
 
+import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.Specialty;
 
 import java.util.ArrayList;
@@ -16,6 +17,16 @@ public class Singleton {
 
     public ArrayList<Specialty> specialtyList;
 
+    public Boolean isClientMode = true;
+
+    public Boolean fromCreateBasicOrderFragment = false;
+
+    public  int currentSelectedTabPage = -1 ;
+
+    public int indexSelectedOrder  = 0;
+
+    public Order clientSelectedOrder;
+
 
     public static Singleton getInstance(Context context) {
         if(instance == null) instance = new Singleton(context);
@@ -26,5 +37,15 @@ public class Singleton {
     private Singleton(Context context) {
         this.context = context;
         this.specialtyList = new ArrayList<>();
+    }
+
+    public int getPosition(int orderPosition){
+        int position = -1;
+        for(int i = 0; i < specialtyList.size(); i++){
+            if(specialtyList.get(i).getId() == orderPosition){
+                position = i;
+            }
+        }
+        return position;
     }
 }

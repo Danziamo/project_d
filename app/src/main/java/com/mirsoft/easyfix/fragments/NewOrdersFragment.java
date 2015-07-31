@@ -81,6 +81,8 @@ public class NewOrdersFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_new_orders, container, false);
         dc = Singleton.getInstance(getActivity());
 
+        dc.currentSelectedTabPage = 0;
+
         mMapView = (MapView) view.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 

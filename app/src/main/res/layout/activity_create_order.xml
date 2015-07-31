@@ -6,13 +6,13 @@
     android:orientation="vertical"
     tools:context="com.mirsoft.easyfix.ClientOrderDetailsActivity">
 
-    <android.support.design.widget.AppBarLayout
+<android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <include android:id = "@+id/order_create_toolbar"
+            <include android:id = "@+id/order_create_toolbar"
             layout="@layout/toolbar"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"/>
@@ -34,5 +34,6 @@
             tools:ignore="MergeRootFrame"/>
 
     </android.support.v4.widget.NestedScrollView>
+
 
 </LinearLayout>

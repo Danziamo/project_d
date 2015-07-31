@@ -63,7 +63,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/etadress"
+                android:id="@+id/order_address"
                 android:singleLine="true"
                 android:hint="@string/adress"
                 android:inputType="textPostalAddress"/>
@@ -77,7 +77,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/etPhone"
+                android:id="@+id/order_phone"
                 android:singleLine="true"
                 android:hint="@string/phone_number"
                 android:inputType="phone"/>
@@ -92,7 +92,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/etDescription"
+                android:id="@+id/order_description"
                 android:hint="@string/description"
                 android:inputType="textPostalAddress"/>
 

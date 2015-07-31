@@ -1,14 +1,19 @@
 package com.mirsoft.easyfixmaster.debug;
 
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,90 +22,230 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mirsoft.easyfix.ClientOrderDetailsActivity;
 import com.mirsoft.easyfix.R;
+import com.mirsoft.easyfix.Settings;
+import com.mirsoft.easyfix.TabsActivity;
+import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.Specialty;
+import com.mirsoft.easyfix.models.User;
+import com.mirsoft.easyfix.networking.RestClient;
+import com.mirsoft.easyfix.networking.models.CommonOrder;
 import com.mirsoft.easyfix.utils.Singleton;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import java.util.ArrayList;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class CreateBasicOrderFragment extends Fragment {
 
-    EditText etadress;
-    EditText etPhone;
-    EditText etdesciption;
-    Button btnLocate;
-    private AppCompatRatingBar mRatingbar;
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
     Singleton dc;
+    Settings settings;
 
-    private Spinner spinner;
+    public Spinner servicesSpinner;
+    public AppCompatRatingBar ratingBar;
+    public EditText orderAddress;
+    public EditText orderPhone;
+    public EditText orderDescription;
+    public TextView mastersRequests;
+    public TextView orderNotification;
+    public Button orderBtnChange;
+    public Button orderBtnCancel;
+    public Button orderBtnLocate;
 
-    public static CreateBasicOrderFragment newInstance(String param1, String param2) {
-        CreateBasicOrderFragment fragment = new CreateBasicOrderFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    ProgressDialog mDialog;
 
-    public CreateBasicOrderFragment() {
-        // Required empty public constructor
-    }
+    public final String CREATE_MODE = "createOrder";
+    public final String CHECK_MODE  = "checkOrder";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create_basic_order,container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_create_basic_order, container, false);
         dc = Singleton.getInstance(getActivity());
+        settings = new Settings(getActivity());
 
-      /*  etadress = (EditText) view.findViewById(R.id.etadress);
-        etPhone = (EditText) view.findViewById(R.id.etPhone);
-        etdesciption = (EditText) view.findViewById(R.id.etDescription);*/
-        mRatingbar = (AppCompatRatingBar) view.findViewById(R.id.llratingbar);
-        Button btnLocate = (Button)view.findViewById(R.id.btnLocate);
+        servicesSpinner = (Spinner)view.findViewById(R.id.services_spinner);
+        ratingBar = (AppCompatRatingBar)view.findViewById(R.id.llratingbar);
+        orderAddress = (EditText)view.findViewById(R.id.order_address);
+        orderPhone = (EditText)view.findViewById(R.id.order_phone);
+        orderDescription = (EditText)view.findViewById(R.id.order_description);
+        orderBtnLocate = (Button)view.findViewById(R.id.btnLocate);
 
-        Drawable progress = mRatingbar.getProgressDrawable();
+        mastersRequests = (TextView)view.findViewById(R.id.request_from_masters);
+        orderNotification = (TextView)view.findViewById(R.id.order_notification);
+        orderBtnChange = (Button)view.findViewById(R.id.btnChange);
+        orderBtnCancel = (Button)view.findViewById(R.id.btnCancel);
+
+        Drawable progress = ratingBar.getProgressDrawable();
         DrawableCompat.setTint(progress, Color.BLACK);
-
-       // AppCompatButton btnLocate = (AppCompatButton)getView().findViewById(R.id.btnLocate);
-       /* btnLocate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });*/
-        // Inflate the layout for this fragment
-
-
-        spinner = (Spinner)view.findViewById(R.id.services_spinner);
 
         ArrayAdapter<Specialty> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, dc.specialtyList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        servicesSpinner.setAdapter(adapter);
 
+        setActivityState(getActivity().getIntent().getStringExtra("activityMode"));
 
+        orderBtnLocate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog = ProgressDialog.show(getActivity(), "Подождите...", "Отправляются данные", true);
+                locateOrder(initNewCommonOrder());
+            }
+        });
 
+        orderBtnChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog = ProgressDialog.show(getActivity(), "Подождите...", "Обновляются данные", true);
+                updateOrder(initNewCommonOrder());
+            }
+        });
+
+        orderBtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder deleteDialog = new AlertDialog.Builder(getActivity());
+                deleteDialog.setTitle("Отмена заказа")
+                        .setMessage("Вы хотите отменить заказ ?")
+                        .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mDialog = ProgressDialog.show(getActivity(), "Подождите...", "Отменяется заказ", true);
+                                cancelOrder(initNewCommonOrder());
+                            }
+                        })
+                        .setNeutralButton("Нет", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .show();
+            }
+        });
         return view;
     }
 
+    public CommonOrder initNewCommonOrder(){
+            CommonOrder order = new CommonOrder();
+            order.setAddress(orderAddress.getText().toString());
+            order.setDescription(orderDescription.getText().toString());
+            order.setLatitude(42.876994);
+            order.setLongitude(74.583600);
+            order.setSpecialty(dc.specialtyList.get(servicesSpinner.getSelectedItemPosition()).getId());
+            order.setRating(ratingBar.getRating());
+        return order;
+    }
 
+    public void locateOrder(CommonOrder order){
+        RestClient.getOrderService(false).createCommonOrder(order, settings.getUserId(), new Callback<Order>() {
+            @Override
+            public void success(Order order, Response response) {
+                mDialog.dismiss();
+                Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                ((ClientOrderDetailsActivity) getActivity()).onBackButtonClicked();
+                dc.fromCreateBasicOrderFragment = true;
+            }
 
+            @Override
+            public void failure(RetrofitError error) {
+                mDialog.dismiss();
+                Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+            }
+        });
+    }
 
+    public void updateOrder(CommonOrder order){
+        RestClient.getOrderService(false).updateOrder(order, settings.getUserId(), dc.clientSelectedOrder.getId(), new Callback<Order>() {
+            @Override
+            public void success(Order order, Response response) {
+                mDialog.dismiss();
+                Toast.makeText(getActivity(), "Success updating", Toast.LENGTH_SHORT).show();
+                ((ClientOrderDetailsActivity) getActivity()).onBackButtonClicked();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                mDialog.dismiss();
+                Toast.makeText(getActivity(), "Failure updating", Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+            }
+        });
+    }
+
+    public  void cancelOrder(CommonOrder order){
+        RestClient.getOrderService(false).cancelOrder(order,settings.getUserId(), dc.clientSelectedOrder.getId(), new Callback<Order>() {
+            @Override
+            public void success(Order order, Response response) {
+                mDialog.dismiss();
+                Toast.makeText(getActivity(), "Заказ отменен", Toast.LENGTH_SHORT).show();
+                ((ClientOrderDetailsActivity) getActivity()).onBackButtonClicked();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                mDialog.dismiss();
+                Toast.makeText(getActivity(), "Failure :cancel order", Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+            }
+        });
+    }
+    public void getPendingOrders(){
+        RestClient.getOrderService(false).getContractorRequests(settings.getUserId(),dc.clientSelectedOrder.getId() ,
+                new Callback<ArrayList<Order>>() {
+                    @Override
+                    public void success(ArrayList<Order> orders, Response response) {
+                        Log.e("PendingOrders","Success");
+                        mastersRequests.setText(getResources().getString(R.string.master_request) + " : " + orders.size());
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Toast.makeText(getActivity(), "Failure : pending orders", Toast.LENGTH_SHORT).show();
+                        Log.e("PendingOrders","Failure");
+                        error.printStackTrace();
+                    }
+                });
+    }
+
+    public void setActivityState(String mode) {
+        switch (mode) {
+            case CREATE_MODE:
+                mastersRequests.setVisibility(View.GONE);
+                orderNotification.setVisibility(View.GONE);
+                orderBtnChange.setVisibility(View.GONE);
+                orderBtnCancel.setVisibility(View.GONE);
+                break;
+            case CHECK_MODE:
+                mastersRequests.setVisibility(View.VISIBLE);
+                orderNotification.setVisibility(View.VISIBLE);
+                orderBtnChange.setVisibility(View.VISIBLE);
+                orderBtnCancel.setVisibility(View.VISIBLE);
+                orderBtnLocate.setVisibility(View.GONE);
+
+                orderAddress.setText(dc.clientSelectedOrder.getAddress());
+                orderPhone.setText(dc.clientSelectedOrder.getPhone());
+                orderDescription.setText(dc.clientSelectedOrder.getDescription());
+                ratingBar.setRating(1);
+                servicesSpinner.setSelection(dc.getPosition(dc.clientSelectedOrder.getSpecialty().getId()));
+                getPendingOrders();
+                break;
+        }
+    }
 
 }
+

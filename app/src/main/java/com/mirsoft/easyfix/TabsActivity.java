@@ -46,7 +46,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     ViewPager viewPager;
     TabLayout tabLayout;
     NavigationView navigationView;
-    FloatingActionButton btnCreateOrder;
+    public FloatingActionButton btnCreateOrder;
 
     private ArrayList<Order> mOrderList;
     private ArrayList<Order> mFinishedOrderList;
@@ -64,6 +64,8 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     private int mNavItemId;
 
     private int progressType = 0;
+
+    private final int USER_ORDER_PAGE= 2;
 
     Singleton dc;
 
@@ -94,6 +96,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TabsActivity.this, ClientOrderDetailsActivity.class);
+                intent.putExtra("activityMode","createOrder");
                 startActivity(intent);
             }
         });
@@ -103,6 +106,8 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
                 getString(R.string.icon_orders),
                 getString(R.string.icon_users),
                 getString(R.string.icon_history)};*/
+
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -116,14 +121,20 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
                     case 0:
                         myOrderslayout.setVisibility(View.GONE);
                         ordersLayout.setVisibility(View.VISIBLE);
+                        btnCreateOrder.setVisibility(View.VISIBLE);
+                        dc.currentSelectedTabPage = 0;
                         break;
                     case 1:
                         myOrderslayout.setVisibility(View.GONE);
                         ordersLayout.setVisibility(View.GONE);
+                        btnCreateOrder.setVisibility(View.GONE);
+                        dc.currentSelectedTabPage = 1;
                         break;
                     case 2:
                         myOrderslayout.setVisibility(View.VISIBLE);
                         ordersLayout.setVisibility(View.GONE);
+                        btnCreateOrder.setVisibility(View.VISIBLE);
+                        dc.currentSelectedTabPage = 2;
                         break;
                 }
             }
@@ -177,6 +188,10 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         mOrderList = new ArrayList<>();
         mFinishedOrderList = new ArrayList<>();
         getOrdersList();
+
+       // viewPager.setCurrentItem(dc.currentSelectedTabPage);
+
+
     }
 
 
@@ -292,6 +307,10 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         finish();
     }
 
+    public void swipPage(int page){
+        viewPager.setCurrentItem(page);
+    }
+
     @Override
     public boolean onNavigationItemSelected(final MenuItem menuItem) {
         // update highlighted item in the navigation menu
@@ -349,7 +368,10 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onResume() {
         super.onResume();
-
+        if(dc.fromCreateBasicOrderFragment) {
+            viewPager.setCurrentItem(USER_ORDER_PAGE);
+            dc.fromCreateBasicOrderFragment = false;
+        }
         getOrdersList();
     }
 

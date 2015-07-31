@@ -3,22 +3,16 @@ package com.mirsoft.easyfix.networking.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class NOrder {
-    @Expose
-    public String address;
-    @Expose
-    public double latitude;
-    @Expose
-    public double longitude;
+public class NOrder extends CommonOrder {
+
     @Expose
     public int contractor;
-    @Expose
-    public String description;
 
-    @Expose
-    @SerializedName("rating__gte")
-    public float rating;
+    public int getContractor() {
+        return contractor;
+    }
 
-    @Expose
-    public String specialty;
+    public void setContractor(int contractor) {
+        this.contractor = contractor;
+    }
 }

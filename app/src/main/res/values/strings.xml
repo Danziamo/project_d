@@ -31,7 +31,7 @@
 
     <string name="btn_change">Изменить</string>
     <string name="btn_cancel">Отменить</string>
-    <string name="master_request">Запросы от мастеров  5</string>
+    <string name="master_request">Запросы от мастеров</string>
     <string name="notification_order">Ваш заказ размещен.С Вами свяжутся мастера.Не забудьте нажать "Заказ принят"
                                         после договора с мастером.</string>
 
