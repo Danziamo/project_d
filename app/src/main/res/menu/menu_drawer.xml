@@ -1,0 +1,48 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- group with single selected item so only one item is highlighted in the nav menu -->
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_orders"
+            android:title="@string/orders"
+            />
+        <item
+            android:id="@+id/drawer_create_order"
+            android:title="@string/create_order"
+            />
+
+        <item
+            android:id="@+id/drawer_base_wizards"
+            android:title="@string/base_wizards"
+            />
+
+        <item
+            android:id="@+id/drawer_my_order"
+            android:title="@string/my_orders"
+            />
+
+        <item
+            android:id="@+id/drawer_settings"
+            android:title="@string/action_settings"
+            />
+        <item
+            android:id="@+id/drawer_helper"
+            android:title="@string/helper"
+            />
+        <item
+            android:id="@+id/drawer_pay"
+            android:title="@string/pay"
+            />
+        <item
+            android:id="@+id/drawer_about"
+            android:title="@string/about"
+            />
+        <item
+            android:id="@+id/drawer_share"
+            android:title="@string/share"
+            />
+        <item
+            android:id="@+id/drawer_item_exit"
+            android:title="Выход"
+            />
+    </group>
+</menu>

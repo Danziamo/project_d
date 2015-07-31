@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <!-- Toolbar instead of ActionBar so the drawer can slide on top -->
+            <!-- Toolbar instead of ActionBar so the menu_drawer can slide on top -->
             <include android:id = "@+id/toolbar"
                 layout="@layout/toolbar"
                 android:layout_height="wrap_content"
@@ -44,6 +44,7 @@
             android:id="@+id/btnSwitch"
             android:layout_gravity="bottom|end"
             android:layout_marginBottom="40dp"
+            app:backgroundTint="@color/input_base_blue"
             />
 
         <LinearLayout
@@ -104,15 +105,15 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <!-- The navigation drawer -->
+    <!-- The navigation menu_drawer -->
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/blue_normal"
+        android:background="@color/white"
         app:itemIconTint="@color/drawer_item"
-        app:itemTextColor="@color/drawer_item"
-        app:menu="@menu/drawer"/>
+        app:itemTextColor="@color/blacktext"
+        app:menu="@menu/menu_drawer"/>
 
 </android.support.v4.widget.DrawerLayout>

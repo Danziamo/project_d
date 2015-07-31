@@ -145,7 +145,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
         if (null == savedInstanceState) {
-            mNavItemId = R.id.drawer_item_1;
+            mNavItemId = R.id.drawer_orders;
         } else {
             mNavItemId = savedInstanceState.getInt(NAV_ITEM_ID);
         }
@@ -166,7 +166,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         // select the correct nav menu item
         navigationView.getMenu().findItem(mNavItemId).setChecked(true);
 
-        // set up the hamburger icon to open and close the drawer
+        // set up the hamburger icon to open and close the menu_drawer
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.icon_history_text,
                 R.string.icon_orders_text);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -298,7 +298,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         menuItem.setChecked(true);
         mNavItemId = menuItem.getItemId();
 
-        // allow some time after closing the drawer before performing real navigation
+        // allow some time after closing the menu_drawer before performing real navigation
         // so the user can see what is happening
         mDrawerLayout.closeDrawer(GravityCompat.START);
         mDrawerActionHandler.postDelayed(new Runnable() {

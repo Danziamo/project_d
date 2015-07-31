@@ -50,7 +50,7 @@
 
     <style name="Input.Material" parent="Input">
         <item name="met_baseColor">@color/blacktext</item>
-        <item name="met_primaryColor">@color/input_base_blue</item>
+        <item name="met_primaryColor">@color/input_base_gray</item>
         <item name="met_underlineColor">@color/gray</item>
         <item name="met_errorColor">@color/red</item>
         <item name="met_clearButton">true</item>
@@ -68,8 +68,8 @@
     </style>
 
     <style name="Button.Material" parent="Button">
-        <item name="pb_colorNormal">@android:color/holo_blue_light</item>
-        <item name="pb_colorPressed">@android:color/holo_blue_dark</item>
+        <item name="pb_colorNormal">@android:color/holo_green_light</item>
+        <item name="pb_colorPressed">@android:color/holo_green_dark</item>
         <item name="pb_colorProgress">@android:color/holo_purple</item>
     </style>
 

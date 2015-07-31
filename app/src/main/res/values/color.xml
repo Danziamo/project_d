@@ -8,13 +8,15 @@
     <color name="red">#DD2C00</color>
     <color name="blacktext2">#0f0d00</color>
     <color name="gray">#bbb</color>
-    <color name="input_blue">#0288D1</color>
-    <color name="input_base_blue">#0288D1</color>
+    <color name="input_bl">#0288D1</color>
+    <color name="input_base_blue">#347ed0</color>
+    <color name="input_base_gray">#3E3E3D</color>
+    <color name="input_gray">#4e4e4d</color>
 
     <!-- toolbar and tabs -->
-    <color name="Toolbar.ColorPrimary">#00897B</color>
-    <color name="Toolbar.ColorPrimaryDark">#00695C</color>
-    <color name="Toolbar.TabsScrollColor">#004D40</color>
+    <color name="Toolbar.ColorPrimary">#4e4e4d</color>
+    <color name="Toolbar.ColorPrimaryDark">#4e4e4d</color>
+    <color name="Toolbar.TabsScrollColor">#3E3E3D</color>
 
     <color name="grey_light">#FFCCCCCC</color>
     <color name="dark">#4b4b4b</color>
@@ -23,5 +25,6 @@
     <color name="linkedin">#287bbc</color>
     <color name="vk">#36638e</color>
     <color name="ok">#cf6700</color>
-    <color name="holo_green_light">#00897B</color>
+    <color name="holo_green_">#00897B</color>
+    <color name="gray_main">#4e4e4d</color>
 </resources>

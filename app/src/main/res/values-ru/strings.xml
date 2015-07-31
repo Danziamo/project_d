@@ -21,7 +21,13 @@
     <string name="history">История</string>
     <string name="active">Активные</string>
     <string name="orders">Заказы</string>
+    <string name="create_order">Создать заказ</string>
+    <string name="my_orders">Мои заказы</string>
+    <string name="about">О программе</string>
+    <string name="pay">Оплатить</string>
+    <string name="helper">Помощь\Правила</string>
     <string name="change">Поменять</string>
+    <string name="share">Рекомендовать</string>
     <string name="my_rating">Рейтинг</string>
     <string name="feedbacks">Отзывы</string>
     <string name="forget_password">Забыли пароль?</string>
