@@ -2,23 +2,22 @@ package com.mirsoft.easyfix.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.net.Uri;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ImageButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mirsoft.easyfix.MasterInfoActivity;
-import com.mirsoft.easyfix.OrderDetailActivity;
 import com.mirsoft.easyfix.R;
-import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.User;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -43,14 +42,17 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
         public TextView mFullNameView;
         public TextView mPhoneView;
         public TextView mReviewView;
-        public AppCompatRatingBar mRatingView;
+        public RatingBar mRatingView;
+        public ImageButton phoneLogo;
         public ViewHolder(View v) {
             super(v);
             mView = v;
             mFullNameView = (TextView) itemView.findViewById(R.id.tvFullName);
             mPhoneView = (TextView) itemView.findViewById(R.id.tvPhone);
             mReviewView = (TextView) itemView.findViewById(R.id.tvReviews);
-            mRatingView = (AppCompatRatingBar)itemView.findViewById(R.id.ratingBar);
+            mRatingView = (RatingBar)itemView.findViewById(R.id.ratingBar);
+            phoneLogo = (ImageButton)itemView.findViewById(R.id.ibtnCalling);
+
         }
     }
 
@@ -92,6 +94,19 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
                 mContext.startActivity(intent);
             }
         });
+
+        PhoneStateListeners listeners = new PhoneStateListeners();
+        TelephonyManager manager = (TelephonyManager)mContext.getSystemService(Context.TELEPHONY_SERVICE);
+        manager.listen(listeners,PhoneStateListeners.LISTEN_CALL_STATE);
+
+        holder.phoneLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tel = "tel:"+holder.mPhoneView.getText();
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(tel));
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -105,5 +120,39 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
         // This isn't working
         notifyItemRangeInserted(0, items.size());
         notifyDataSetChanged();
+    }
+
+    public class PhoneStateListeners extends PhoneStateListener {
+
+        private boolean isCalling = false;
+        String LOG = "Medical:Phone State";
+
+        @Override
+        public  void  onCallStateChanged(int state, String incomingNumber){
+
+
+            if(TelephonyManager.CALL_STATE_RINGING == state){
+                Log.v(LOG, "Ringing number:" + incomingNumber);
+            }
+            if(TelephonyManager.CALL_STATE_OFFHOOK == state){
+                Log.v(LOG, "OFFHOOK");
+            }
+            if(TelephonyManager.CALL_STATE_IDLE == state){
+                Log.v(LOG, "IDLE");
+
+                if(isCalling){
+                    Log.v(LOG, "Restart app");
+
+                    Intent intent = mContext.getPackageManager().getLaunchIntentForPackage(
+                            mContext.getPackageName());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    mContext.startActivity(intent);
+
+                    isCalling = false;
+                }
+            }
+        }
+
+
     }
 }

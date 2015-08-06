@@ -17,7 +17,7 @@ import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
 public class RestClient {
-    private static String ROOT = "http://192.168.0.108:1337/api/v1";
+    private static String ROOT = "http://192.168.0.123:1337/api/v1";
     private static String MAIN_URI = "http://192.168.0.112:8000/api/v1";
 
     private RestClient() {

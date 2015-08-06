@@ -34,5 +34,6 @@
     <string name="master_request">Запросы от мастеров</string>
     <string name="notification_order">Ваш заказ размещен.С Вами свяжутся мастера.Не забудьте нажать "Заказ принят"
                                         после договора с мастером.</string>
+    <string name="change">Поменять</string>
 
 </resources>

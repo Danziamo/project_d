@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.dd.processbutton.FlatButton;
+import com.mirsoft.easyfix.ProfileActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.adapters.views.MySpecialityAdapter;
@@ -62,8 +63,8 @@ public class ProfileSpecialityFragment extends BaseFragment implements View.OnCl
         btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(this);
 
-        FloatingActionButton btnAdd = (FloatingActionButton) view.findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(this);
+       // FloatingActionButton btnAdd = (FloatingActionButton) view.findViewById(R.id.btnAdd);
+        ((ProfileActivity)getActivity()).addNewProffestionBtn.setOnClickListener(this);
 
         Settings settings = new Settings(getActivity());
         userId = settings.getUserId();
@@ -123,10 +124,10 @@ public class ProfileSpecialityFragment extends BaseFragment implements View.OnCl
         int id = v.getId();
 
         if(id == R.id.btnAdd){
-            if(mySpecialityAdapter.getItemCount() < 3) {
+         //   if(mySpecialityAdapter.getItemCount() < 3) {
                 mySpecialityAdapter.addItem(new UserSpecialty());
                 btnSubmit.setVisibility(View.VISIBLE);
-            }
+         //   }
         }else if(id == R.id.btnSubmit){
 
         }

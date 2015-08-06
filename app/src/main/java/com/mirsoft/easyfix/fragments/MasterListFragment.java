@@ -1,7 +1,11 @@
 package com.mirsoft.easyfix.fragments;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -17,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.mirsoft.easyfix.ClientOrderDetailsActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
@@ -37,7 +42,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class MasterListFragment extends Fragment {
+public class MasterListFragment extends BaseFragment {
 
     private RecyclerView rvMaster;
     private MasterAdapter rvAdapter;
@@ -45,6 +50,7 @@ public class MasterListFragment extends Fragment {
   //  private ArrayList<Specialty> specialtyList;
     Singleton dc;
 
+    MaterialDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,16 +94,20 @@ public class MasterListFragment extends Fragment {
     }
 
     private void getMastersList(String specialty) {
+
+        showProgress(true, "Загрузка...", "Пожалуйста подождите");
+
         UserApi api = RestClient.createService(UserApi.class);
         api.getAllByQuery(specialty, new Callback<ArrayList<User>>() {
             @Override
             public void success(ArrayList<User> users, Response response) {
                 showList(users);
+                hideProgress();
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                hideProgress();
             }
         });
     }

@@ -3,6 +3,7 @@ package com.mirsoft.easyfix;
 import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 
@@ -26,6 +28,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ProfilePagerAdapter pagerAdapter;
     private TabLayout tabLayout;
+    public FloatingActionButton addNewProffestionBtn;
 
 
     @Override
@@ -58,11 +61,34 @@ public class ProfileActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         viewPager.setOffscreenPageLimit(2);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        addNewProffestionBtn.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        addNewProffestionBtn.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         pagerAdapter = new ProfilePagerAdapter(getSupportFragmentManager(), titles);
         viewPager.setAdapter(pagerAdapter);
 
-
+        addNewProffestionBtn = (FloatingActionButton)findViewById(R.id.btnAdd);
 
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);

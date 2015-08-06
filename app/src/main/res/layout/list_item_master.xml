@@ -56,7 +56,8 @@
                android:textSize="17sp"
                android:singleLine="true"
                android:gravity="right|center_horizontal"
-               android:layout_toLeftOf="@+id/ibtnCalling"/>
+               android:layout_toLeftOf="@+id/ibtnCalling"
+               android:layout_marginRight="5dp"/>
 
            <ImageButton
                android:id="@+id/ibtnCalling"
