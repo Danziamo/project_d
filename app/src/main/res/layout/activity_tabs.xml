@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/main_content"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/main_layout">
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/buttons_linear_layout">
 
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/appbar"
@@ -32,7 +32,8 @@
                 <android.support.design.widget.TabLayout
                     android:id="@+id/tabLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    />
 
             </android.support.design.widget.AppBarLayout>
 
@@ -42,100 +43,85 @@
                 android:layout_width="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_below="@id/appbar"
-                android:layout_above="@+id/false_button2"/>
+                />
 
 
 
-        <android.support.design.widget.FloatingActionButton
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:src="@drawable/ic_plus"
-            android:id="@+id/btnSwitch"
-            android:layout_gravity="bottom|end"
-            app:backgroundTint="@color/input_base_blue"
-            android:layout_above="@+id/false_button"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp"/>
-
-            <Button
-                android:id="@+id/false_button"
-                android:layout_width="match_parent"
+            <android.support.design.widget.FloatingActionButton
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_weight="1"
-                android:visibility="invisible"
-                android:layout_marginTop="20dp"/>
-            <Button
-                android:id="@+id/false_button2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_weight="1"
-                android:visibility="invisible"
-                android:layout_marginTop="1dp"/>
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_plus"
+                android:id="@+id/btnSwitch"
+                android:layout_gravity="bottom|end"
+                app:backgroundTint="@color/input_base_blue"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="20dp"
+                />
 
+        </android.support.design.widget.CoordinatorLayout>
 
-        <LinearLayout
-            android:id="@+id/orders_linear_layout"
+        <RelativeLayout
+            android:id="@+id/buttons_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:layout_alignParentBottom="true"
-            >
+            android:layout_alignParentBottom="true">
 
-            <Button
-                android:id="@+id/map_button"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/orders_linear_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/map"
-                android:enabled="false"
-                android:layout_weight="0.5"/>
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
 
-            <Button
-                android:id="@+id/list_button"
-                android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/map_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/map"
+                    android:enabled="false"
+                    android:layout_weight="0.5"/>
+
+                <Button
+                    android:id="@+id/list_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/list"
+                    android:layout_weight="0.5"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/my_orders_linear_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/list"
-                android:layout_weight="0.5"/>
+                android:layout_gravity="bottom"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/my_masters_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_masters"
+                    android:layout_weight="0.5"/>
 
-        <LinearLayout
-            android:id="@+id/my_orders_linear_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:visibility="gone"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:layout_alignParentBottom="true"
-            >
+                <Button
+                    android:id="@+id/myclients_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_clients"
+                    android:layout_weight="0.5"/>
 
-            <Button
-                android:id="@+id/my_masters_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/my_masters"
-                android:layout_weight="0.5"/>
-
-            <Button
-                android:id="@+id/myclients_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/my_clients"
-                android:layout_weight="0.5"/>
-
-        </LinearLayout>
-
+            </LinearLayout>
 
         </RelativeLayout>
 
-    </android.support.design.widget.CoordinatorLayout>
+    </RelativeLayout>
+
 
     <!-- The navigation menu_drawer -->
     <android.support.design.widget.NavigationView
