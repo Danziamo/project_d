@@ -57,7 +57,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (singleton.isClientMode) {
+                    if (mode == Constants.CLIENT_ORDER_ADAPTER_MODE_NEW) {
+                        Order order = (Order) v.getTag();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("ORDER", order);
+                        Intent intent = new Intent(mContext, OrderDetailActivity.class);
+                        intent.putExtra("bundle", bundle);
+                        mContext.startActivity(intent);
+                    } else if (singleton.isClientMode) {
                         Intent intent = new Intent(mContext, ClientOrderDetailsActivity.class);
                         intent.putExtra("activityMode", "checkOrder");
                         mContext.startActivity(intent);

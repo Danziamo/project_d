@@ -1,23 +1,16 @@
 package com.mirsoft.easyfix.fragments;
 
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -28,14 +21,12 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.mirsoft.easyfix.ClientOrderDetailsActivity;
 import com.mirsoft.easyfix.OrderDetailActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.adapters.OrderAdapter;
-import com.mirsoft.easyfix.adapters.OrdersAdapter;
-import com.mirsoft.easyfix.common.OrderType;
+import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.utils.RecyclerViewSimpleDivider;
@@ -49,7 +40,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class NewOrdersFragment extends Fragment{
+public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindowClickListener{
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -59,9 +50,8 @@ public class NewOrdersFragment extends Fragment{
 
     private HashMap<Marker, Order> mOrderMarkerMap;
 
-    ListView orderListView;
-    OrdersAdapter ordersAdapter;
     private OrderAdapter mOrderAdapter;
+    private RecyclerView rv;
 
     private ViewFlipper flipper;
     Singleton dc;
@@ -71,8 +61,6 @@ public class NewOrdersFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-       //getActivity().registerReceiver(new UpdateDateReciever(), new IntentFilter("update"));
     }
 
     @Override
@@ -86,8 +74,6 @@ public class NewOrdersFragment extends Fragment{
         mMapView = (MapView) view.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
-      //  ((TabsActivity)getActivity()).setBottomLinearLayoutState(true);
-
         flipper = (ViewFlipper)view.findViewById(R.id.view_flipper);
 
         mMapView.onResume();// needed to get the map to display immediately
@@ -99,52 +85,23 @@ public class NewOrdersFragment extends Fragment{
         }
 
         mGoogleMap = mMapView.getMap();
-     //   mGoogleMap.setPadding(0, 0, 100, 0);
-
-     //    adding marker
-
         mGoogleMap.setMyLocationEnabled(true);
-     //   mGoogleMap.setOnInfoWindowClickListener(this);
+        mGoogleMap.setOnInfoWindowClickListener(this);
         /*displayOnMap();*/
-        getData();
+
         // Perform any camera updates here
 
-      /*  rv = (RecyclerView)view.findViewById(R.id.rvOrders);
+        rv = (RecyclerView)view.findViewById(R.id.rvOrders);
         rv.addItemDecoration(new RecyclerViewSimpleDivider(getActivity()));
-        rv.setHasFixedSize(true);*/
+        rv.setHasFixedSize(true);
+        getData();
 
-        orderListView = (ListView)view.findViewById(R.id.listOrders);
-
-        ArrayList<Order> testList = new ArrayList<>();
-        Order order = new Order();
-
-        testList.add(order);testList.add(order);testList.add(order);testList.add(order);
-        testList.add(order);testList.add(order);testList.add(order);testList.add(order);
-        testList.add(order);testList.add(order);testList.add(order);testList.add(order);
-
-     /*   mOrderAdapter = new OrderAdapter(testList, R.layout.list_item_order, getActivity());
+        mOrderAdapter = new OrderAdapter(new ArrayList<Order>(), R.layout.list_item_order, getActivity(), Constants.CLIENT_ORDER_ADAPTER_MODE_NEW);
         rv.setAdapter(mOrderAdapter);
         rv.setItemAnimator(new DefaultItemAnimator());
-        rv.setLayoutManager(new LinearLayoutManager(getActivity()));*/
-        ordersAdapter = new OrdersAdapter(getActivity(), R.layout.list_item_order,testList);
-        orderListView.setAdapter(ordersAdapter);
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
-//        FloatingActionButton btnSwitch = (FloatingActionButton) getActivity().findViewById(R.id.btnSwitch);
-//        btnSwitch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), ClientOrderDetailsActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
-    //    ((TabsActivity)getActivity()).mapButton.setEnabled(false);
-
-     //   setBottomLinearLayoutState();
         setBottomButtonsListeners();
-
-       // Toast.makeText(getActivity(),"Orders",Toast.LENGTH_SHORT).show();
 
         return view;
     }
@@ -154,7 +111,7 @@ public class NewOrdersFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 mMapView.setVisibility(View.VISIBLE);
-                orderListView.setVisibility(View.GONE);
+                rv.setVisibility(View.GONE);
                 toRight();
 
                 ((TabsActivity)getActivity()).mapButton.setEnabled(false);
@@ -165,7 +122,7 @@ public class NewOrdersFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 mMapView.setVisibility(View.GONE);
-                orderListView.setVisibility(View.VISIBLE);
+                rv.setVisibility(View.VISIBLE);
                 toLeft();
 
                 ((TabsActivity) getActivity()).mapButton.setEnabled(true);
@@ -173,20 +130,6 @@ public class NewOrdersFragment extends Fragment{
             }
         });
     }
-
-    /*private void displayOnMap() {
-        mOrderMarkerMap = new HashMap<>();
-        mGoogleMap.clear();
-        ArrayList<Order> orderList = getData();
-        for (int i = 0; i < orderList.size(); ++i) {
-            Order order = orderList.get(i);
-            LatLng position = order.getLatLng();
-            if (position != null) {
-                Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(order.getLatLng()).title(order.getSpecialty().getName()));
-                mOrderMarkerMap.put(marker, order);
-            }
-        }
-    }*/
 
     private void getData() {
         final Settings settings = new Settings(getActivity());
@@ -207,9 +150,7 @@ public class NewOrdersFragment extends Fragment{
                         mOrderMarkerMap.put(marker, order);
                     }
                 }
-                ordersAdapter = new OrdersAdapter(getActivity(), R.layout.list_item_order, displayList);
-                orderListView.setAdapter(ordersAdapter);
-
+                mOrderAdapter.setDataset(displayList);
             }
 
             @Override
@@ -217,18 +158,6 @@ public class NewOrdersFragment extends Fragment{
                 Toast.makeText(getActivity(), "Fail", Toast.LENGTH_LONG).show(); //crash
             }
         });
-    }
-
-    /*private ArrayList<Order> getData() {
-        return ((TabsActivity)getActivity()).getNewOrders();
-    }*/
-
-    public class UpdateDateReciever extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            /*mOrderAdapter.setDataset(getData());
-            displayOnMap();*/
-        }
     }
 
     public void toLeft(){
@@ -267,13 +196,13 @@ public class NewOrdersFragment extends Fragment{
         mMapView.onLowMemory();
     }
 
-//    @Override
-//    public void onInfoWindowClick(Marker marker) {
-//        Order order = mOrderMarkerMap.get(marker);
-//        Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("ORDER", order);
-//        intent.putExtra("bundle", bundle);
-//        getActivity().startActivity(intent);
-//    }
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Order order = mOrderMarkerMap.get(marker);
+        Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("ORDER", order);
+        intent.putExtra("bundle", bundle);
+        getActivity().startActivity(intent);
+    }
 }
