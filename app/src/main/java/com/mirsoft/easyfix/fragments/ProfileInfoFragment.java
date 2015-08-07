@@ -16,6 +16,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,10 +50,6 @@ import retrofit.client.Response;
  */
 public class ProfileInfoFragment extends BaseFragment implements View.OnClickListener{
 
-    MaterialDialog dialog;
-    MaterialEditText etSpeciality;
-    MaterialEditText etLicense;
-
     private Integer[] list = new Integer[]{2};
 
     private int userId;
@@ -67,8 +65,10 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
     private TextView tvFeedbacks;
     private EditText etPhone;
     private EditText etPassword;
-    private FlatButton btnSubmit;
+    private Button btnSubmit;
     private ImageView ivProfileInfo;
+
+    private boolean isEditable = false;
 
 
     public ProfileInfoFragment(){
@@ -116,7 +116,7 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
         etPhone = (EditText) view.findViewById(R.id.et_phone);
         etPassword = (EditText) view.findViewById(R.id.et_password);
         ivProfileInfo = (ImageView) view.findViewById(R.id.profile_photo);
-        btnSubmit = (FlatButton) view.findViewById(R.id.btnSubmit);
+        btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
 
         btnSubmit.setOnClickListener(this);
 
@@ -168,10 +168,17 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void updateViewsForEdit(){
+        if(isEditable){
+            return; //@TODO change or hide action bar image if editable
+        }
         etLastName.setEnabled(true);
+        if(etLastName.requestFocus()) {
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
         etFirstName.setEnabled(true);
         etPassword.setEnabled(true);
         btnSubmit.setVisibility(View.VISIBLE);
+        isEditable = true;
     }
 
     public void disableViews(){
@@ -179,6 +186,7 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
         etFirstName.setEnabled(false);
         etPassword.setEnabled(false);
         btnSubmit.setVisibility(View.GONE);
+        isEditable = false;
     }
 
     @Override

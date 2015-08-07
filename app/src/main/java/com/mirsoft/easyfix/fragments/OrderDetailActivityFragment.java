@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,9 +29,6 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class OrderDetailActivityFragment extends Fragment {
     private MapView mMapView;
     private GoogleMap mGoogleMap;
@@ -43,9 +41,9 @@ public class OrderDetailActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order_detail, container, false);
 
-        TextView tvDescription = (TextView)view.findViewById(R.id.tvDescription);
-        final TextView tvPhone = (TextView)view.findViewById(R.id.tvPhone);
-        TextView tvAddress = (TextView)view.findViewById(R.id.tvAddress);
+        EditText tvDescription = (EditText)view.findViewById(R.id.tvDescription);
+        final EditText tvPhone = (EditText)view.findViewById(R.id.tvPhone);
+        EditText tvAddress = (EditText)view.findViewById(R.id.tvAddress);
 
         Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
         final Order order = (Order)bundle.getSerializable("ORDER");

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,8 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
 
         <LinearLayout
             android:id="@+id/ll_profile_info_content"
@@ -18,170 +21,125 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/ratingBar"
-                    android:gravity="left"
-                    android:text="@string/my_rating" />
-
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    style="?android:attr/ratingBarStyleIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:isIndicator="true"
-                    android:numStars="5" />
-
-                <TextView
-                    android:id="@+id/tvFeedbacks"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/ratingBar"
-                    android:gravity="right"
-                    android:text="@string/feedbacks" />
-            </RelativeLayout>
-
             <ImageView
                 android:id="@+id/profile_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
                 />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="@string/my_rating"
+                    android:textColor="@color/blacktext"
+                    android:layout_marginLeft="@dimen/edit_text_horizontal_padding"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/edit_text_horizontal_padding"
+                    android:paddingRight="@dimen/edit_text_horizontal_padding"
+                    android:paddingTop="@dimen/edit_text_horizontal_padding"
+                    android:paddingBottom="@dimen/edit_text_horizontal_padding"
+                    android:background="@drawable/rounded_edit_text"
+                    >
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        style="?android:attr/ratingBarStyleIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="left|center_vertical"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvFeedbacks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical|right"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/font_large"
+                        android:textColor="@color/blacktext"
+                        android:text="@string/feedbacks" />
+                </RelativeLayout>
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_last_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:theme="@style/TextInputLayoutTheme"
+                style="@style/TextInputLayoutStyle"
+                >
 
                 <EditText
                     android:id="@+id/et_last_name"
-                    style="@style/Input.Material.First"
                     android:enabled="false"
                     android:hint="@string/last_name"
-                    android:inputType="textCapSentences" />
+                    android:inputType="textCapSentences"
+                    style="@style/MaterialEditText"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_first_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:theme="@style/TextInputLayoutTheme"
+                style="@style/TextInputLayoutStyle"
+                >
 
-                <EditText
+                <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/et_first_name"
-                    style="@style/Input.Material.First"
                     android:enabled="false"
                     android:hint="@string/first_name"
-                    android:inputType="textCapSentences" />
+                    android:inputType="textCapSentences"
+                    style="@style/MaterialEditText"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:theme="@style/TextInputLayoutTheme"
+                style="@style/TextInputLayoutStyle"
+                >
 
                 <EditText
                     android:id="@+id/et_phone"
-                    style="@style/Input.Material.First"
                     android:enabled="false"
                     android:hint="@string/phone_number"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    style="@style/MaterialEditText"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:theme="@style/TextInputLayoutTheme"
+                style="@style/TextInputLayoutStyle">
 
                 <EditText
                     android:id="@+id/et_password"
-                    style="@style/Input.Material.First"
                     android:enabled="false"
                     android:hint="@string/password"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    style="@style/MaterialEditText"/>
             </android.support.design.widget.TextInputLayout>
 
-
-            <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-            <!--style="@style/Input.Material.First"-->
-            <!--app:met_helperText="@string/first_name"-->
-            <!--android:hint="@string/first_name"-->
-            <!--android:inputType="textPersonName"-->
-            <!--android:id="@+id/etFirstName"-->
-            <!--android:layout_below="@+id/masterRatingBar"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_width="match_parent" />-->
-
-            <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-            <!--style="@style/Input.Material"-->
-            <!--app:met_helperText="@string/last_name"-->
-            <!--android:hint="@string/last_name"-->
-            <!--android:inputType="textPersonName"-->
-            <!--android:id="@+id/etLastName"-->
-            <!--android:layout_below="@+id/etFirstName"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_width="match_parent" />-->
-
-            <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-            <!--style="@style/Input.Material"-->
-            <!--app:met_helperText="@string/city"-->
-            <!--android:hint="Специалиность"-->
-            <!--android:id="@+id/etSpeciality"-->
-            <!--android:layout_below="@+id/etLastName" />-->
-
-            <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-            <!--style="@style/Input.Material"-->
-            <!--app:met_helperText="@string/city"-->
-            <!--android:hint="@string/license"-->
-            <!--android:id="@+id/etLicense"-->
-            <!--android:layout_below="@+id/etSpeciality" />-->
-
-            <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-            <!--style="@style/Input.Material"-->
-            <!--app:met_helperText="@string/country"-->
-            <!--android:hint="@string/license"-->
-            <!--android:id="@+id/etCountry"-->
-            <!--android:layout_below="@+id/etLicense" />-->
-
-            <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-            <!--style="@style/Input.Material"-->
-            <!--app:met_helperText="@string/city"-->
-            <!--android:hint="@string/city"-->
-            <!--android:id="@+id/etCity"-->
-            <!--android:layout_below="@+id/etCountry" />-->
-
-            <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-            <!--style="@style/Input.Material"-->
-            <!--app:met_helperText="@string/phone_number"-->
-            <!--android:hint="@string/phone_number"-->
-            <!--android:inputType="phone"-->
-            <!--android:id="@+id/etPhone"-->
-            <!--android:layout_below="@+id/etCity"-->
-            <!--/>-->
-
-            <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-            <!--style="@style/Input.Material"-->
-            <!--app:met_helperText="@string/password"-->
-            <!--android:hint="@string/password"-->
-            <!--android:inputType="textPassword"-->
-            <!--android:id="@+id/etPassword"-->
-            <!--android:layout_below="@+id/etPhone" />-->
-
-            <com.dd.processbutton.FlatButton
+            <Button
                 android:id="@+id/btnSubmit"
-                style="@style/Button.Material"
                 android:layout_below="@id/etPassword"
-                android:layout_marginBottom="40dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:text="@string/change"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:layout_gravity="center"
+                style="@style/Button.DarkGray" />
         </LinearLayout>
 
         <ProgressBar

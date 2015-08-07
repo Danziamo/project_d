@@ -8,17 +8,17 @@
     <color name="red">#DD2C00</color>
     <color name="blacktext2">#0f0d00</color>
     <color name="gray">#bbb</color>
-    <color name="input_bl">#0288D1</color>
+    <color name="input_blue">#0288D1</color>
     <color name="input_base_blue">#347ed0</color>
     <color name="input_base_gray">#3E3E3D</color>
-    <color name="input_gray">#4e4e4d</color>
+    <color name="input_gray">#cccccc</color>
 
     <!-- toolbar and tabs -->
-    <color name="Toolbar.ColorPrimary">#4e4e4d</color>
-    <color name="Toolbar.ColorPrimaryDark">#4e4e4d</color>
-    <color name="Toolbar.TabsScrollColor">#3E3E3D</color>
+    <color name="ColorPrimary">#4e4e4d</color>
+    <color name="ColorPrimaryDark">#4e4e4d</color>
+    <color name="TabsScrollColor">#3E3E3D</color>
 
-    <color name="grey_light">#FFCCCCCC</color>
+    <color name="gray_light">#FFCCCCCC</color>
     <color name="dark">#4b4b4b</color>
     <color name="facebook">#3b5998</color>
     <color name="twitter">#55ACEE</color>
@@ -27,4 +27,8 @@
     <color name="ok">#cf6700</color>
     <color name="holo_green_">#00897B</color>
     <color name="gray_main">#4e4e4d</color>
+
+    <color name="button_gray_normal">#4e4e4d</color>
+    <color name="button_gray_pressed">#ff0000</color>
+
 </resources>
