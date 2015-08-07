@@ -83,6 +83,7 @@
 
     <style name="AppTheme.Base"></style>
 
+
     <!--<style name="SpinnerTheme" parent="android:Widget.Spinner">-->
         <!--<item name="android:actionDropDownStyle">@style/CustomSpinnerStyle</item>-->
     <!--</style>-->
@@ -93,6 +94,9 @@
 
     <style name="spinner_style">
         <item name="android:background">@drawable/spinner_back</item>
+    <style name="ProfilePhoto">
+        <item name="android:layout_width">150px</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 </resources>

@@ -36,4 +36,14 @@ public interface UserApi {
 
     @GET("/users/{id}/user-specialties")
     void getSpecialties(@Path("id") int id, Callback<ArrayList<UserSpecialty>> callback);
+
+    //@TODO
+//    @Multipart
+//    @PUT("/api/users/{id}/")
+//    void setAvatar(@Path("id") int id,
+//                   @Part("avatar") TypedFile file,
+//                   @Part("username") String username,
+//                   @Part("phone") String phone,
+//                   @Part("description") String description,
+//                   Callback<String> cb);
 }

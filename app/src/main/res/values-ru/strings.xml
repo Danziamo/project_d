@@ -63,6 +63,8 @@
     <string name="my_speciality">Мои профессии</string>
     <string name="doc_presence">Наличие документов</string>
     <string name="action_edit">Редактировать</string>
+    <string name="option_choose_from_gallery">Выберите из фотографий</string>
+    <string name="option_take_photo">Сделать снимок</string>
 
     <plurals name="feedback_count">
         <item quantity="zero">%1$d отзывов</item>
