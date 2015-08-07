@@ -94,6 +94,7 @@
 
     <style name="spinner_style">
         <item name="android:background">@drawable/spinner_back</item>
+    </style>
     <style name="ProfilePhoto">
         <item name="android:layout_width">150px</item>
         <item name="android:layout_height">wrap_content</item>
