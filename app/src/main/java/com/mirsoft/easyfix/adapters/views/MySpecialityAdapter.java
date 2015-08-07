@@ -1,5 +1,6 @@
 package com.mirsoft.easyfix.adapters.views;
 
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
@@ -114,12 +115,12 @@ public class MySpecialityAdapter extends RecyclerView.Adapter<MySpecialityAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public AppCompatSpinner spProfession;
-        public CheckBox cbLicense;
+        public AppCompatCheckBox cbLicense;
 
         public ViewHolder(View v, ArrayList<Specialty> specialties) {
             super(v);
             spProfession = (AppCompatSpinner) v.findViewById(R.id.spProfession);
-            cbLicense = (CheckBox) v.findViewById(R.id.cbLicense);
+            cbLicense = (AppCompatCheckBox) v.findViewById(R.id.cbLicense);
 
             ArrayAdapter<Specialty> adapter = new ArrayAdapter<>(v.getContext(), android.R.layout.simple_spinner_item, specialties);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
