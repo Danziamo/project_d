@@ -27,7 +27,7 @@ public class SectionedOrderAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public SectionedOrderAdapter(Context context, int sectionResourceId, int textResourceId,
                                               RecyclerView.Adapter baseAdapter) {
 
-        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mSectionResourceId = sectionResourceId;
         mTextResourceId = textResourceId;
         mBaseAdapter = baseAdapter;

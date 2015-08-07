@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -26,6 +27,7 @@ import com.mirsoft.easyfix.adapters.TabsPagerAdapter;
 import com.mirsoft.easyfix.api.OrderApi;
 import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.common.OrderType;
+import com.mirsoft.easyfix.fragments.NewOrdersFragment;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.networking.RestClient;
@@ -42,7 +44,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
 
     private static final long DRAWER_CLOSE_DELAY_MS = 250;
     private static final String NAV_ITEM_ID = "navItemId";
-    TabsPagerAdapter pagerAdapter;
+    public TabsPagerAdapter pagerAdapter;
     ViewPager viewPager;
     TabLayout tabLayout;
     NavigationView navigationView;
@@ -101,7 +103,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-      //  viewPager.setOffscreenPageLimit(0);
+        viewPager.setOffscreenPageLimit(3);
         /*String[] titles = new String[]{
                 getString(R.string.icon_orders),
                 getString(R.string.icon_users),
@@ -119,20 +121,20 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
             public void onPageSelected(int position) {
                 switch(position){
                     case 0:
-                        myOrderslayout.setVisibility(View.GONE);
+                        myOrderslayout.setVisibility(View.INVISIBLE);
                         ordersLayout.setVisibility(View.VISIBLE);
                         btnCreateOrder.setVisibility(View.VISIBLE);
                         dc.currentSelectedTabPage = 0;
                         break;
                     case 1:
-                        myOrderslayout.setVisibility(View.GONE);
-                        ordersLayout.setVisibility(View.GONE);
-                        btnCreateOrder.setVisibility(View.GONE);
+                        myOrderslayout.setVisibility(View.INVISIBLE);
+                        ordersLayout.setVisibility(View.INVISIBLE);
+                        btnCreateOrder.setVisibility(View.INVISIBLE);
                         dc.currentSelectedTabPage = 1;
                         break;
                     case 2:
                         myOrderslayout.setVisibility(View.VISIBLE);
-                        ordersLayout.setVisibility(View.GONE);
+                        ordersLayout.setVisibility(View.INVISIBLE);
                         btnCreateOrder.setVisibility(View.VISIBLE);
                         dc.currentSelectedTabPage = 2;
                         break;
@@ -194,8 +196,6 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-
-
     private void getOrdersList() {
         progressType = 0;
         showProgress(true);
@@ -212,8 +212,6 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
                     TabsActivity.this.sendBroadcast(data);
                     showProgress(false);
                 }
-
-
             }
 
             @Override
@@ -340,8 +338,17 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         if (item.getItemId() == android.support.v7.appcompat.R.id.home) {
             return mDrawerToggle.onOptionsItemSelected(item);
         }
+
+        int id = item.getItemId();
+        switch(id){
+            case R.id.action_refresh:
+                NewOrdersFragment fragment = (NewOrdersFragment)pagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
+                fragment.getData();
+                break;
+
+        }
         return super.onOptionsItemSelected(item);
-    }
+    };
 
     @Override
     public void onBackPressed() {

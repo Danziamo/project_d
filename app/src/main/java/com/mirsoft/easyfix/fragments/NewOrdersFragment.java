@@ -131,7 +131,8 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
         });
     }
 
-    private void getData() {
+    public void getData() {
+
         final Settings settings = new Settings(getActivity());
         RestClient.getOrderService(true).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override

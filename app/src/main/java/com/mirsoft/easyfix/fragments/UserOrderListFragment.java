@@ -87,7 +87,7 @@ public class UserOrderListFragment extends Fragment {
 
         fillDataClient();
 
-        ((TabsActivity)getActivity()).myMastersButton.setEnabled(false);
+       // ((TabsActivity)getActivity()).myMastersButton.setEnabled(false);
         setBottomButtonsListeners();
 
 
