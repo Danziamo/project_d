@@ -1,4 +1,4 @@
-package com.mirsoft.easyfixmaster.debug;
+package com.mirsoft.easyfix;
 
 
 import android.app.ProgressDialog;
@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
@@ -49,7 +50,7 @@ public class CreateBasicOrderFragment extends Fragment {
     Singleton dc;
     Settings settings;
 
-    public Spinner servicesSpinner;
+    public AppCompatSpinner servicesSpinner;
     public AppCompatRatingBar ratingBar;
     public EditText orderAddress;
     public EditText orderPhone;
@@ -59,6 +60,10 @@ public class CreateBasicOrderFragment extends Fragment {
     public Button orderBtnChange;
     public Button orderBtnCancel;
     public Button orderBtnLocate;
+
+    public TextInputLayout tilOrderAddress;
+    public TextInputLayout tilOrderPhone;
+    public TextInputLayout tilOrderDescription;
 
     ProgressDialog mDialog;
 
@@ -76,12 +81,16 @@ public class CreateBasicOrderFragment extends Fragment {
         dc = Singleton.getInstance(getActivity());
         settings = new Settings(getActivity());
 
-        servicesSpinner = (Spinner)view.findViewById(R.id.services_spinner);
+        servicesSpinner = (AppCompatSpinner)view.findViewById(R.id.spinner);
         ratingBar = (AppCompatRatingBar)view.findViewById(R.id.llratingbar);
         orderAddress = (EditText)view.findViewById(R.id.order_address);
         orderPhone = (EditText)view.findViewById(R.id.order_phone);
         orderDescription = (EditText)view.findViewById(R.id.order_description);
         orderBtnLocate = (Button)view.findViewById(R.id.btnLocate);
+
+        tilOrderAddress = (TextInputLayout)view.findViewById(R.id.tilAddress);
+        tilOrderPhone = (TextInputLayout)view.findViewById(R.id.tilPhone);
+        tilOrderDescription = (TextInputLayout)view.findViewById(R.id.tilDescription);
 
         mastersRequests = (TextView)view.findViewById(R.id.request_from_masters);
         orderNotification = (TextView)view.findViewById(R.id.order_notification);
@@ -137,6 +146,29 @@ public class CreateBasicOrderFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private boolean validateOrder() {
+        String address = orderAddress.getText().toString();
+        String phone = orderPhone.getText().toString();
+        String description = orderDescription.getText().toString();
+
+        if (address.length() == 0) {
+            tilOrderAddress.setError("Адресс не заполнен");
+            return false;
+        }
+
+        if (phone.length() == 0) {
+            tilOrderPhone.setError("Телефон не заполнен");
+            return false;
+        }
+
+        if (description.length() == 0) {
+            tilOrderDescription.setError("Причина не заполнена");
+            return false;
+        }
+
+        return true;
     }
 
     public CommonOrder initNewCommonOrder(){

@@ -12,25 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/service_linear_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/services"/>
-
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/services_spinner">
-
-            </Spinner>
-
-        </LinearLayout>
+        <include layout="@layout/common_specialty_spinner" />
 
         <LinearLayout
             android:id="@+id/rating_layout"
@@ -56,45 +38,43 @@
         </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tilAddress">
+            android:id="@+id/tilAddress"
+            android:theme="@style/TextInputLayoutTheme"
+            style="@style/TextInputLayoutStyle"
+            >
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/order_address"
-                android:singleLine="true"
                 android:hint="@string/adress"
-                android:inputType="textPostalAddress"/>
+                android:inputType="textPostalAddress"
+                style="@style/MaterialEditText"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tilPhone">
+            android:id="@+id/tilPhone"
+            android:theme="@style/TextInputLayoutTheme"
+            style="@style/TextInputLayoutStyle"
+            >
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/order_phone"
-                android:singleLine="true"
                 android:hint="@string/phone_number"
-                android:inputType="phone"/>
-
+                android:inputType="phone"
+                style="@style/MaterialEditText"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tilDescription">
+            android:theme="@style/TextInputLayoutTheme"
+            android:id="@+id/tilDescription"
+            style="@style/TextInputLayoutStyle"
+            >
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/order_description"
                 android:hint="@string/description"
-                android:inputType="textPostalAddress"/>
+                android:inputType="textPostalAddress"
+                style="@style/MaterialEditText"
+                />
 
         </android.support.design.widget.TextInputLayout>
 
