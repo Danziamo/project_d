@@ -44,8 +44,9 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_tabs"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
+            >
         </activity>
         <activity
             android:name=".ProfileActivity"
@@ -62,7 +63,7 @@
             android:name=".OrderDetailActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_order_detail"
-            android:parentActivityName=".TabsActivity" >
+            android:parentActivityName=".TabsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mirsoft.easyfix.TabsActivity" />

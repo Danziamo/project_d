@@ -3,10 +3,16 @@ package com.mirsoft.easyfix;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mirsoft.easyfix.api.OrderApi;
@@ -14,7 +20,9 @@ import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.networking.models.NOrder;
+import com.mirsoft.easyfix.views.RoundedTransformation;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.squareup.picasso.Picasso;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -25,11 +33,9 @@ import retrofit.client.Response;
  */
 public class MasterInfoFragment extends Fragment {
 
-    MaterialEditText etPhone;
-    MaterialEditText etFullName;
-    MaterialEditText etClientAddress;
-    MaterialEditText etClientPhone;
-    MaterialEditText etClientDescription;
+    AppCompatEditText etClientAddress;
+    AppCompatEditText etClientPhone;
+    AppCompatEditText etClientDescription;
     private RatingBar mRaringBar;
 
     private User master;
@@ -44,16 +50,34 @@ public class MasterInfoFragment extends Fragment {
 
         master = (User)getActivity().getIntent().getSerializableExtra("MASTER");
 
-        mRaringBar = (RatingBar)view.findViewById(R.id.rating_master);
-        addListenerOnRatingBar();
-        etPhone = (MaterialEditText)view.findViewById(R.id.etPhone);
-        etFullName = (MaterialEditText)view.findViewById(R.id.etFullName);
-        etClientAddress = (MaterialEditText)view.findViewById(R.id.etClientAddress);
-        etClientPhone = (MaterialEditText)view.findViewById(R.id.etClientPhone);
-        etClientDescription = (MaterialEditText)view.findViewById(R.id.etClientDescription);
+        etClientPhone = (AppCompatEditText)view.findViewById(R.id.et_client_phone);
+        etClientAddress = (AppCompatEditText)view.findViewById(R.id.et_client_address);
+        etClientDescription = (AppCompatEditText)view.findViewById(R.id.et_client_description);
 
+        AppCompatEditText etLastName = (AppCompatEditText)view.findViewById(R.id.et_last_name);
+        AppCompatEditText etFirstName = (AppCompatEditText)view.findViewById(R.id.et_first_name);
+        AppCompatRatingBar ratingBar = (AppCompatRatingBar)view.findViewById(R.id.ratingBar);
+        TextView tvFeedbacks = (TextView)view.findViewById(R.id.tvFeedbacks);
+        AppCompatEditText etPhone = (AppCompatEditText)view.findViewById(R.id.et_phone);
+        ImageView ivProfileInfo = (ImageView)view.findViewById(R.id.profile_photo);
+
+        ivProfileInfo.requestFocus();
+
+        etLastName.setText(master.getLastName());
+        etFirstName.setText(master.getFirstName());
+        ratingBar.setRating(master.getRating());
+        tvFeedbacks.setText(master.getReviewsCount() + " отзывов");
         etPhone.setText(master.getPhone());
-        etFullName.setText(master.getFullName());
+
+        RoundedTransformation transformation = new RoundedTransformation(10, 5);
+        Picasso.with(getActivity())
+                .load("https://scontent.xx.fbcdn.net/hphotos-xtf1/v/t1.0-9/10464122_669886999770868_7199669825191714119_n.jpg?oh=3d8b1edf292f4fef440b870a243a864e&oe=565BAFD9")
+                .resize(150, 150)
+                .centerCrop()
+                .placeholder(R.drawable.no_avatar)
+                .error(R.drawable.no_avatar)
+                .transform(transformation)
+                .into(ivProfileInfo);
 
         AppCompatButton btnSubmit = (AppCompatButton)view.findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -65,10 +89,6 @@ public class MasterInfoFragment extends Fragment {
 
         return view;
     }
-
-    private void addListenerOnRatingBar() {
-    }
-
 
     private void createOrderRequest() {
 
@@ -87,11 +107,12 @@ public class MasterInfoFragment extends Fragment {
             @Override
             public void success(Order order, Response response) {
                 Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                getActivity().finish();
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
             }
         });
     }

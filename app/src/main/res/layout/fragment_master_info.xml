@@ -10,63 +10,49 @@
     android:orientation="vertical"
     tools:context="com.mirsoft.easyfix.MasterInfoFragment">
 
-    <RatingBar
-        android:id="@+id/rating_master"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:numStars="5"
-        android:stepSize="0.5"/>
+    <include layout="@layout/common_master_info"/>
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material"
-        app:met_helperText="@string/name"
-        android:hint="@string/name"
-        android:inputType="textPersonName"
-        android:enabled="false"
-        android:id="@+id/etFullName" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilClientPhone"
+        android:theme="@style/TextInputLayoutTheme"
+        style="@style/TextInputLayoutStyle">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material"
-        android:id="@+id/etPhone"
-        app:met_helperText="@string/phone_number"
-        android:hint="@string/phone_number"
-        android:enabled="false"
-        android:inputType="phone" />
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_client_phone"
+            android:hint="@string/phone_number"
+            android:inputType="phone"
+            style="@style/MaterialEditText"/>
+    </android.support.design.widget.TextInputLayout>
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material"
-        android:id="@+id/etProfession"
-        app:met_helperText="@string/profession"
-        android:hint="@string/profession"
-        android:enabled="false"/>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilClientAddress"
+        android:theme="@style/TextInputLayoutTheme"
+        style="@style/TextInputLayoutStyle">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material"
-        app:met_helperText="@string/adress"
-        android:hint="@string/adress"
-        android:inputType="text"
-        android:id="@+id/etClientAddress" />
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_client_address"
+            android:hint="@string/adress"
+            android:inputType="textCapSentences"
+            style="@style/MaterialEditText"/>
+    </android.support.design.widget.TextInputLayout>
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material"
-        app:met_helperText="@string/phone_number"
-        android:hint="@string/phone_number"
-        android:inputType="phone"
-        android:id="@+id/etClientPhone" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilClientDescription"
+        android:theme="@style/TextInputLayoutTheme"
+        style="@style/TextInputLayoutStyle">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        style="@style/Input.Material"
-        app:met_helperText="@string/description"
-        android:hint="@string/description"
-        android:inputType="text"
-        android:id="@+id/etClientDescription" />
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_client_description"
+            android:hint="@string/description"
+            android:inputType="textCapSentences"
+            style="@style/MaterialEditText"/>
+    </android.support.design.widget.TextInputLayout>
+
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="@string/submit"
-        android:layout_gravity="center"/>
-
+        android:layout_gravity="center"
+        style="@style/Button.DarkGray" />
 </LinearLayout>
