@@ -10,16 +10,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Intent intent = new Intent(this, FixNavigationDrawer.class);
-        //Intent intent = new Intent(this, TabsActivity.class);
         Intent intent = new Intent(this, SplashActivity.class);
         startActivity(intent);
         finish();
-
-        /*if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, UserOrderListFragment.newInstance(null, null))
-                    .commit();
-        }*/
     }
 }

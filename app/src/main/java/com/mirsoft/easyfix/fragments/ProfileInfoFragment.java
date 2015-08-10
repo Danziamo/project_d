@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
-import com.mirsoft.easyfix.api.UserApi;
+import com.mirsoft.easyfix.networking.api.UserApi;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.views.RoundedTransformation;

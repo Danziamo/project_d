@@ -19,7 +19,6 @@ import com.github.gorbin.asne.vk.VkSocialNetwork;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
-import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.networking.models.RestError;
 import com.mirsoft.easyfix.models.Session;
@@ -150,7 +149,7 @@ public class SplashActivityFragment extends BaseFragment implements SocialNetwor
     private void openLogin() {
         String backStateName = getActivity().getFragmentManager().getClass().getName();
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, LoginFragment.newInstance(null, null))
+                .replace(R.id.container, new LoginFragment())
                 .addToBackStack(backStateName)
                 .commit();
     }

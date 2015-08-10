@@ -13,7 +13,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mirsoft.easyfix.api.OrderApi;
+import com.mirsoft.easyfix.networking.api.OrderApi;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;

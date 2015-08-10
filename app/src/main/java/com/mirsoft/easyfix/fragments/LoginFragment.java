@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +17,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
-import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.networking.RestClient;
 
@@ -35,39 +35,12 @@ import retrofit.client.Response;
 public class LoginFragment extends BaseFragment {
 
 
-    TextInputLayout etPhone;
-    TextInputLayout etPassword;
-    //MaterialEditText etPhone;
-    //MaterialEditText etPassword;
+    TextInputLayout tilPhone;
+    TextInputLayout tilPassword;
+    EditText etPhone;
+    EditText etPassword;
     MaterialDialog dialog;
     private boolean mTask = false;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public LoginFragment() {
         // Required empty public constructor
@@ -76,10 +49,6 @@ public class LoginFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -88,16 +57,11 @@ public class LoginFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        //etPhone = (MaterialEditText)view.findViewById(R.id.etLogin);
-        //etPassword = (MaterialEditText)view.findViewById(R.id.etPassword);
+        tilPhone = (TextInputLayout)view.findViewById(R.id.tilPhone);
+        tilPassword = (TextInputLayout)view.findViewById(R.id.tilPassword);
 
-        etPhone = (TextInputLayout)view.findViewById(R.id.tilLogin);
-        etPhone.setErrorEnabled(true);
-        etPhone.setHint(getString(R.string.login));
-
-
-        etPassword  = (TextInputLayout)view.findViewById(R.id.tilPassword);
-        etPassword.setHint(getString(R.string.password));
+        etPhone = (EditText)view.findViewById(R.id.etPhone);
+        etPassword = (EditText)view.findViewById(R.id.etPassword);
 
         Button btnSignIn = (Button)view.findViewById(R.id.btnSubmit);
 
@@ -124,21 +88,24 @@ public class LoginFragment extends BaseFragment {
 
     private void makeLogin() {
         if (mTask) return;
-        final String password;
-        //password = etPassword.getText().toString().trim();
-        password = etPassword.getEditText().getText().toString().trim();
         String username;
-        //username = etPhone.getText().toString().trim();
-        username = etPhone.getEditText().getText().toString().trim();
+        final String password;
+        password = etPassword.getText().toString().trim();
+        username = etPhone.getText().toString().trim();
         boolean isError = false;
 
         if (username.isEmpty()) {
-            etPhone.setError("Не может быть пустым");
+            tilPhone.setError("Не может быть пустым");
             isError = true;
         }
 
         if (password.isEmpty()) {
-            etPassword.setError("Не может быть пустым");
+            tilPassword.setError("Не может быть пустым");
+            isError = true;
+        }
+
+        if (!password.isEmpty() && password.length() < 6) {
+            tilPassword.setError("Не менее 6 символов");
             isError = true;
         }
 

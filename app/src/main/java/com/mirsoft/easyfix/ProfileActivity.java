@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 
-import com.bumptech.glide.Glide;
 import com.mirsoft.easyfix.adapters.ProfilePagerAdapter;
 import com.mirsoft.easyfix.fragments.BaseFragment;
 import com.mirsoft.easyfix.fragments.ProfileFragment;
@@ -104,11 +103,6 @@ public class ProfileActivity extends AppCompatActivity {
             super.onBackPressed();
     }
 
-//    private void loadBackdrop() {
-//        final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-//        Glide.with(this).load(R.drawable.foto).centerCrop().into(imageView);
-//    }
-
     private void changePhoto() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -126,16 +120,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_profile, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         switch (id){

@@ -1,17 +1,13 @@
-package com.mirsoft.easyfix.api;
+package com.mirsoft.easyfix.networking.api;
 
 import com.mirsoft.easyfix.models.Order;
-import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.models.CommonOrder;
 import com.mirsoft.easyfix.networking.models.NOrder;
-import com.squareup.okhttp.Call;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import retrofit.Callback;
 import retrofit.http.Body;
-import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.PATCH;
 import retrofit.http.POST;

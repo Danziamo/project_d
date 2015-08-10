@@ -1,6 +1,5 @@
 package com.mirsoft.easyfix;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -8,14 +7,12 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,14 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.mirsoft.easyfix.adapters.TabsPagerAdapter;
-import com.mirsoft.easyfix.api.OrderApi;
-import com.mirsoft.easyfix.api.SessionApi;
+import com.mirsoft.easyfix.networking.api.OrderApi;
+import com.mirsoft.easyfix.networking.api.SessionApi;
 import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.fragments.NewOrdersFragment;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.networking.RestClient;
-import com.mirsoft.easyfix.utils.RoundedImageView;
+import com.mirsoft.easyfix.views.RoundedImageView;
 import com.mirsoft.easyfix.utils.Singleton;
 
 import java.util.ArrayList;

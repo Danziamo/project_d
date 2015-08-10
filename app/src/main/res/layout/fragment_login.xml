@@ -7,7 +7,7 @@
     android:background="@color/white_blue">
 
     <android.support.v4.widget.NestedScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView" >
 
@@ -39,7 +39,7 @@
                 android:id="@+id/tilPassword"
                 android:theme="@style/TextInputLayoutTheme"
                 style="@style/TextInputLayoutStyle"
-                android:layout_below="@+id/tilLogin">
+                >
 
                 <android.support.v7.widget.AppCompatEditText
                     style="@style/MaterialEditText"
@@ -54,18 +54,18 @@
                 style="@style/Button.DarkGray"
                 android:layout_width="250dp"
                 android:text="@string/login"
-                android:layout_centerHorizontal="true"
                 android:id="@+id/btnSubmit"
-                android:layout_below="@id/tilPassword" />
+                android:layout_gravity="center"
+                />
 
             <TextView
                 android:id="@+id/forgot_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="100dp"
-                android:layout_below="@id/tilPassword"
-                android:text="@string/forget_password"/>
+                android:layout_gravity="center"
+                android:text="@string/forget_password"
+                />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

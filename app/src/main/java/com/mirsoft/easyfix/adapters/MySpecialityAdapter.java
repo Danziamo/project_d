@@ -1,7 +1,6 @@
-package com.mirsoft.easyfix.adapters.views;
+package com.mirsoft.easyfix.adapters;
 
 import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.models.Specialty;

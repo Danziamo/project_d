@@ -1,4 +1,4 @@
-package com.mirsoft.easyfix.api;
+package com.mirsoft.easyfix.networking.api;
 
 import com.mirsoft.easyfix.models.Specialty;
 

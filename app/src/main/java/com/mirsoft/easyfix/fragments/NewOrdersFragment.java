@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -29,7 +28,7 @@ import com.mirsoft.easyfix.adapters.OrderAdapter;
 import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.networking.RestClient;
-import com.mirsoft.easyfix.utils.RecyclerViewSimpleDivider;
+import com.mirsoft.easyfix.views.RecyclerViewSimpleDivider;
 import com.mirsoft.easyfix.utils.Singleton;
 
 import java.util.ArrayList;

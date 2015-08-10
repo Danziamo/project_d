@@ -1,4 +1,4 @@
-package com.mirsoft.easyfix.utils;
+package com.mirsoft.easyfix.views;
 
 import android.content.Context;
 import android.graphics.Canvas;

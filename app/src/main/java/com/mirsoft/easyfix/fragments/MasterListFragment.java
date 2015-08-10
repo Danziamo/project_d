@@ -1,14 +1,7 @@
 package com.mirsoft.easyfix.fragments;
 
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,21 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.mirsoft.easyfix.ClientOrderDetailsActivity;
 import com.mirsoft.easyfix.R;
-import com.mirsoft.easyfix.Settings;
-import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.adapters.MasterAdapter;
-import com.mirsoft.easyfix.api.UserApi;
-import com.mirsoft.easyfix.models.Order;
+import com.mirsoft.easyfix.networking.api.UserApi;
 import com.mirsoft.easyfix.models.Specialty;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
-import com.mirsoft.easyfix.utils.RecyclerViewSimpleDivider;
+import com.mirsoft.easyfix.views.RecyclerViewSimpleDivider;
 import com.mirsoft.easyfix.utils.Singleton;
 
 import java.util.ArrayList;

@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
-import com.mirsoft.easyfix.api.SessionApi;
+import com.mirsoft.easyfix.networking.api.SessionApi;
 import com.mirsoft.easyfix.models.ActivationCode;
 import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.networking.RestClient;

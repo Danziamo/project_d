@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.mirsoft.easyfix.R;
-import com.mirsoft.easyfix.api.UserApi;
+import com.mirsoft.easyfix.networking.api.UserApi;
 import com.mirsoft.easyfix.models.SocialUser;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
@@ -28,6 +28,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
     private AppCompatEditText etphone;
     private AppCompatEditText etpassword;
+    private TextInputLayout tilPhone;
+    private TextInputLayout tilPassword;
     private Button btnregistration;
 
 
@@ -66,7 +68,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         etphone = (AppCompatEditText)view.findViewById(R.id.etPhone);
         etpassword = (AppCompatEditText)view.findViewById(R.id.etPassword);
 
-        TextInputLayout tilPassword = (TextInputLayout)view.findViewById(R.id.tilPassword);
+        tilPhone = (TextInputLayout)view.findViewById(R.id.tilPhone);
+        tilPassword = (TextInputLayout)view.findViewById(R.id.tilPassword);
 
         if(mSocialProfileId != null && mSocialProvider != null) {
             tilPassword.setVisibility(View.INVISIBLE);
@@ -87,17 +90,22 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     }
 
     private void makeSignUp() {
-        String phone = etphone.getText().toString();
-        String password = etpassword.getText().toString();
+        String phone = etphone.getText().toString().trim();
+        String password = etpassword.getText().toString().trim();
         boolean isError = false;
 
-        if (phone.trim().isEmpty()) {
-            etphone.setError("Не может быть пустым");
+        if (phone.isEmpty()) {
+            tilPhone.setError("Не может быть пустым");
             isError = true;
         }
 
-        if (password.trim().isEmpty() && mSocialProfileId == null) {
-            etpassword.setError("Не может быть пустым");
+        if (password.isEmpty() && mSocialProfileId == null) {
+            tilPassword.setError("Не может быть пустым");
+            isError = true;
+        }
+
+        if (!password.isEmpty() && password.length() < 6) {
+            tilPassword.setError("Не меньше 6 символов");
             isError = true;
         }
 

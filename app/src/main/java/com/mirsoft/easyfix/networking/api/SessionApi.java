@@ -1,9 +1,8 @@
-package com.mirsoft.easyfix.api;
+package com.mirsoft.easyfix.networking.api;
 
 import com.mirsoft.easyfix.models.ActivationCode;
 import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.models.SocialSession;
-import com.squareup.okhttp.Call;
 
 import retrofit.Callback;
 import retrofit.http.Body;

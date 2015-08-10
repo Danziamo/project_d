@@ -2,14 +2,11 @@ package com.mirsoft.easyfix.networking;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mirsoft.easyfix.Settings;
-import com.mirsoft.easyfix.api.OrderApi;
-import com.mirsoft.easyfix.api.SessionApi;
-import com.mirsoft.easyfix.api.SessionRequestInterceptor;
-import com.mirsoft.easyfix.api.SpecialtyApi;
-import com.mirsoft.easyfix.api.UserApi;
-import com.mirsoft.easyfix.models.Order;
-import com.mirsoft.easyfix.models.User;
+import com.mirsoft.easyfix.networking.api.OrderApi;
+import com.mirsoft.easyfix.networking.api.SessionApi;
+import com.mirsoft.easyfix.networking.api.SessionRequestInterceptor;
+import com.mirsoft.easyfix.networking.api.SpecialtyApi;
+import com.mirsoft.easyfix.networking.api.UserApi;
 import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.RestAdapter;
