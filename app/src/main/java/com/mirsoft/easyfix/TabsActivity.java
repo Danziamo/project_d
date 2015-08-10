@@ -69,6 +69,11 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
 
     private final int USER_ORDER_PAGE= 2;
 
+    private final int ORDERS_PAGE       = 0;
+    private final int MASTRES_BASE_PAGE = 1;
+    private final int MY_ORDERS_PAGE    = 2;
+
+
     Singleton dc;
 
     @Override
@@ -97,9 +102,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         btnCreateOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TabsActivity.this, ClientOrderDetailsActivity.class);
-                intent.putExtra("activityMode","createOrder");
-                startActivity(intent);
+                performCreateNewOrder();
             }
         });
 
@@ -275,6 +278,30 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_item_exit:
                 performSignOut();
                 break;
+            case R.id.drawer_orders:
+                swipPage(ORDERS_PAGE);
+                break;
+            case R.id.drawer_create_order:
+                performCreateNewOrder();
+                break;
+            case R.id.drawer_base_wizards:
+                swipPage(MASTRES_BASE_PAGE);
+                break;
+            case R.id.drawer_my_order:
+                swipPage(MY_ORDERS_PAGE);
+                break;
+            case R.id.drawer_helper:
+                performStartActivity(HelpRulesActivity.class);
+                break;
+            case R.id.drawer_pay:
+                performStartActivity(PayActivity.class);
+                break;
+            case R.id.drawer_about:
+                performStartActivity(AboutActivity.class);
+                break;
+            case R.id.drawer_share:
+                performStartActivity(RecommendActivity.class);
+                break;
             default:
 
         }
@@ -297,6 +324,21 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
                 goToStartPage();
             }
         });
+    }
+
+    private void performCreateNewOrder(){
+        Intent intent = new Intent(TabsActivity.this, ClientOrderDetailsActivity.class);
+        intent.putExtra("activityMode","createOrder");
+        startActivity(intent);
+    }
+
+    private void performStartActivity(Class<?> activity){
+        Intent intent = new Intent(TabsActivity.this, activity);
+        startActivity(intent);
+    }
+
+    private void performFragmentTransaction(Fragment fragment){
+       // getSupportFragmentManager().beginTransaction()
     }
 
     private void goToStartPage() {
@@ -343,8 +385,10 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         switch(id){
             case R.id.action_refresh:
-                NewOrdersFragment fragment = (NewOrdersFragment)pagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
-                fragment.getData();
+                if(viewPager.getCurrentItem() == ORDERS_PAGE) {
+                    NewOrdersFragment fragment = (NewOrdersFragment) pagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
+                    fragment.getData();
+                }
                 break;
 
         }

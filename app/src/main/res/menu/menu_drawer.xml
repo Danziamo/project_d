@@ -21,10 +21,6 @@
             />
 
         <item
-            android:id="@+id/drawer_settings"
-            android:title="@string/action_settings"
-            />
-        <item
             android:id="@+id/drawer_helper"
             android:title="@string/helper"
             />

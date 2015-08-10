@@ -35,5 +35,9 @@
     <string name="notification_order">Ваш заказ размещен.С Вами свяжутся мастера.Не забудьте нажать "Заказ принят"
                                         после договора с мастером.</string>
     <string name="change">Поменять</string>
+    <string name="title_activity_help_rules">HelpRulesActivity</string>
+    <string name="title_activity_pay">PayActivity</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_recommend">RecommendActivity</string>
 
 </resources>
