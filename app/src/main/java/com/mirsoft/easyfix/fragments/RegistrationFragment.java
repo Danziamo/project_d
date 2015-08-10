@@ -2,7 +2,9 @@ package com.mirsoft.easyfix.fragments;
 
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,6 @@ import com.mirsoft.easyfix.api.UserApi;
 import com.mirsoft.easyfix.models.SocialUser;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -25,8 +26,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     private static final String ARG_SOCIAL_PROVIDER = "socialProvider";
     private static final String ARG_SOCIAL_PROFILE_ID = "socialProfileId";
 
-    private MaterialEditText etphone;
-    private MaterialEditText etpassword;
+    private AppCompatEditText etphone;
+    private AppCompatEditText etpassword;
     private Button btnregistration;
 
 
@@ -62,11 +63,13 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_registration, container, false);
 
-        etphone = (MaterialEditText)view.findViewById(R.id.etPhone);
-        etpassword = (MaterialEditText)view.findViewById(R.id.etPassword);
+        etphone = (AppCompatEditText)view.findViewById(R.id.etPhone);
+        etpassword = (AppCompatEditText)view.findViewById(R.id.etPassword);
+
+        TextInputLayout tilPassword = (TextInputLayout)view.findViewById(R.id.tilPassword);
 
         if(mSocialProfileId != null && mSocialProvider != null) {
-            etpassword.setVisibility(View.INVISIBLE);
+            tilPassword.setVisibility(View.INVISIBLE);
         }
 
         btnregistration = (Button)view.findViewById(R.id.btnSubmit);

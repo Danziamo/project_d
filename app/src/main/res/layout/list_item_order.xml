@@ -26,8 +26,9 @@
             android:layout_height="30dp"
             android:gravity="center_vertical|start"
             android:padding="@dimen/spacing_large"
+            android:paddingTop="10dp"
             android:paddingLeft="20dp"
-            android:textColor="@color/blue_normal"
+            android:textColor="@color/input_blue"
             android:layout_weight="0.5"
             tools:text="Address"/>
 
@@ -38,6 +39,7 @@
             android:layout_weight="0.5"
             android:gravity="center_vertical|start"
             android:padding="@dimen/spacing_large"
+            android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:textColor="@color/blacktext2"
             tools:text="Reason"/>

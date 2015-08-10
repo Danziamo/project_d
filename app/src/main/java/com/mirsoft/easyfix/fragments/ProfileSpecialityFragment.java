@@ -1,7 +1,6 @@
 package com.mirsoft.easyfix.fragments;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.dd.processbutton.FlatButton;
 import com.mirsoft.easyfix.ProfileActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;

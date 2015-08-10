@@ -17,8 +17,8 @@
             android:layout_height="wrap_content">
 
             <EditText
+                style="@style/MaterialEditText"
                 android:id="@+id/tvAddress"
-                style="@style/Input.Material.First"
                 android:enabled="false"
                 android:hint="@string/adress"
                 android:inputType="textCapSentences" />
@@ -32,8 +32,8 @@
             android:layout_height="wrap_content">
 
             <EditText
+                style="@style/MaterialEditText"
                 android:id="@+id/tvPhone"
-                style="@style/Input.Material.First"
                 android:enabled="false"
                 android:hint="@string/city"
                 />
@@ -48,7 +48,7 @@
 
             <EditText
                 android:id="@+id/tvDescription"
-                style="@style/Input.Material.First"
+                style="@style/MaterialEditText"
                 android:enabled="false"
                 android:hint="@string/phone_number"
                 />

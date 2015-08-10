@@ -10,10 +10,8 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,22 +19,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RatingBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mirsoft.easyfix.ClientOrderDetailsActivity;
-import com.mirsoft.easyfix.R;
-import com.mirsoft.easyfix.Settings;
-import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.Specialty;
-import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.networking.models.CommonOrder;
 import com.mirsoft.easyfix.utils.Singleton;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.ArrayList;
 

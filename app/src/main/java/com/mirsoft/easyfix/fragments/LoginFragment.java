@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -18,6 +19,8 @@ import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.networking.RestClient;
+
+import org.w3c.dom.Text;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -105,8 +108,8 @@ public class LoginFragment extends BaseFragment {
             }
         });
 
-        Button btnForgotPassword = (Button)view.findViewById(R.id.btnForgotPassword);
-        btnForgotPassword.setOnClickListener(new View.OnClickListener() {
+        TextView viewForgotPassword = (TextView)view.findViewById(R.id.forgot_password);
+        viewForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), TabsActivity.class);

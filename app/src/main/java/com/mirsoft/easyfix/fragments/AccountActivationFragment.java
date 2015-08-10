@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.Button;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mirsoft.easyfix.R;
@@ -19,20 +19,14 @@ import com.mirsoft.easyfix.api.SessionApi;
 import com.mirsoft.easyfix.models.ActivationCode;
 import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.networking.RestClient;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AccountActivationFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AccountActivationFragment extends Fragment {
 
-    MaterialEditText et_code_sms;
+    EditText et_code_sms;
     Button btn_authorization;
 
 
@@ -83,7 +77,7 @@ public class AccountActivationFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account_activation, container, false);
 
-        et_code_sms = (MaterialEditText)view.findViewById(R.id.et_code_sms);
+        et_code_sms = (EditText)view.findViewById(R.id.et_code_sms);
         btn_authorization = (Button)view.findViewById(R.id.btn_authorization);
         btn_authorization.setOnClickListener(new OnClickListener() {
             @Override

@@ -1,15 +1,13 @@
 package com.mirsoft.easyfix;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -21,7 +19,6 @@ import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.networking.models.NOrder;
 import com.mirsoft.easyfix.views.RoundedTransformation;
-import com.rengwuxian.materialedittext.MaterialEditText;
 import com.squareup.picasso.Picasso;
 
 import retrofit.Callback;

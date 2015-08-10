@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Мастер</string>
     <string name="Sign_in_with">Войти через:</string>
-    <string name="login">Логин</string>
+    <string name="login">Войти</string>
     <string name="password">Пароль</string>
     <string name="problems_sign_in">Не можете войти</string>
     <string name="input">Вход</string>

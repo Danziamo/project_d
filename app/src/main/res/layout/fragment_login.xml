@@ -4,64 +4,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.mirsoft.easyfix.fragments.LoginFragment"
-    android:background="@color/white_blue"
-    android:weightSum="1"
-    android:id="@+id/zz"
-    android:paddingLeft="20dp">
+    android:background="@color/white_blue">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/scrollView" >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/tilLogin">
-                <EditText
+                android:theme="@style/TextInputLayoutTheme"
+                android:id="@+id/tilLogin"
+                style="@style/TextInputLayoutStyle"
+                >
+
+                <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/etLogin"
-                    app:met_helperText="@string/login"
-                    android:hint="@string/login"
+                    android:hint="@string/phone_number"
                     android:inputType="phone"
-                    android:layout_centerHorizontal="true"
-                    style="@style/Input.Material.First"
+                    android:gravity="center"
+                    style="@style/MaterialEditText"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilPassword"
+                android:theme="@style/TextInputLayoutTheme"
+                style="@style/TextInputLayoutStyle"
+                android:layout_below="@+id/tilLogin">
+
+                <android.support.v7.widget.AppCompatEditText
+                    style="@style/MaterialEditText"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:gravity="center"
+                    android:id="@+id/etPassword"
                     />
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tilPassword"
-                android:layout_below="@+id/tilLogin">
-                <EditText
-                    style="@style/Input.Material"
-                    app:met_helperText="@string/password"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:id="@+id/etPassword"
-                    android:layout_below="@+id/etLogin" />
-            </android.support.design.widget.TextInputLayout>
-
-            <com.dd.processbutton.FlatButton
-                style="@style/Button.Material.Login"
+            <android.support.v7.widget.AppCompatButton
+                style="@style/Button.DarkGray"
                 android:layout_width="250dp"
                 android:text="@string/login"
+                android:layout_centerHorizontal="true"
                 android:id="@+id/btnSubmit"
                 android:layout_below="@id/tilPassword" />
 
-            <com.dd.processbutton.FlatButton
-                style="@style/Button.Material.Login"
-                android:layout_width="250dp"
-                android:text="@string/forget_password"
-                android:id="@+id/btnForgotPassword"
-                android:layout_below="@id/btnSubmit" />
-        </RelativeLayout>
-    </ScrollView>
+            <TextView
+                android:id="@+id/forgot_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:layout_below="@id/tilPassword"
+                android:text="@string/forget_password"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>

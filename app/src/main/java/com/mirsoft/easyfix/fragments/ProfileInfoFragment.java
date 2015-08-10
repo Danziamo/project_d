@@ -26,15 +26,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.dd.processbutton.FlatButton;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.api.UserApi;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.views.RoundedTransformation;
-import com.rengwuxian.materialedittext.MaterialEditText;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
