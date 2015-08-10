@@ -136,6 +136,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
                         myOrderslayout.setVisibility(View.VISIBLE);
                         ordersLayout.setVisibility(View.INVISIBLE);
                         btnCreateOrder.setVisibility(View.VISIBLE);
+                        btnCreateOrder.setVisibility(View.INVISIBLE);
                         dc.currentSelectedTabPage = 2;
                         break;
                 }

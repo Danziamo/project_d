@@ -45,8 +45,6 @@
                 android:layout_below="@id/appbar"
                 />
 
-
-
             <android.support.design.widget.FloatingActionButton
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -57,6 +55,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
                 />
 
         </android.support.design.widget.CoordinatorLayout>
@@ -70,52 +69,50 @@
             <LinearLayout
                 android:id="@+id/orders_linear_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:orientation="horizontal"
-                android:background="@color/white"
+                android:background="@color/ColorPrimaryDark"
+                android:padding="1dp"
                 >
 
                 <Button
                     android:id="@+id/map_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/map"
                     android:enabled="false"
-                    android:layout_weight="0.5"/>
+                    android:background="@drawable/custom_button_style"
+                    style="@style/navigation_buttons_style"/>
 
                 <Button
                     android:id="@+id/list_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/list"
-                    android:layout_weight="0.5"/>
+                    android:background="@drawable/custom_button_style"
+                    style="@style/navigation_buttons_style"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/my_orders_linear_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_gravity="bottom"
                 android:visibility="invisible"
                 android:orientation="horizontal"
-                android:background="@color/white"
+                android:background="@color/ColorPrimaryDark"
+                android:padding="1dp"
                 >
 
                 <Button
                     android:id="@+id/my_masters_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/my_masters"
-                    android:layout_weight="0.5"
-                    android:enabled="false"/>
+                    android:enabled="false"
+                    android:background="@drawable/custom_button_style"
+                    style="@style/navigation_buttons_style"/>
 
                 <Button
                     android:id="@+id/myclients_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/my_clients"
-                    android:layout_weight="0.5"/>
+                    android:background="@drawable/custom_button_style"
+                    style="@style/navigation_buttons_style"/>
 
             </LinearLayout>
 
