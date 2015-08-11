@@ -60,7 +60,7 @@ public class LoginFragment extends BaseFragment {
         tilPhone = (TextInputLayout)view.findViewById(R.id.tilPhone);
         tilPassword = (TextInputLayout)view.findViewById(R.id.tilPassword);
 
-        etPhone = (EditText)view.findViewById(R.id.etPhone);
+        etPhone = (EditText)view.findViewById(R.id.etLogin);
         etPassword = (EditText)view.findViewById(R.id.etPassword);
 
         Button btnSignIn = (Button)view.findViewById(R.id.btnSubmit);
