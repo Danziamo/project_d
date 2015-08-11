@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.mirsoft.easyfix.adapters.TabsPagerAdapter;
 import com.mirsoft.easyfix.networking.api.OrderApi;
 import com.mirsoft.easyfix.networking.api.SessionApi;
@@ -59,6 +60,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
     public Button myClientsButton;
     public LinearLayout ordersLayout;
     public LinearLayout myOrderslayout;
+    protected MaterialDialog dialog;
 
     private final Handler mDrawerActionHandler = new Handler();
     private DrawerLayout mDrawerLayout;
@@ -193,54 +195,50 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
 
         mOrderList = new ArrayList<>();
         mFinishedOrderList = new ArrayList<>();
-        getOrdersList();
-
        // viewPager.setCurrentItem(dc.currentSelectedTabPage);
-
-
     }
 
     private void getOrdersList() {
         progressType = 0;
-        showProgress(true);
+        showProgress(true, "Обновление", "Ожидайте");
         Settings settings = new Settings(TabsActivity.this);
         OrderApi api = RestClient.createService(OrderApi.class);
         api.getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
+                hideProgress();
                 if (orders.size() > 0) {
                     progressType += 1;
                     mOrderList.clear();
                     mOrderList = orders;
                     Intent data = new Intent("update");
                     TabsActivity.this.sendBroadcast(data);
-                    showProgress(false);
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
+                hideProgress();
                 progressType += 1;
                 Toast.makeText(TabsActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                showProgress(false);
             }
         });
 
         api.getByUserIdAndStatuses(settings.getUserId(), "finished", new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
+                hideProgress();
                 progressType += 1;
                 mFinishedOrderList.clear();
                 mFinishedOrderList = orders;
                 Intent data = new Intent("updatefinished");
                 TabsActivity.this.sendBroadcast(data);
-                showProgress(false);
             }
 
             @Override
             public void failure(RetrofitError error) {
+                hideProgress();
                 progressType += 1;
-                showProgress(false);
             }
         });
     }
@@ -316,15 +314,18 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         final Settings settings = new Settings(TabsActivity.this);
         SessionApi api = RestClient.createService(SessionApi.class);
         Session session = new Session();
+        showProgress(true, "Ожидайте", "Выход");
         api.logout(session, new Callback<Object>() {
             @Override
             public void success(Object o, Response response) {
+                hideProgress();
                 settings.setAccessToken(null);
                 goToStartPage();
             }
 
             @Override
             public void failure(RetrofitError error) {
+                hideProgress();
                 settings.setAccessToken(null);
                 goToStartPage();
             }
@@ -333,7 +334,7 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
 
     private void performCreateNewOrder(){
         Intent intent = new Intent(TabsActivity.this, ClientOrderDetailsActivity.class);
-        intent.putExtra("activityMode","createOrder");
+        intent.putExtra("activityMode", "createOrder");
         startActivity(intent);
     }
 
@@ -432,7 +433,22 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         getOrdersList();
     }
 
-    private void showProgress(final boolean show) {
+    protected void showProgress(final boolean state, String title, String content) {
+        if (state) {
+            MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
+                    .title(title)
+                    .content(content)
+                    .progress(true, 0);
+            dialog = builder.build();
+            dialog.show();
+        } else {
+            if(dialog != null && dialog.isShowing()) {
+                dialog.dismiss();
+            }
+        }
+    }
 
+    protected void hideProgress(){
+        showProgress(false, "", "");
     }
 }

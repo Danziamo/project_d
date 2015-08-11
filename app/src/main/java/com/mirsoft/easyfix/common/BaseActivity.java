@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import javax.inject.Inject;
 
 public abstract class BaseActivity extends Activity {
