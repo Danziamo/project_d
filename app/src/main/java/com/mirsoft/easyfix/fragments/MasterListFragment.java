@@ -11,11 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.adapters.MasterAdapter;
+import com.mirsoft.easyfix.common.Constants;
+import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.networking.api.UserApi;
 import com.mirsoft.easyfix.models.Specialty;
 import com.mirsoft.easyfix.models.User;
@@ -35,14 +38,34 @@ public class MasterListFragment extends BaseFragment {
     private RecyclerView rvMaster;
     private MasterAdapter rvAdapter;
     private AppCompatSpinner spinner;
+
+    private ArrayList<User> usersList;
+    private int mMode;
+
+    private final static String USERS_KEY = "USERS_KEY";
+    private final static String MODE_KEY = "MODE_KEY";
   //  private ArrayList<Specialty> specialtyList;
     Singleton dc;
 
     MaterialDialog dialog;
 
+    public static MasterListFragment newInstance(ArrayList<User> users, int mode) {
+        MasterListFragment fragment = new MasterListFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(USERS_KEY, users);
+        args.putInt(MODE_KEY, mode);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        usersList = new ArrayList<>();
+        if (getArguments() != null) {
+            usersList = (ArrayList<User>) getArguments().getSerializable(USERS_KEY);
+            mMode = getArguments().getInt(MODE_KEY);
+        }
     }
 
     @Override
@@ -53,15 +76,22 @@ public class MasterListFragment extends BaseFragment {
 
         dc.currentSelectedTabPage = 1;
 
+        LinearLayout spinnerLayout = (LinearLayout)view.findViewById(R.id.spinner_layout);
         spinner = (AppCompatSpinner)view.findViewById(R.id.spinner);
 
         rvMaster = (RecyclerView)view.findViewById(R.id.rvMasters);
         rvMaster.addItemDecoration(new RecyclerViewSimpleDivider(getActivity()));
         rvMaster.setHasFixedSize(true);
-        rvAdapter = new MasterAdapter(new ArrayList<User>(), R.layout.list_item_master, getActivity());
+
+        rvAdapter = new MasterAdapter(usersList, R.layout.list_item_master, getActivity(), mMode);
+
         rvMaster.setAdapter(rvAdapter);
         rvMaster.setItemAnimator(new DefaultItemAnimator());
         rvMaster.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        if (mMode == Constants.PENDING_MASTERS_LIST) {
+            spinnerLayout.setVisibility(View.GONE);
+        }
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

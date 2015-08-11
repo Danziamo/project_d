@@ -86,10 +86,11 @@
 
         <TextView
             android:id="@+id/request_from_masters"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/master_request"
             android:textSize="16dp"
+            android:background="@color/ok"
             android:layout_marginTop="10dp"/>
 
         <TextView
@@ -97,6 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/notification_order"
+            android:gravity="center"
             android:textSize="16dp"
             android:layout_marginTop="10dp"/>
 

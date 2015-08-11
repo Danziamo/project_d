@@ -3,6 +3,7 @@ package com.mirsoft.easyfix;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -22,8 +23,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mirsoft.easyfix.common.Constants;
+import com.mirsoft.easyfix.fragments.LoginFragment;
+import com.mirsoft.easyfix.fragments.MasterListFragment;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.Specialty;
+import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.networking.models.CommonOrder;
 import com.mirsoft.easyfix.utils.Singleton;
@@ -99,6 +104,7 @@ public class CreateBasicOrderFragment extends Fragment {
         orderBtnLocate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!validateOrder()) return;
                 mDialog = ProgressDialog.show(getActivity(), "Подождите...", "Отправляются данные", true);
                 locateOrder(initNewCommonOrder());
             }
@@ -107,6 +113,7 @@ public class CreateBasicOrderFragment extends Fragment {
         orderBtnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!validateOrder()) return;
                 mDialog = ProgressDialog.show(getActivity(), "Подождите...", "Обновляются данные", true);
                 updateOrder(initNewCommonOrder());
             }
@@ -228,18 +235,27 @@ public class CreateBasicOrderFragment extends Fragment {
     }
     public void getPendingOrders(){
         RestClient.getOrderService(false).getContractorRequests(settings.getUserId(),dc.clientSelectedOrder.getId() ,
-                new Callback<ArrayList<Order>>() {
+                new Callback<ArrayList<User>>() {
                     @Override
-                    public void success(ArrayList<Order> orders, Response response) {
-                        Log.e("PendingOrders","Success");
-                        mastersRequests.setText(getResources().getString(R.string.master_request) + " : " + orders.size());
+                    public void success(final ArrayList<User> users, Response response) {
+                        mastersRequests.setText(getResources().getString(R.string.master_request) + " : " + users.size());
+                        mastersRequests.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (users.size() > 0) {
+                                    String backStateName = getActivity().getFragmentManager().getClass().getName();
+                                    getActivity().getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.container, MasterListFragment.newInstance(users, Constants.PENDING_MASTERS_LIST))
+                                            .addToBackStack(backStateName)
+                                            .commit();
+                                }
+                            }
+                        });
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         Toast.makeText(getActivity(), "Failure : pending orders", Toast.LENGTH_SHORT).show();
-                        Log.e("PendingOrders","Failure");
-                        error.printStackTrace();
                     }
                 });
     }

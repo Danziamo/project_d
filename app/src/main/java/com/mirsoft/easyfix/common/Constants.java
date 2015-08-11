@@ -8,5 +8,7 @@ public class Constants {
     public static final int MASTER_ORDER_ADAPTER = 2;
 
 
+    public static final int SPECIALTY_MASTER_LIST = 0;
+    public static final int PENDING_MASTERS_LIST = 1;
 
 }

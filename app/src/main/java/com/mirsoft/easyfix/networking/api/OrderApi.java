@@ -1,6 +1,7 @@
 package com.mirsoft.easyfix.networking.api;
 
 import com.mirsoft.easyfix.models.Order;
+import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.models.CommonOrder;
 import com.mirsoft.easyfix.networking.models.NOrder;
 
@@ -23,7 +24,7 @@ public interface OrderApi {
     void getByUserIdAndStatuses(@Path("id") int id, @Query("status") String statuses, Callback<ArrayList<Order> > callback);
 
     @GET("/users/{userId}/orders/{orderId}/list_contractor_requests")
-    void getContractorRequests(@Path("userId") int userId,@Path("orderId") int orderId, Callback<ArrayList<Order>> callback);
+    void getContractorRequests(@Path("userId") int userId,@Path("orderId") int orderId, Callback<ArrayList<User> > callback);
 
     @GET("/orders/{id}")
     void getById(@Path("id") int id, Callback<Order> callback);
