@@ -4,6 +4,7 @@
     <string name="Sign_in_with">Войти через:</string>
     <string name="login">Войти</string>
     <string name="password">Пароль</string>
+    <string name="new_password">Новый пароль</string>
     <string name="problems_sign_in">Не можете войти</string>
     <string name="input">Вход</string>
     <string name="registration">Регистрация</string>
@@ -42,6 +43,7 @@
     <string name="accountactivate">Вам будет выслано смс с кодом\n подтверждения вашего номера.\n Введите его в поле ниже</string>
     <string name="codesms">Код с СМС</string>
     <string name="btn_authorization">Авторизация</string>
+    <string name="btn_resend">Переотправить</string>
     <string name="submit">Отправить</string>
     <string name="profession">Профессия</string>
     <string name="experience">Опыт</string>
@@ -75,4 +77,14 @@
         <item quantity="many">%1$d отзывов</item>
         <item quantity="other">%1$d отзывов</item>
     </plurals>
+
+
+    <!-- Errors -->
+    <string name="error_not_empty">Не может быть пустым</string>
+    <string name="error_password_length">Не менее 6 символов</string>
+    <string name="error_activation_code_length">Должно быть 4 символа</string>
+
+    <string name="error_address_empty">Адрес не заполнен</string>
+    <string name="error_phone_empty">Телефон не заполнен</string>
+    <string name="error_description_empty">Причина не заполнена</string>
 </resources>
