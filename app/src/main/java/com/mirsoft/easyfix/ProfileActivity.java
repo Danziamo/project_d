@@ -71,10 +71,11 @@ public class ProfileActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position){
                     case 0:
-                        addNewProffestionBtn.setVisibility(View.GONE);
+                        addNewProffestionBtn.setVisibility(View.INVISIBLE);
                         break;
                     case 1:
                         addNewProffestionBtn.setVisibility(View.VISIBLE);
+                        break;
                 }
             }
 

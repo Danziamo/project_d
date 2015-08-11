@@ -4,14 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.mirsoft.easyfix.RecommendActivity">
+    tools:context="com.mirsoft.easyfix.CommentActivity">
 
     <include android:id = "@+id/order_create_toolbar"
         layout="@layout/toolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
-    <TextView android:text="recommend activity" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvReviews"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

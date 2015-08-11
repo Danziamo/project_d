@@ -1,5 +1,6 @@
 package com.mirsoft.easyfix;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
@@ -81,6 +82,13 @@ public class MasterInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 createOrderRequest();
+            }
+        });
+
+        tvFeedbacks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(),CommentActivity.class));
             }
         });
 

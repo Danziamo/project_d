@@ -26,6 +26,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mirsoft.easyfix.CommentActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.networking.api.UserApi;
@@ -146,7 +147,12 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
 
 //        etLicense = (MaterialEditText)view.findViewById(R.id.etLicense);
 
-
+        tvFeedbacks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), CommentActivity.class));
+            }
+        });
 
         return view;
     }

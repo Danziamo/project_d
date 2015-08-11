@@ -125,7 +125,7 @@
             android:label="@string/title_activity_about" >
         </activity>
         <activity
-            android:name=".RecommendActivity"
+            android:name=".CommentActivity"
             android:label="@string/title_activity_recommend" >
         </activity>
     </application>

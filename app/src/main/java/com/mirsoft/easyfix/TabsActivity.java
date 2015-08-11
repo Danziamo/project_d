@@ -300,11 +300,11 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
                 performStartActivity(AboutActivity.class);
                 break;
             case R.id.drawer_share:
-                //performStartActivity(RecommendActivity.class);
+                //performStartActivity(CommentActivity.class);
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT,"EasyFix test test");
+                intent.putExtra(Intent.EXTRA_TEXT, "EasyFix test test");
                 startActivity(Intent.createChooser(intent,getResources().getString(R.string.share)));
                 break;
             default:
