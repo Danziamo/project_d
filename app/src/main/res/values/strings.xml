@@ -40,4 +40,6 @@
     <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_recommend">RecommendActivity</string>
 
+    <string name="share">Поделиться в ...</string>
+
 </resources>

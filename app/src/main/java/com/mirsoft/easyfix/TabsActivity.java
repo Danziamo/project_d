@@ -34,6 +34,8 @@ import com.mirsoft.easyfix.utils.Singleton;
 
 import java.util.ArrayList;
 
+import javax.security.auth.Subject;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -298,7 +300,12 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
                 performStartActivity(AboutActivity.class);
                 break;
             case R.id.drawer_share:
-                performStartActivity(RecommendActivity.class);
+                //performStartActivity(RecommendActivity.class);
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT,"EasyFix test test");
+                startActivity(Intent.createChooser(intent,getResources().getString(R.string.share)));
                 break;
             default:
 
