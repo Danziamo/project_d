@@ -60,6 +60,7 @@
     <string name="btn_cancel">Отменить</string>
     <string name="rating">Рейтинг не ниже:</string>
     <string name="make_request">Взять заказ</string>
+    <string name="take_master">Вызвать</string>
 
 
     <string name="my_profile">Мой профиль</string>

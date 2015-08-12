@@ -41,19 +41,22 @@ public class MasterListFragment extends BaseFragment {
 
     private ArrayList<User> usersList;
     private int mMode;
+    private Order order;
 
     private final static String USERS_KEY = "USERS_KEY";
     private final static String MODE_KEY = "MODE_KEY";
+    private final static String ORDER_KEY = "ORDER_KEY";
   //  private ArrayList<Specialty> specialtyList;
     Singleton dc;
 
     MaterialDialog dialog;
 
-    public static MasterListFragment newInstance(ArrayList<User> users, int mode) {
+    public static MasterListFragment newInstance(ArrayList<User> users, int mode, Order order) {
         MasterListFragment fragment = new MasterListFragment();
         Bundle args = new Bundle();
         args.putSerializable(USERS_KEY, users);
         args.putInt(MODE_KEY, mode);
+        args.putSerializable(ORDER_KEY, order);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,6 +68,7 @@ public class MasterListFragment extends BaseFragment {
         if (getArguments() != null) {
             usersList = (ArrayList<User>) getArguments().getSerializable(USERS_KEY);
             mMode = getArguments().getInt(MODE_KEY);
+            order = (Order)getArguments().getSerializable(ORDER_KEY);
         }
     }
 
@@ -83,7 +87,7 @@ public class MasterListFragment extends BaseFragment {
         rvMaster.addItemDecoration(new RecyclerViewSimpleDivider(getActivity()));
         rvMaster.setHasFixedSize(true);
 
-        rvAdapter = new MasterAdapter(usersList, R.layout.list_item_master, getActivity(), mMode);
+        rvAdapter = new MasterAdapter(usersList, R.layout.list_item_master, getActivity(), mMode, order);
 
         rvMaster.setAdapter(rvAdapter);
         rvMaster.setItemAnimator(new DefaultItemAnimator());

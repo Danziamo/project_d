@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.mirsoft.easyfix.MasterInfoActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.common.Constants;
+import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.User;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
     private int itemLayout;
     private final Context mContext;
     private int mode;
+    private Order order;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public MasterAdapter(ArrayList<User> items, int layout, Context context) {
@@ -41,6 +43,14 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
         this.itemLayout = layout;
         this.mContext = context;
         this.mode = mode;
+    }
+
+    public MasterAdapter(ArrayList<User> items, int layout, Context context, int mode, Order order) {
+        this.items = items;
+        this.itemLayout = layout;
+        this.mContext = context;
+        this.mode = mode;
+        this.order = order;
     }
 
     // Provide a reference to the views for each data item
@@ -102,6 +112,7 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
                 Intent intent = new Intent(mContext, MasterInfoActivity.class);
                 intent.putExtra("MASTER", items.get(position));
                 intent.putExtra("MODE", mode);
+                intent.putExtra("ORDER", order);
                 mContext.startActivity(intent);
             }
         });

@@ -2,10 +2,13 @@ package com.mirsoft.easyfix.networking.api;
 
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.User;
+import com.mirsoft.easyfix.networking.models.ApproveMasterOrder;
 import com.mirsoft.easyfix.networking.models.CommonOrder;
 import com.mirsoft.easyfix.networking.models.NOrder;
+import com.squareup.okhttp.Call;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -47,4 +50,6 @@ public interface OrderApi {
     @PATCH("/users/{userId}/orders/{orderId}")
     void cancelOrder(@Body CommonOrder cancelOrder,@Path("userId") int userId,@Path("orderId") int orderId, Callback<Order> callback);
 
+    @POST("/users/{userId}/orders/{orderId}/approve_contractor_request")
+    void setMaster(@Body ApproveMasterOrder order, @Path("userId") int userId, @Path("orderId") int orderId, Callback<Object> callback);
 }

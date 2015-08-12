@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.mirsoft.easyfix.adapters.TabsPagerAdapter;
+import com.mirsoft.easyfix.common.BaseActivity;
 import com.mirsoft.easyfix.networking.api.OrderApi;
 import com.mirsoft.easyfix.networking.api.SessionApi;
 import com.mirsoft.easyfix.common.OrderType;
@@ -41,7 +42,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class TabsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class TabsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final long DRAWER_CLOSE_DELAY_MS = 250;
     private static final String NAV_ITEM_ID = "navItemId";
@@ -416,6 +417,11 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
         outState.putInt(NAV_ITEM_ID, mNavItemId);
     }
 
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mNavItemId = savedInstanceState.getInt(NAV_ITEM_ID);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -431,24 +437,5 @@ public class TabsActivity extends AppCompatActivity implements NavigationView.On
             dc.fromCreateBasicOrderFragment = false;
         }
         getOrdersList();
-    }
-
-    protected void showProgress(final boolean state, String title, String content) {
-        if (state) {
-            MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
-                    .title(title)
-                    .content(content)
-                    .progress(true, 0);
-            dialog = builder.build();
-            dialog.show();
-        } else {
-            if(dialog != null && dialog.isShowing()) {
-                dialog.dismiss();
-            }
-        }
-    }
-
-    protected void hideProgress(){
-        showProgress(false, "", "");
     }
 }

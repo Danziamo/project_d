@@ -118,12 +118,14 @@ public class OrderDetailActivityFragment extends Fragment {
                 api.postRequest(true, settings.getUserId(), order.getId(), new Callback<Object>() {
                     @Override
                     public void success(Object o, Response response) {
-                        Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        if (getActivity() != null)
+                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
+                        if (getActivity() != null)
+                            Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

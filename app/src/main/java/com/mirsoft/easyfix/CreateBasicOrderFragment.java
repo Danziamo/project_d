@@ -13,8 +13,8 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.AppCompatSpinner;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -81,6 +81,25 @@ public class CreateBasicOrderFragment extends Fragment {
         servicesSpinner = (AppCompatSpinner)view.findViewById(R.id.spinner);
         ratingBar = (AppCompatRatingBar)view.findViewById(R.id.llratingbar);
         orderAddress = (EditText)view.findViewById(R.id.order_address);
+
+        orderAddress.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (orderAddress.getRight() - orderAddress.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        Intent callIntent = new Intent(getActivity(), TabsActivity.class);
+                        startActivityForResult(callIntent, 1);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
         orderPhone = (EditText)view.findViewById(R.id.order_phone);
         orderDescription = (EditText)view.findViewById(R.id.order_description);
         orderBtnLocate = (Button)view.findViewById(R.id.btnLocate);
@@ -249,7 +268,7 @@ public class CreateBasicOrderFragment extends Fragment {
                                 if (users.size() > 0) {
                                     String backStateName = getActivity().getFragmentManager().getClass().getName();
                                     getActivity().getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.container, MasterListFragment.newInstance(users, Constants.PENDING_MASTERS_LIST))
+                                            .replace(R.id.container, MasterListFragment.newInstance(users, Constants.PENDING_MASTERS_LIST, dc.clientSelectedOrder))
                                             .addToBackStack(backStateName)
                                             .commit();
                                 }
@@ -282,6 +301,7 @@ public class CreateBasicOrderFragment extends Fragment {
                 orderAddress.setText(dc.clientSelectedOrder.getAddress());
                 orderPhone.setText(dc.clientSelectedOrder.getPhone());
                 orderDescription.setText(dc.clientSelectedOrder.getDescription());
+                orderAddress.setText(((User)getActivity().getIntent().getSerializableExtra("MASTER")).getId());
                 ratingBar.setRating(1);
                 servicesSpinner.setSelection(dc.getPosition(dc.clientSelectedOrder.getSpecialty().getId()));
                 getPendingOrders();
