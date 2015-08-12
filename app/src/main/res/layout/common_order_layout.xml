@@ -52,7 +52,7 @@
                 android:id="@+id/order_address"
                 android:hint="@string/adress"
                 android:inputType="textPostalAddress"
-                android:drawableRight="@drawable/ic_map"
+                android:drawableRight="@drawable/ic_search"
                 style="@style/MaterialEditText"/>
         </android.support.design.widget.TextInputLayout>
 
