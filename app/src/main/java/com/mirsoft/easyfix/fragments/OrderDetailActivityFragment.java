@@ -19,6 +19,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
+import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.networking.api.OrderApi;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.networking.RestClient;
@@ -31,6 +32,12 @@ import retrofit.client.Response;
 public class OrderDetailActivityFragment extends Fragment {
     private MapView mMapView;
     private GoogleMap mGoogleMap;
+
+    Order order;
+
+    Button btnSubmit;
+    Button btnFinish;
+    Button btnCancel;
 
     public OrderDetailActivityFragment() {
     }
@@ -45,7 +52,7 @@ public class OrderDetailActivityFragment extends Fragment {
         EditText tvAddress = (EditText)view.findViewById(R.id.tvAddress);
 
         Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
-        final Order order = (Order)bundle.getSerializable("ORDER");
+        order = (Order)bundle.getSerializable("ORDER");
 
         tvDescription.setText(order.getDescription());
         tvPhone.setText(order.getPhone());
@@ -88,7 +95,21 @@ public class OrderDetailActivityFragment extends Fragment {
             mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(order.getLatLng(), 15));
         }
 
-        Button btnSubmit = (Button)view.findViewById(R.id.btnSubmit);
+        btnSubmit = (Button)view.findViewById(R.id.btnSubmitOrder);
+        btnFinish = (Button)view.findViewById(R.id.btnFinishOrder);
+        btnCancel = (Button)view.findViewById(R.id.btnCancelOrder);
+
+        if(order.getStatus() == OrderType.NEW || order.getContractor() == null){
+            btnSubmit.setVisibility(View.VISIBLE);
+            btnFinish.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
+        }
+        else{
+            btnFinish.setVisibility(View.VISIBLE);
+            btnCancel.setVisibility(View.VISIBLE);
+            btnSubmit.setVisibility(View.GONE);
+        }
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +128,8 @@ public class OrderDetailActivityFragment extends Fragment {
                 });
             }
         });
+
+
 
         return view;
     }

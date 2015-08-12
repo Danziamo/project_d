@@ -14,43 +14,54 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/til_tvAdress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
             <EditText
                 style="@style/MaterialEditText"
                 android:id="@+id/tvAddress"
                 android:enabled="false"
-                android:hint="@string/adress"
-                android:inputType="textCapSentences" />
+                android:hint="@string/adress" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/til_Phone"
             android:layout_width="match_parent"
-            android:drawableRight="@drawable/ic_phone_in_talk"
-            android:drawableEnd="@drawable/ic_phone_in_talk"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp">
 
             <EditText
                 style="@style/MaterialEditText"
                 android:id="@+id/tvPhone"
-                android:enabled="false"
-                android:hint="@string/city"
+                android:enabled="true"
+                android:hint="@string/phone_number"
+                android:drawableRight="@drawable/rsz_image_tube"
                 />
+
+
         </android.support.design.widget.TextInputLayout>
+
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/til_tvDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp">
 
             <EditText
                 android:id="@+id/tvDescription"
                 style="@style/MaterialEditText"
                 android:enabled="false"
-                android:hint="@string/phone_number"
+                android:hint="@string/description"
                 />
         </android.support.design.widget.TextInputLayout>
 <!--
@@ -91,12 +102,54 @@
         android:layout_above="@+id/btnSubmit"
         android:layout_below="@+id/infoLayout"/>
 
-    <Button
-        android:id="@+id/btnSubmit"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/transparent"
-        android:text="@string/make_request"/>
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/finish_order"
+            android:id="@+id/btnFinishOrder"
+            style = "@style/Button.DarkGray"
+            android:visibility="gone"
+            android:layout_weight="0.5"
+            android:layout_marginRight="5dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/get_order"
+            android:id="@+id/btnSubmitOrder"
+            style = "@style/Button.DarkGray"
+            android:visibility="gone"
+            android:layout_weight="0.5" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel_order"
+            android:id="@+id/btnCancelOrder"
+            style = "@style/Button.DarkGray"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+
+    <!--<Button-->
+        <!--android:id="@+id/btnSubmit"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:background="@android:color/transparent"-->
+        <!--android:text="@string/make_request"/>-->
 
 </RelativeLayout>

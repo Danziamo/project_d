@@ -42,4 +42,8 @@
 
     <string name="share">Поделиться в ...</string>
 
+    <string name="finish_order">Завершить</string>
+    <string name="cancel_order">Отменить</string>
+    <string name="get_order">Взять заказ</string>
+
 </resources>

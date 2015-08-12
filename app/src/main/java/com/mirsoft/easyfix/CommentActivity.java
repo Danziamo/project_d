@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.mirsoft.easyfix.adapters.ReviewAdapter;
 import com.mirsoft.easyfix.models.Review;
+import com.mirsoft.easyfix.views.RecyclerViewSimpleDivider;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,7 @@ public class CommentActivity extends AppCompatActivity {
         rv.setAdapter(new ReviewAdapter(getData(), R.layout.list_item_review, this));
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.addItemDecoration(new RecyclerViewSimpleDivider(this));
     }
 
     private ArrayList<Review> getData() {
