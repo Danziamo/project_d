@@ -28,6 +28,7 @@ import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.fragments.LoginFragment;
 import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.fragments.MasterListFragment;
+import com.mirsoft.easyfix.fragments.MyMasterHistoryCommentFragment;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.PendingContractor;
 import com.mirsoft.easyfix.models.Specialty;
@@ -333,6 +334,17 @@ public class CreateBasicOrderFragment extends Fragment {
                 ratingBar.setRating(1);
                 servicesSpinner.setSelection(dc.getPosition(dc.clientSelectedOrder.getSpecialty().getId()));
                 mastersRequests.setText("Есть мастер");
+
+                mastersRequests.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.container,new MyMasterHistoryCommentFragment())
+                                .addToBackStack("historyFragment")
+                                .commit();
+                    }
+                });
+
                 break;
         }
     }

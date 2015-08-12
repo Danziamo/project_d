@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <android.support.v7.widget.AppCompatRatingBar
+        android:id="@+id/comment_rating_bar"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:isIndicator="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/it_comment"
+        android:theme="@style/TextInputLayoutTheme"
+        style="@style/TextInputLayoutStyle"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_comment"
+            android:enabled="true"
+            android:hint="@string/comment"
+            android:inputType="textMultiLine"
+            android:maxLines="4"
+            style="@style/MaterialEditText"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
