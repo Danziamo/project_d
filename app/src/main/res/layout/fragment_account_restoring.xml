@@ -1,0 +1,73 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_blue"
+    tools:context="com.mirsoft.easyfix.fragments.AccountRestoringFragment">
+
+    <android.support.v7.widget.AppCompatButton
+        style="@style/Button.DarkGray"
+        android:layout_width="150dp"
+        android:text="@string/btn_resend"
+        android:id="@+id/btn_resend"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/accountactivate"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/btn_resend"
+        android:layout_centerHorizontal="true"/>
+
+    <android.support.design.widget.TextInputLayout
+        style="@style/TextInputLayoutStyle"
+        android:id="@+id/til_activation_code"
+        android:theme="@style/TextInputLayoutTheme"
+        android:layout_centerInParent="true"
+        android:layout_width="100dp"
+        >
+
+        <android.support.v7.widget.AppCompatEditText
+            style="@style/MaterialEditText"
+            android:hint="@string/codesms"
+            android:inputType="number"
+            android:gravity="center"
+            android:id="@+id/et_code_sms"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        style="@style/TextInputLayoutStyle"
+        android:id="@+id/til_new_password"
+        android:theme="@style/TextInputLayoutTheme"
+        android:layout_centerInParent="true"
+        android:layout_width="300dp"
+        android:layout_below="@+id/til_activation_code"
+        android:layout_above="@+id/btn_authorization"
+        android:layout_marginTop="40dp"
+        >
+
+        <android.support.v7.widget.AppCompatEditText
+            style="@style/MaterialEditText"
+            android:hint="@string/new_password"
+            android:inputType="textPassword"
+            android:gravity="center"
+            android:id="@+id/et_new_password"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.v7.widget.AppCompatButton
+        style="@style/Button.DarkGray"
+        android:layout_width="150dp"
+        android:text="@string/btn_authorization"
+        android:id="@+id/btn_authorization"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp" />
+
+</RelativeLayout>

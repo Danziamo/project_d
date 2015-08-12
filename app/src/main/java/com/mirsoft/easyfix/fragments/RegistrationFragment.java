@@ -32,8 +32,6 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     private TextInputLayout tilPassword;
     private Button btnregistration;
 
-
-    // TODO: Rename and change types of parameters
     private String mSocialProvider;
     private String mSocialProfileId;
 
@@ -95,17 +93,17 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         boolean isError = false;
 
         if (phone.isEmpty()) {
-            tilPhone.setError("Не может быть пустым");
+            tilPhone.setError(getActivity().getResources().getString(R.string.error_not_empty));
             isError = true;
         }
 
         if (password.isEmpty() && mSocialProfileId == null) {
-            tilPassword.setError("Не может быть пустым");
+            tilPassword.setError(getActivity().getResources().getString(R.string.error_not_empty));
             isError = true;
         }
 
         if (!password.isEmpty() && password.length() < 6) {
-            tilPassword.setError("Не меньше 6 символов");
+            tilPassword.setError(getActivity().getResources().getString(R.string.error_password_length));
             isError = true;
         }
 
@@ -115,7 +113,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             User user = new User();
             user.setPhone(phone);
             user.setPassword(password);
-//            final Settings settings = new Settings(getActivity());
+
             UserApi api = RestClient.createService(UserApi.class);
             api.add(user, new Callback<User>() {
                 @Override
@@ -123,15 +121,10 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
                     String backStateName = getActivity().getFragmentManager().getClass().getName();
                     getActivity().getSupportFragmentManager().beginTransaction()
-                            //.replace(R.id.container, AccountActivationFragment.newInstance(false, null))
                             .replace(R.id.container, new LoginFragment())
                             .addToBackStack(backStateName)
                             .commit();
 
-                /*settings.setAccessToken(user.getToken());
-                Intent intent = new Intent(getActivity(), FixNavigationDrawer.class);
-                startActivity(intent);
-                getActivity().finish();*/
                 }
 
                 @Override
@@ -140,7 +133,6 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                 }
             });
         } else {
-//            final Settings settings = new Settings(getActivity());
             UserApi api = RestClient.createService(UserApi.class);
             SocialUser user = new SocialUser();
             user.id = mSocialProfileId;
@@ -164,7 +156,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     private void goToActivation() {
         String backStateName = getActivity().getFragmentManager().getClass().getName();
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, AccountActivationFragment.newInstance(true, null))
+                .replace(R.id.container, AccountRestoringFragment.newInstance(true, null))
                 .addToBackStack(backStateName)
                 .commit();
     }

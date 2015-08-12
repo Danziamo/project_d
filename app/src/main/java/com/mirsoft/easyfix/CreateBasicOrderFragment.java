@@ -151,17 +151,17 @@ public class CreateBasicOrderFragment extends Fragment {
         String description = orderDescription.getText().toString();
 
         if (address.length() == 0) {
-            tilOrderAddress.setError("Адресс не заполнен");
+            tilOrderAddress.setError(getActivity().getResources().getString(R.string.error_address_empty));
             return false;
         }
 
         if (phone.length() == 0) {
-            tilOrderPhone.setError("Телефон не заполнен");
+            tilOrderPhone.setError(getActivity().getResources().getString(R.string.error_phone_empty));
             return false;
         }
 
         if (description.length() == 0) {
-            tilOrderDescription.setError("Причина не заполнена");
+            tilOrderDescription.setError(getActivity().getResources().getString(R.string.error_description_empty));
             return false;
         }
 

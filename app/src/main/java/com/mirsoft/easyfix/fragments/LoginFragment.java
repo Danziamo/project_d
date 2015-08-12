@@ -27,11 +27,6 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class LoginFragment extends BaseFragment {
 
 
@@ -95,17 +90,17 @@ public class LoginFragment extends BaseFragment {
         boolean isError = false;
 
         if (username.isEmpty()) {
-            tilPhone.setError("Не может быть пустым");
+            tilPhone.setError(getActivity().getResources().getString(R.string.error_not_empty));
             isError = true;
         }
 
         if (password.isEmpty()) {
-            tilPassword.setError("Не может быть пустым");
+            tilPassword.setError(getActivity().getResources().getString(R.string.error_not_empty));
             isError = true;
         }
 
         if (!password.isEmpty() && password.length() < 6) {
-            tilPassword.setError("Не менее 6 символов");
+            tilPassword.setError(getActivity().getResources().getString(R.string.error_password_length));
             isError = true;
         }
 

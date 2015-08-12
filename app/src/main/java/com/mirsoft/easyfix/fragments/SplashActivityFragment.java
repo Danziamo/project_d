@@ -258,7 +258,7 @@ public class SplashActivityFragment extends BaseFragment implements SocialNetwor
     private void goToActivation(boolean isSocial) {
         String backStateName = getActivity().getFragmentManager().getClass().getName();
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, AccountActivationFragment.newInstance(isSocial, null))
+                .replace(R.id.container, AccountRestoringFragment.newInstance(isSocial, null))
                 .addToBackStack(backStateName)
                 .commit();
     }
