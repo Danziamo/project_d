@@ -5,6 +5,7 @@ import android.widget.LinearLayout;
 
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.Specialty;
+import com.mirsoft.easyfix.models.User;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class Singleton {
     public int indexSelectedOrder  = 0;
 
     public Order clientSelectedOrder;
+    public User selectedMaster;
 
     public int activeOrdersCount   = -1;
     public int finishedOrdersCount = -1;

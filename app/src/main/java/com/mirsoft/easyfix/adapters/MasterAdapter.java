@@ -20,6 +20,7 @@ import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.User;
+import com.mirsoft.easyfix.utils.Singleton;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
     private int itemLayout;
     private final Context mContext;
     private int mode;
-    private Order order;
+    Singleton singleton;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public MasterAdapter(ArrayList<User> items, int layout, Context context) {
@@ -36,6 +37,7 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
         this.itemLayout = layout;
         this.mContext = context;
         this.mode = Constants.SPECIALTY_MASTER_LIST;
+        this.singleton = Singleton.getInstance(context);
     }
 
     public MasterAdapter(ArrayList<User> items, int layout, Context context, int mode) {
@@ -43,14 +45,7 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
         this.itemLayout = layout;
         this.mContext = context;
         this.mode = mode;
-    }
-
-    public MasterAdapter(ArrayList<User> items, int layout, Context context, int mode, Order order) {
-        this.items = items;
-        this.itemLayout = layout;
-        this.mContext = context;
-        this.mode = mode;
-        this.order = order;
+        this.singleton = Singleton.getInstance(context);
     }
 
     // Provide a reference to the views for each data item
@@ -99,7 +94,7 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         //holder.mTextView.setText(mDataset[position]);
-        User item = items.get(position);
+        final User item = items.get(position);
         holder.mFullNameView.setText(item.getFirstName());
         holder.mReviewView.setText("Отзывов: " + String.valueOf(item.getReviewsCount()));
         holder.mPhoneView.setText(item.getPhone());
@@ -110,9 +105,8 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, MasterInfoActivity.class);
-                intent.putExtra("MASTER", items.get(position));
-                intent.putExtra("MODE", mode);
-                intent.putExtra("ORDER", order);
+                intent.putExtra("ARG_MODE", mode);
+                singleton.selectedMaster = item;
                 mContext.startActivity(intent);
             }
         });

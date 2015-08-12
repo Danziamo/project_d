@@ -22,6 +22,7 @@ public class BaseFragment extends Fragment {
             MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity())
                     .title(title)
                     .content(content)
+                    .cancelable(false)
                     .progress(true, 0);
             dialog = builder.build();
             dialog.show();

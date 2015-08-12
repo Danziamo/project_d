@@ -26,8 +26,10 @@ import android.widget.Toast;
 import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.fragments.LoginFragment;
+import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.fragments.MasterListFragment;
 import com.mirsoft.easyfix.models.Order;
+import com.mirsoft.easyfix.models.PendingContractor;
 import com.mirsoft.easyfix.models.Specialty;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
@@ -240,7 +242,7 @@ public class CreateBasicOrderFragment extends Fragment {
     public  void cancelOrder(CommonOrder order){
 
         order.setStatus(OrderType.CANCELLED);
-        RestClient.getOrderService(false).cancelOrder(order,settings.getUserId(), dc.clientSelectedOrder.getId(), new Callback<Order>() {
+        RestClient.getOrderService(false).cancelOrder(order, settings.getUserId(), dc.clientSelectedOrder.getId(), new Callback<Order>() {
             @Override
             public void success(Order order, Response response) {
                 mDialog.dismiss();
@@ -257,18 +259,18 @@ public class CreateBasicOrderFragment extends Fragment {
         });
     }
     public void getPendingOrders(){
-        RestClient.getOrderService(false).getContractorRequests(settings.getUserId(),dc.clientSelectedOrder.getId() ,
-                new Callback<ArrayList<User>>() {
+        RestClient.getOrderService(false).getContractorRequests(settings.getUserId(), dc.clientSelectedOrder.getId(),
+                new Callback<ArrayList<PendingContractor>>() {
                     @Override
-                    public void success(final ArrayList<User> users, Response response) {
-                        mastersRequests.setText(getResources().getString(R.string.master_request) + " : " + users.size());
+                    public void success(final ArrayList<PendingContractor> pendingUsers, Response response) {
+                        mastersRequests.setText(getActivity().getResources().getString(R.string.master_request) + " : " + pendingUsers.size());
                         mastersRequests.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if (users.size() > 0) {
+                                if (pendingUsers.size() > 0) {
                                     String backStateName = getActivity().getFragmentManager().getClass().getName();
                                     getActivity().getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.container, MasterListFragment.newInstance(users, Constants.PENDING_MASTERS_LIST, dc.clientSelectedOrder))
+                                            .replace(R.id.container, MasterListFragment.newInstance(getUserListFromPendingContractors(pendingUsers), Constants.PENDING_MASTERS_LIST))
                                             .addToBackStack(backStateName)
                                             .commit();
                                 }
@@ -281,6 +283,14 @@ public class CreateBasicOrderFragment extends Fragment {
                         Toast.makeText(getActivity(), "Failure : pending orders", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private ArrayList<User> getUserListFromPendingContractors(ArrayList<PendingContractor> plist) {
+        ArrayList<User> userList = new ArrayList<>();
+        for (int i = 0; i < plist.size(); ++i) {
+            userList.add(plist.get(i).getContractor());
+        }
+        return userList;
     }
 
     public void setActivityState(String mode) {
@@ -301,10 +311,12 @@ public class CreateBasicOrderFragment extends Fragment {
                 orderAddress.setText(dc.clientSelectedOrder.getAddress());
                 orderPhone.setText(dc.clientSelectedOrder.getPhone());
                 orderDescription.setText(dc.clientSelectedOrder.getDescription());
-                orderAddress.setText(((User)getActivity().getIntent().getSerializableExtra("MASTER")).getId());
+                //orderAddress.setText(dc.selectedMaster.getId());
                 ratingBar.setRating(1);
                 servicesSpinner.setSelection(dc.getPosition(dc.clientSelectedOrder.getSpecialty().getId()));
-                getPendingOrders();
+                if(dc.clientSelectedOrder.getStatus() == OrderType.NEW) {
+                    getPendingOrders();
+                }
                 break;
             case FINISH_MODE:
                 mastersRequests.setVisibility(View.VISIBLE);
@@ -319,7 +331,6 @@ public class CreateBasicOrderFragment extends Fragment {
                 ratingBar.setRating(1);
                 servicesSpinner.setSelection(dc.getPosition(dc.clientSelectedOrder.getSpecialty().getId()));
                 mastersRequests.setText("Есть мастер");
-
                 break;
         }
     }

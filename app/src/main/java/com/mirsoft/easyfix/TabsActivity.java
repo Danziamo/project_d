@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -417,7 +418,7 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
         outState.putInt(NAV_ITEM_ID, mNavItemId);
     }
 
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mNavItemId = savedInstanceState.getInt(NAV_ITEM_ID);
     }

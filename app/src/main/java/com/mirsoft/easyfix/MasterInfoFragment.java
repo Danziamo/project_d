@@ -22,6 +22,7 @@ import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.networking.models.ApproveMasterOrder;
 import com.mirsoft.easyfix.networking.models.NOrder;
+import com.mirsoft.easyfix.utils.Singleton;
 import com.mirsoft.easyfix.views.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
@@ -38,12 +39,10 @@ public class MasterInfoFragment extends BaseFragment {
     AppCompatEditText etClientPhone;
     AppCompatEditText etClientDescription;
     private RatingBar mRaringBar;
+    Singleton dc;
 
     private final static String ARG_MODE = "ARG_MODE";
     private int mode;
-
-    private User master;
-    private Order mainOrder;
 
     public MasterInfoFragment() {
     }
@@ -69,9 +68,8 @@ public class MasterInfoFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_master_info, container, false);
 
-        master = (User)getActivity().getIntent().getSerializableExtra("MASTER");
         mode = getActivity().getIntent().getIntExtra(ARG_MODE, 0);
-        mainOrder = (Order)getActivity().getIntent().getSerializableExtra("ORDER");
+        dc = Singleton.getInstance(getActivity());
 
         etClientPhone = (AppCompatEditText)view.findViewById(R.id.et_client_phone);
         etClientAddress = (AppCompatEditText)view.findViewById(R.id.et_client_address);
@@ -86,11 +84,11 @@ public class MasterInfoFragment extends BaseFragment {
 
         ivProfileInfo.requestFocus();
 
-        etLastName.setText(master.getLastName());
-        etFirstName.setText(master.getFirstName());
-        ratingBar.setRating(master.getRating());
-        tvFeedbacks.setText(master.getReviewsCount() + " отзывов");
-        etPhone.setText(master.getPhone());
+        etLastName.setText(dc.selectedMaster.getLastName());
+        etFirstName.setText(dc.selectedMaster.getFirstName());
+        ratingBar.setRating(dc.selectedMaster.getRating());
+        tvFeedbacks.setText(dc.selectedMaster.getReviewsCount() + " отзывов");
+        etPhone.setText(dc.selectedMaster.getPhone());
 
         etClientAddress.requestFocus();
 
@@ -141,31 +139,35 @@ public class MasterInfoFragment extends BaseFragment {
             NOrder order = new NOrder();
             order.address = address;
             order.description = description;
-            order.contractor = master.getId();
+            order.contractor = dc.selectedMaster.getId();
             RestClient.getOrderService(false).createOrder(order, settings.getUserId(), new Callback<Order>() {
                 @Override
                 public void success(Order order, Response response) {
+                    hideProgress();
                     Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                     getActivity().finish();
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
+                    hideProgress();
                     Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
                 }
             });
         } else if (mode == Constants.PENDING_MASTERS_LIST) {
             ApproveMasterOrder order = new ApproveMasterOrder();
-            order.contractor = master.getId();
-            RestClient.getOrderService(false).setMaster(order, settings.getUserId(), mainOrder.getId(), new Callback<Object>() {
+            order.contractor = dc.selectedMaster.getId();
+            RestClient.getOrderService(false).setMaster(order, settings.getUserId(), dc.clientSelectedOrder.getId(), new Callback<Object>() {
                 @Override
                 public void success(Object o, Response response) {
+                    hideProgress();
                     Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                     getActivity().finish();
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
+                    hideProgress();
                     Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
                 }
             });
