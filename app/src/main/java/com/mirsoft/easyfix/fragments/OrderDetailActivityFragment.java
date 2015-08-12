@@ -23,6 +23,8 @@ import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.networking.api.OrderApi;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.networking.RestClient;
+import com.mirsoft.easyfix.networking.models.CommonOrder;
+import com.mirsoft.easyfix.networking.models.StatusOrder;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -53,6 +55,7 @@ public class OrderDetailActivityFragment extends Fragment {
 
         Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
         order = (Order)bundle.getSerializable("ORDER");
+        Toast.makeText(getActivity(), String.valueOf(order.getId()), Toast.LENGTH_SHORT).show();
 
         tvDescription.setText(order.getDescription());
         tvPhone.setText(order.getPhone());
@@ -114,8 +117,7 @@ public class OrderDetailActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Settings settings = new Settings(getActivity());
-                OrderApi api = RestClient.createService(OrderApi.class);
-                api.postRequest(true, settings.getUserId(), order.getId(), new Callback<Object>() {
+                RestClient.getOrderService(true).postRequest(true, settings.getUserId(), order.getId(), new Callback<Object>() {
                     @Override
                     public void success(Object o, Response response) {
                         if (getActivity() != null)
@@ -131,7 +133,27 @@ public class OrderDetailActivityFragment extends Fragment {
             }
         });
 
+        btnFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Settings settings = new Settings(getActivity());
+                StatusOrder sorder = new StatusOrder();
+                sorder.status = OrderType.FINISHED;
+                RestClient.getOrderService(true).updateOrderStatus(sorder, settings.getUserId(), order.getId(), new Callback<Order>() {
+                    @Override
+                    public void success(Order order, Response response) {
+                        Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
+                    }
 
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
 
         return view;
     }

@@ -142,6 +142,9 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
                 mGoogleMap.clear();
                 for (int i = 0; i < orders.size(); ++i) {
                     Order order = orders.get(i);
+                    //Skipping orders where user is a contractor
+                    if (order.getContractor() != null && order.getContractor().getId() == settings.getUserId()) continue;
+
                     LatLng position = order.getLatLng();
                     displayList.add(order);
                     if (position != null) {

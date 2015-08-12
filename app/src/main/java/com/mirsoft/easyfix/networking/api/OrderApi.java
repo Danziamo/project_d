@@ -6,6 +6,7 @@ import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.models.ApproveMasterOrder;
 import com.mirsoft.easyfix.networking.models.CommonOrder;
 import com.mirsoft.easyfix.networking.models.NOrder;
+import com.mirsoft.easyfix.networking.models.StatusOrder;
 import com.squareup.okhttp.Call;
 
 import java.util.ArrayList;
@@ -44,6 +45,9 @@ public interface OrderApi {
 
     @PATCH("/users/{userId}/orders/{orderId}")
     void updateOrder(@Body CommonOrder updatedOrder, @Path("userId") int userId, @Path("orderId") int orderId, Callback<Order> cb);
+
+    @PATCH("/users/{userId}/orders/{orderId}")
+    void updateOrderStatus(@Body StatusOrder updatedOrder, @Path("userId") int userId, @Path("orderId") int orderId, Callback<Order> cb);
 
 //    @GET("/list-pending-orders/{orderId}")
 //    void getPendingOrders(@Path("orderId") int orderId, Callback<ArrayList<User>> cb);

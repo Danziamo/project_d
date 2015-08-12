@@ -258,6 +258,7 @@ public class CreateBasicOrderFragment extends Fragment {
             }
         });
     }
+
     public void getPendingOrders(){
         RestClient.getOrderService(false).getContractorRequests(settings.getUserId(), dc.clientSelectedOrder.getId(),
                 new Callback<ArrayList<PendingContractor>>() {
@@ -302,6 +303,7 @@ public class CreateBasicOrderFragment extends Fragment {
                 orderBtnCancel.setVisibility(View.GONE);
                 break;
             case CHECK_MODE:
+                Toast.makeText(getActivity(), String.valueOf(dc.clientSelectedOrder.getId()), Toast.LENGTH_SHORT).show();
                 mastersRequests.setVisibility(View.VISIBLE);
                 orderNotification.setVisibility(View.VISIBLE);
                 orderBtnChange.setVisibility(View.VISIBLE);

@@ -182,7 +182,7 @@ public class UserOrderListFragment extends Fragment {
     }
 
     private void fillDataMaster() {
-        Settings settings = new Settings(getActivity());
+        final Settings settings = new Settings(getActivity());
         RestClient.getOrderService(false).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
@@ -192,6 +192,7 @@ public class UserOrderListFragment extends Fragment {
 
                 for (int i = 0; i < orders.size(); ++i) {
                     Order tempOrder = orders.get(i);
+                    if (tempOrder.getContractor() == null || tempOrder.getContractor().getId() != settings.getUserId()) continue;
                     if (tempOrder.getStatus() != OrderType.FINISHED) {
                         activeOrders.add(tempOrder);
                     } else {
@@ -223,7 +224,7 @@ public class UserOrderListFragment extends Fragment {
         });
     }
 
-    public  void onResume(){
+    public void onResume(){
         super.onResume();
         fillDataClient();
     }
