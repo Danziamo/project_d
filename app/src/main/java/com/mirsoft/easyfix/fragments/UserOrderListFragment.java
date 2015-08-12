@@ -144,7 +144,7 @@ public class UserOrderListFragment extends Fragment {
                 for (int i = 0; i < orders.size(); ++i) {
                     Order tempOrder = orders.get(i);
                     if (tempOrder.getClient().getId() != settings.getUserId()) continue;
-                    if (tempOrder.getStatus() != OrderType.FINISHED) {
+                    if (tempOrder.getStatus() != OrderType.FINISHED && tempOrder.getStatus() != OrderType.CANCELLED) {
                         activeOrders.add(tempOrder);
                     } else {
                         finishedOrders.add(tempOrder);
@@ -152,6 +152,9 @@ public class UserOrderListFragment extends Fragment {
                 }
                 allOrders.addAll(activeOrders);
                 allOrders.addAll(finishedOrders);
+
+                dc.activeOrdersCount   = activeOrders.size();
+                dc.finishedOrdersCount = finishedOrders.size();
 
                 allClientOrdersSize = allOrders.size();
 

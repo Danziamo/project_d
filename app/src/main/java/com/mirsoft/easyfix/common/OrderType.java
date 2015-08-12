@@ -12,7 +12,10 @@ public enum OrderType implements Serializable {
     @SerializedName("active")
     ACTIVE,
     @SerializedName("finished")
-    FINISHED;
+    FINISHED,
+    @SerializedName("cancelled")
+    CANCELLED;
+
 
     @Override
     public String toString(){
@@ -25,6 +28,8 @@ public enum OrderType implements Serializable {
                 return "active";
             case FINISHED:
                 return "finished";
+            case CANCELLED:
+                return "cancelled";
         }
         return null;
     }

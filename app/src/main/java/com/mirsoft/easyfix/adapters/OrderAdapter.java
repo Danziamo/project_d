@@ -66,10 +66,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                         mContext.startActivity(intent);
                     } else if (singleton.isClientMode) {
                         Intent intent = new Intent(mContext, ClientOrderDetailsActivity.class);
-                        intent.putExtra("activityMode", "checkOrder");
+
+//                        singleton.indexSelectedOrder = getLayoutPosition();
+                        if (getLayoutPosition() - 1 >= singleton.activeOrdersCount) {
+                            singleton.clientSelectedOrder = items.get(getLayoutPosition() - 2);
+                            intent.putExtra("activityMode", "finishOrder");
+                        } else {
+                            singleton.clientSelectedOrder = items.get(getLayoutPosition() - 1);
+                            intent.putExtra("activityMode", "checkOrder");
+                        }
+
+
                         mContext.startActivity(intent);
-                        singleton.indexSelectedOrder = getLayoutPosition();
-                        singleton.clientSelectedOrder = items.get(getLayoutPosition() - 1);
+
                     } else {
                         Order order = (Order) v.getTag();
                         Bundle bundle = new Bundle();

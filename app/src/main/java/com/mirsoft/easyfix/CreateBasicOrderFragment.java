@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mirsoft.easyfix.common.Constants;
+import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.fragments.LoginFragment;
 import com.mirsoft.easyfix.fragments.MasterListFragment;
 import com.mirsoft.easyfix.models.Order;
@@ -62,8 +63,9 @@ public class CreateBasicOrderFragment extends Fragment {
 
     ProgressDialog mDialog;
 
-    public final String CREATE_MODE = "createOrder";
-    public final String CHECK_MODE  = "checkOrder";
+    public final String CREATE_MODE  = "createOrder";
+    public final String CHECK_MODE   = "checkOrder";
+    public final String FINISH_MODE  = "finishOrder";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -217,6 +219,8 @@ public class CreateBasicOrderFragment extends Fragment {
     }
 
     public  void cancelOrder(CommonOrder order){
+
+        order.setStatus(OrderType.CANCELLED);
         RestClient.getOrderService(false).cancelOrder(order,settings.getUserId(), dc.clientSelectedOrder.getId(), new Callback<Order>() {
             @Override
             public void success(Order order, Response response) {
@@ -281,6 +285,21 @@ public class CreateBasicOrderFragment extends Fragment {
                 ratingBar.setRating(1);
                 servicesSpinner.setSelection(dc.getPosition(dc.clientSelectedOrder.getSpecialty().getId()));
                 getPendingOrders();
+                break;
+            case FINISH_MODE:
+                mastersRequests.setVisibility(View.VISIBLE);
+                orderNotification.setVisibility(View.GONE);
+                orderBtnChange.setVisibility(View.GONE);
+                orderBtnCancel.setVisibility(View.GONE);
+                orderBtnLocate.setVisibility(View.GONE);
+
+                orderAddress.setText(dc.clientSelectedOrder.getAddress());
+                orderPhone.setText(dc.clientSelectedOrder.getPhone());
+                orderDescription.setText(dc.clientSelectedOrder.getDescription());
+                ratingBar.setRating(1);
+                servicesSpinner.setSelection(dc.getPosition(dc.clientSelectedOrder.getSpecialty().getId()));
+                mastersRequests.setText("Есть мастер");
+
                 break;
         }
     }

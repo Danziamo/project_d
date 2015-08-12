@@ -2,6 +2,7 @@ package com.mirsoft.easyfix.networking.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mirsoft.easyfix.common.OrderType;
 
 /**
  * Created by parviz on 7/30/15.
@@ -20,6 +21,8 @@ public class CommonOrder {
     @Expose
     @SerializedName("rating__gte")
     public float rating;
+    @Expose
+    public OrderType status;
 
 
     public String getAddress() {
@@ -70,4 +73,11 @@ public class CommonOrder {
         this.rating = rating;
     }
 
+    public OrderType getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderType status) {
+        this.status = status;
+    }
 }
