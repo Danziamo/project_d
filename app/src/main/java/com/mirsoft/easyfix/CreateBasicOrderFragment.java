@@ -95,7 +95,7 @@ public class CreateBasicOrderFragment extends Fragment {
 
                 if(event.getAction() == MotionEvent.ACTION_UP) {
                     if(event.getRawX() >= (orderAddress.getRight() - orderAddress.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        Intent callIntent = new Intent(getActivity(), TabsActivity.class);
+                        Intent callIntent = new Intent(getActivity(), MapsActivity.class);
                         startActivityForResult(callIntent, 1);
                         return true;
                     }

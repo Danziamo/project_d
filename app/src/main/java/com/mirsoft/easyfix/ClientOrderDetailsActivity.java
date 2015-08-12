@@ -1,5 +1,6 @@
 package com.mirsoft.easyfix;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRatingBar;
@@ -53,5 +54,16 @@ public class ClientOrderDetailsActivity extends AppCompatActivity {
 
     public void onBackButtonClicked(){
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+
+            }
+        }
     }
 }

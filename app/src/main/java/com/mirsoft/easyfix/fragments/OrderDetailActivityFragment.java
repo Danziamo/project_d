@@ -55,6 +55,7 @@ public class OrderDetailActivityFragment extends Fragment {
 
         Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
         order = (Order)bundle.getSerializable("ORDER");
+        Settings settings = new Settings(getActivity());
         Toast.makeText(getActivity(), String.valueOf(order.getId()), Toast.LENGTH_SHORT).show();
 
         tvDescription.setText(order.getDescription());
@@ -102,14 +103,21 @@ public class OrderDetailActivityFragment extends Fragment {
         btnFinish = (Button)view.findViewById(R.id.btnFinishOrder);
         btnCancel = (Button)view.findViewById(R.id.btnCancelOrder);
 
-        if(order.getStatus() == OrderType.NEW || order.getContractor() == null){
+        if(order.getStatus() == OrderType.NEW && order.getContractor() == null){
             btnSubmit.setVisibility(View.VISIBLE);
             btnFinish.setVisibility(View.GONE);
             btnCancel.setVisibility(View.GONE);
-        }
-        else{
+        } else if (order.getStatus() == OrderType.NEW && order.getContractor().getId() == settings.getUserId()) {
+            btnSubmit.setVisibility(View.VISIBLE);
+            btnFinish.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
+        } else if (order.getStatus() == OrderType.NEW || order.getStatus() == OrderType.ACTIVE || order.getStatus() == OrderType.PENDING) {
             btnFinish.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
+            btnSubmit.setVisibility(View.GONE);
+        } else {
+            btnFinish.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
             btnSubmit.setVisibility(View.GONE);
         }
 
@@ -117,19 +125,37 @@ public class OrderDetailActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Settings settings = new Settings(getActivity());
-                RestClient.getOrderService(true).postRequest(true, settings.getUserId(), order.getId(), new Callback<Object>() {
-                    @Override
-                    public void success(Object o, Response response) {
-                        if (getActivity() != null)
-                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                    }
+                if (order.getContractor() == null) {
+                    RestClient.getOrderService(true).postRequest(true, settings.getUserId(), order.getId(), new Callback<Object>() {
+                        @Override
+                        public void success(Object o, Response response) {
+                            if (getActivity() != null)
+                                Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        }
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        if (getActivity() != null)
-                            Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void failure(RetrofitError error) {
+                            if (getActivity() != null)
+                                Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    StatusOrder sorder = new StatusOrder();
+                    sorder.status = OrderType.ACTIVE;
+                    RestClient.getOrderService(true).updateOrderStatus(sorder, settings.getUserId(), order.getId(), new Callback<Order>() {
+                        @Override
+                        public void success(Order order, Response response) {
+                            if (getActivity() != null)
+                                Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            if (getActivity() != null)
+                                Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
 
