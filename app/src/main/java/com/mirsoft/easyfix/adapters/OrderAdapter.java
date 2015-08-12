@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.mirsoft.easyfix.ClientOrderDetailsActivity;
 import com.mirsoft.easyfix.OrderDetailActivity;
 import com.mirsoft.easyfix.R;
+import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.models.Order;
@@ -29,6 +30,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     private int itemLayout;
     private final Context mContext;
     Singleton singleton;
+    Settings settings;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public OrderAdapter(ArrayList<Order> items, int layout, Context context, int mode) {
@@ -37,6 +39,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         this.mContext = context;
         this.mode = mode;
         singleton = Singleton.getInstance(context);
+        settings = new Settings(context);
     }
 
     // Provide a reference to the views for each data item
@@ -59,6 +62,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                 public void onClick(View view) {
                     if (mode == Constants.CLIENT_ORDER_ADAPTER_MODE_NEW) {
                         Order order = (Order) v.getTag();
+                        if (order.getClient().getId() == settings.getUserId()) return;
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("ORDER", order);
                         Intent intent = new Intent(mContext, OrderDetailActivity.class);

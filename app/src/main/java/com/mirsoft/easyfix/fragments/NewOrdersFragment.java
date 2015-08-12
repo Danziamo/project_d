@@ -136,13 +136,12 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
         RestClient.getOrderService(true).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
-                ArrayList<Order> displayList = new ArrayList<Order>();
+                ArrayList<Order> displayList = new ArrayList<>();
                 int userId = settings.getUserId();
                 mOrderMarkerMap = new HashMap<>();
                 mGoogleMap.clear();
                 for (int i = 0; i < orders.size(); ++i) {
                     Order order = orders.get(i);
-                    if (userId == order.getClient().getId()) continue;
                     LatLng position = order.getLatLng();
                     displayList.add(order);
                     if (position != null) {
