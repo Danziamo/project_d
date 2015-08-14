@@ -1,6 +1,8 @@
 package com.mirsoft.easyfix.utils;
 
+import com.mirsoft.easyfix.App;
 import com.mirsoft.easyfix.R;
+import com.mirsoft.easyfix.common.OrderType;
 
 public class HelperUtils {
 
@@ -13,5 +15,18 @@ public class HelperUtils {
             resId = R.drawable.ic_electro_marker;
         }
         return resId;
+    }
+
+    public static boolean isNewOrPending(OrderType status) {
+        if (status == OrderType.NEW)
+            return true;
+        if (status == OrderType.PENDING)
+            return true;
+
+        return false;
+    }
+
+    public static String getStringById(int resId) {
+        return App.getContext().getResources().getString(resId);
     }
 }

@@ -67,6 +67,10 @@
     <!--Button-->
     <string name="my_adress">Мой адресс</string>
 
+    <!-- Sectioned Recycler View -->
+    <string name="active_orders">Активные</string>
+    <string name="finished_orders">Завершенные</string>
+
 
 
     <string name="my_profile">Мой профиль</string>

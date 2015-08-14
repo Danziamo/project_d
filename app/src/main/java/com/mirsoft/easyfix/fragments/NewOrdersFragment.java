@@ -145,7 +145,7 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
                 for (int i = 0; i < orders.size(); ++i) {
                     Order order = orders.get(i);
                     //Skipping orders where contractor is not null
-                    if (order.getContractor() != null) continue;
+                    if (order.getContractor() != null || !HelperUtils.isNewOrPending(order.getStatus()))  continue;
 
                     LatLng position = order.getLatLng();
                     displayList.add(order);
