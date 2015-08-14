@@ -17,6 +17,7 @@ import android.widget.ViewFlipper;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -28,6 +29,7 @@ import com.mirsoft.easyfix.adapters.OrderAdapter;
 import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.networking.RestClient;
+import com.mirsoft.easyfix.utils.HelperUtils;
 import com.mirsoft.easyfix.views.RecyclerViewSimpleDivider;
 import com.mirsoft.easyfix.utils.Singleton;
 
@@ -148,7 +150,11 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
                     LatLng position = order.getLatLng();
                     displayList.add(order);
                     if (position != null) {
-                        Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(order.getLatLng()).title(order.getSpecialty().getName()));
+                        int resId = HelperUtils.getResIdFromSpecialtySlug(order.getSpecialty().getSlug());
+                        Marker marker = mGoogleMap.addMarker(new MarkerOptions()
+                                .position(order.getLatLng())
+                                .title(order.getSpecialty().getName())
+                                .icon(BitmapDescriptorFactory.fromResource(resId)));
                         mOrderMarkerMap.put(marker, order);
                     }
                 }

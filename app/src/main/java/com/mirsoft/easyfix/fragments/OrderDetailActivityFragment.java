@@ -16,6 +16,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
@@ -25,6 +27,7 @@ import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.networking.models.CommonOrder;
 import com.mirsoft.easyfix.networking.models.StatusOrder;
+import com.mirsoft.easyfix.utils.HelperUtils;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -95,7 +98,11 @@ public class OrderDetailActivityFragment extends Fragment {
         mGoogleMap = mMapView.getMap();
         //mGoogleMap.setPadding(0, 0, 100, 0);
         if (order.getLatLng() != null) {
-            mGoogleMap.addMarker(new MarkerOptions().position(order.getLatLng()));
+            int resId = HelperUtils.getResIdFromSpecialtySlug(order.getSpecialty().getSlug());
+            mGoogleMap.addMarker(new MarkerOptions()
+                    .position(order.getLatLng())
+                    .title(order.getSpecialty().getName())
+                    .icon(BitmapDescriptorFactory.fromResource(resId)));
             mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(order.getLatLng(), 15));
         }
 
