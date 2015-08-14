@@ -24,6 +24,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.utils.LocationAddress;
 
 public class MapsActivity extends AppCompatActivity {
@@ -113,7 +114,7 @@ public class MapsActivity extends AppCompatActivity {
                 intent.putExtra("lat", curlat);
                 intent.putExtra("lng", curlng);
                 intent.putExtra("address", curaddress);
-                setResult(1, intent);
+                setResult(Constants.OK_RESULT_CODE, intent);
                 finish();
             }
         });
@@ -125,8 +126,9 @@ public class MapsActivity extends AppCompatActivity {
             String locationAddress;
             Bundle bundle = message.getData();
             locationAddress = bundle.getString("address");
-            curaddress = locationAddress;
             tvAddress.setText(locationAddress);
+            curaddress = locationAddress;
+            if (locationAddress != null && locationAddress.toLowerCase().contains("не удалось")) curaddress = "";
         }
     }
 

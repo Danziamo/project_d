@@ -99,7 +99,7 @@ public class CreateBasicOrderFragment extends Fragment {
                 if(event.getAction() == MotionEvent.ACTION_UP) {
                     if(event.getRawX() >= (orderAddress.getRight() - orderAddress.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         Intent callIntent = new Intent(getActivity(), MapsActivity.class);
-                        startActivityForResult(callIntent, 1);
+                        startActivityForResult(callIntent, Constants.MAPS_REQUEST_CODE);
                         return true;
                     }
                 }
@@ -354,7 +354,7 @@ public class CreateBasicOrderFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if( requestCode == 1 && resultCode == 1 ) {
+        if( requestCode == Constants.MAPS_REQUEST_CODE && resultCode == Constants.OK_RESULT_CODE ) {
             orderAddress.setText(data.getStringExtra("address"));
             orderLat = data.getDoubleExtra("lat", 0);
             orderLng = data.getDoubleExtra("lng", 0);
