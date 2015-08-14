@@ -183,7 +183,7 @@ public class UserOrderListFragment extends Fragment {
 
     private void fillDataMaster() {
         final Settings settings = new Settings(getActivity());
-        RestClient.getOrderService(false).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
+        RestClient.getOrderService(true).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
                 ArrayList<Order> activeOrders = new ArrayList<>();

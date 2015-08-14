@@ -47,8 +47,8 @@ public class RestClient {
         return adapter.create(serviceClass);
     }
 
-    public static OrderApi getOrderService(boolean isConctractor) {
-        return createService(OrderApi.class, isConctractor);
+    public static OrderApi getOrderService(boolean isContractor) {
+        return createService(OrderApi.class, isContractor);
     }
 
     public static UserApi getUserService(boolean isContractor) {
