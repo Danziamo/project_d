@@ -56,7 +56,7 @@ public class ClientOrderDetailsActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         if (requestCode == 1) {
@@ -65,5 +65,5 @@ public class ClientOrderDetailsActivity extends AppCompatActivity {
 
             }
         }
-    }
+    }*/
 }

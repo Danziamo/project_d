@@ -1,23 +1,26 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.mirsoft.easyfixmaster.debug.MapsActivity">
 
     <TextView
         android:id="@+id/tvAddress"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
+        android:layout_below="@+id/tvAddress"
+        android:layout_above="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <AppCompatButton
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/btnSubmit"
         style="@style/Button.DarkGray"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+</RelativeLayout>

@@ -60,6 +60,9 @@ public class CreateBasicOrderFragment extends Fragment {
     public Button orderBtnCancel;
     public Button orderBtnLocate;
 
+    private double orderLat;
+    private double orderLng;
+
     public TextInputLayout tilOrderAddress;
     public TextInputLayout tilOrderPhone;
     public TextInputLayout tilOrderDescription;
@@ -196,8 +199,8 @@ public class CreateBasicOrderFragment extends Fragment {
             CommonOrder order = new CommonOrder();
             order.setAddress(orderAddress.getText().toString());
             order.setDescription(orderDescription.getText().toString());
-            order.setLatitude(42.876994);
-            order.setLongitude(74.583600);
+            order.setLatitude(orderLat);
+            order.setLongitude(orderLng);
             order.setSpecialty(dc.specialtyList.get(servicesSpinner.getSelectedItemPosition()).getId());
             order.setRating(ratingBar.getRating());
         return order;
@@ -346,6 +349,15 @@ public class CreateBasicOrderFragment extends Fragment {
                 });
 
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if( requestCode == 1 && resultCode == 1 ) {
+            orderAddress.setText(data.getStringExtra("address"));
+            orderLat = data.getDoubleExtra("lat", 0);
+            orderLng = data.getDoubleExtra("lng", 0);
         }
     }
 

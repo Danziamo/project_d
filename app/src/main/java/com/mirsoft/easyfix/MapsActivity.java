@@ -94,7 +94,8 @@ public class MapsActivity extends AppCompatActivity {
                 intent.putExtra("lat", curlat);
                 intent.putExtra("lng", curlng);
                 intent.putExtra("address", curaddress);
-                setResult(1);
+                setResult(1, intent);
+                finish();
             }
         });
     }
