@@ -5,6 +5,9 @@
     android:layout_height="match_parent"
     tools:context="com.mirsoft.easyfixmaster.debug.CreateBasicOrderFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ScrollView>
 
     <LinearLayout
         android:id="@+id/main_linear_layout"
@@ -86,21 +89,22 @@
 
 
         <TextView
+            style="@style/MaterialEditTextRed"
             android:id="@+id/request_from_masters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/master_request"
             android:textSize="16dp"
-            android:background="@color/ok"
             android:layout_marginTop="10dp"/>
 
         <TextView
+            style="@style/MaterialEditTextBlue"
             android:id="@+id/order_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/notification_order"
             android:gravity="center"
-            android:textSize="16dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"/>
 
 
@@ -109,28 +113,33 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:layout_below="@id/main_linear_layout"
         android:gravity="center|bottom"
         android:id="@+id/linearLayout">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <android.support.v7.widget.AppCompatButton
+            style="@style/Button.DarkGray"
+            android:layout_weight="0.5"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/btn_change"
             android:id="@+id/btnChange"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <android.support.v7.widget.AppCompatButton
+            style="@style/Button.DarkGray"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="0.5"
             android:text="@string/btn_cancel"
             android:id="@+id/btnCancel"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <android.support.v7.widget.AppCompatButton
+            style="@style/Button.DarkGray"
             android:text="@string/locate"
             android:id="@+id/btnLocate" />
     </LinearLayout>

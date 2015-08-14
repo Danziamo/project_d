@@ -1,16 +1,32 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.mirsoft.easyfix.AboutActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mirsoft.easyfix.AboutActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
-    <include android:id = "@+id/order_create_toolbar"
+    <include
+        android:id = "@+id/order_create_toolbar"
         layout="@layout/toolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
-    <TextView android:text="about activity" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <TextView
+           android:id="@+id/info_version"
+           android:text=""
+           android:textSize="@dimen/font_large"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center|center_horizontal"
+           android:layout_centerVertical="true"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentStart="true"
+           />
+   </RelativeLayout>
 
 </LinearLayout>

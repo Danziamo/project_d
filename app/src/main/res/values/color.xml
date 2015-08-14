@@ -28,7 +28,9 @@
     <color name="holo_green_light">#00897B</color>
     <color name="gray_main">#4e4e4d</color>
 
-    <color name="button_gray_normal">#4e4e4d</color>
+    <color name="button_gray_normal">#D04e4e4d</color>
     <color name="button_gray_pressed">#ff0000</color>
+    <color name="edittextred">#f2d8d3</color>
+    <color name="edittextblue">#ccffff</color>
 
 </resources>

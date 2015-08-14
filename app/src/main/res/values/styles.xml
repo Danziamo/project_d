@@ -87,8 +87,33 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@drawable/material_edit_text_color</item>
-
     </style>
+        <!--EditTextColor-->
+
+    <style name="MaterialEditTextRed">
+        <item name="android:background">@drawable/rounded_edit_text_red</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:paddingLeft">@dimen/edit_text_horizontal_padding</item>
+        <item name="android:paddingRight">@dimen/edit_text_horizontal_padding</item>
+        <item name="android:paddingTop">@dimen/edit_text_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/edit_text_vertical_padding</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@drawable/material_edit_text_color</item>
+    </style>
+
+    <style name="MaterialEditTextBlue">
+        <item name="android:background">@drawable/rounded_edit_text_blue</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:paddingLeft">@dimen/edit_text_horizontal_padding</item>
+        <item name="android:paddingRight">@dimen/edit_text_horizontal_padding</item>
+        <item name="android:paddingTop">@dimen/edit_text_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/edit_text_vertical_padding</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@drawable/material_edit_text_color</item>
+    </style>
+
 
     <style name="TextInputLayoutTheme">
         <item name="android:textColorHint">@color/blacktext</item>

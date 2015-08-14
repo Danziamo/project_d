@@ -63,6 +63,7 @@
     <string name="take_master">Вызвать</string>
     <string name="comment_master">Оценить</string>
     <string name="comment">Комментарий</string>
+    <string name="info_version">EasyFix  для Андроид\n Версия %1$s.</string>
 
     <!--Button-->
     <string name="my_adress">Мой адресс</string>
