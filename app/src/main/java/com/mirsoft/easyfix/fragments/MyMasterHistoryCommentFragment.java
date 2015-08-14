@@ -33,7 +33,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MyMasterHistoryCommentFragment extends Fragment {
+public class MyMasterHistoryCommentFragment extends BaseFragment {
 
     View view;
 
@@ -87,44 +87,11 @@ public class MyMasterHistoryCommentFragment extends Fragment {
         ivProfileInfo = (ImageView) view.findViewById(R.id.profile_photo);
         btnComment = (Button)view.findViewById(R.id.btnCommet);
 
-
         settings = new Settings(getActivity());
-//        userId = settings.getUserId();
-//        userPassword = settings.getPassword();
 
-//        UserApi api = RestClient.createService(UserApi.class);
+        showProgress(true, "Ожидайте", "Загружаю данные");
 
-//        api.getById(userId, new Callback<User>() {
-//            @Override
-//            public void success(User user, Response response) {
-//                mUser = user;
-//                updateCommonViews(user);
-//                getUpdatedOrder();
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                Toast.makeText(getActivity(), "Error:loading master information", Toast.LENGTH_SHORT);
-//            }
-//        });
-
-            getUpdatedOrder();
-
-//        api.getSpecialties(singleton.clientSelectedOrder.getContractor().getId(), new Callback<ArrayList<UserSpecialty>>() {
-//            @Override
-//            public void success(ArrayList<UserSpecialty> userSpecialties, Response response) {
-//                updateView(userSpecialties);
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                Toast.makeText(getActivity(), "Error:loading master information", Toast.LENGTH_SHORT);
-//                error.printStackTrace();
-//            }
-//        });
-
-
-
+        getSpecialtyOptions(singleton.clientSelectedOrder);
 
         btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +120,6 @@ public class MyMasterHistoryCommentFragment extends Fragment {
         ((ClientOrderDetailsActivity)getActivity()).create_order_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                ((ClientOrderDetailsActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
@@ -162,36 +128,35 @@ public class MyMasterHistoryCommentFragment extends Fragment {
 
         return view;
     }
-
-    private void getUpdatedOrder(){
-        RestClient.getOrderService(false).getById(settings.getUserId(),singleton.clientSelectedOrder.getId(), new Callback<Order>() {
-            @Override
-            public void success(Order order, Response response) {
-                updateCommonViews(order);
-                getSpecialtyOptions(order);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(getActivity(), "Error:loading updated information", Toast.LENGTH_SHORT);
-                error.printStackTrace();
-            }
-        });
-    }
+//
+//    private void getUpdatedOrder(){
+//        RestClient.getOrderService(false).getById(settings.getUserId(),singleton.clientSelectedOrder.getId(), new Callback<Order>() {
+//            @Override
+//            public void success(Order order, Response response) {
+//                updateCommonViews(order);
+//                getSpecialtyOptions(order);
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//                Toast.makeText(getActivity(), "Error:loading updated information", Toast.LENGTH_SHORT);
+//                error.printStackTrace();
+//            }
+//        });
+//    }
 
     private void getSpecialtyOptions(final Order order){
-     //   RestClient.getUserService(false).getSpecialties(1, new Callback<ArrayList<UserSpecialty>>() {
         RestClient.getUserService(false).getSpecialties(singleton.clientSelectedOrder.getContractor().getId(), new Callback<ArrayList<UserSpecialty>>() {
             @Override
             public void success(ArrayList<UserSpecialty> userSpecialties, Response response) {
-
-
+                hideProgress();
+                updateCommonViews(order);
                 updateView(userSpecialties,order);
-
             }
 
             @Override
             public void failure(RetrofitError error) {
+                hideProgress();
                 Toast.makeText(getActivity(), "Error:loading master information", Toast.LENGTH_SHORT);
                 error.printStackTrace();
             }
@@ -199,7 +164,6 @@ public class MyMasterHistoryCommentFragment extends Fragment {
     }
 
     private void updateCommonViews(Order order){
-        progressBar.setVisibility(View.GONE);
         llProfileInfoContent.setVisibility(View.VISIBLE);
         etLastName.setText(order.getContractor().getLastName());
         etFirstName.setText(order.getContractor().getFirstName());

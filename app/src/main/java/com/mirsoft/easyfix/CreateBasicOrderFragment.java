@@ -360,7 +360,7 @@ public class CreateBasicOrderFragment extends Fragment {
                 orderDescription.setText(dc.clientSelectedOrder.getDescription());
                 ratingBar.setRating(1);
                 servicesSpinner.setSelection(dc.getPosition(dc.clientSelectedOrder.getSpecialty().getId()));
-                mastersRequests.setText("Есть мастер");
+                getUpdatedOrder();
 
                 orderAddress.setEnabled(false);
                 orderPhone.setEnabled(false);
@@ -382,6 +382,23 @@ public class CreateBasicOrderFragment extends Fragment {
 
                 break;
         }
+    }
+
+
+    private void getUpdatedOrder(){
+        RestClient.getOrderService(false).getById(settings.getUserId(),dc.clientSelectedOrder.getId(), new Callback<Order>() {
+            @Override
+            public void success(Order order, Response response) {
+                dc.clientSelectedOrder = order;
+                mastersRequests.setText(order.getContractor().getFullName());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getActivity(), "Error:loading updated information", Toast.LENGTH_SHORT);
+                error.printStackTrace();
+            }
+        });
     }
 
     @Override
