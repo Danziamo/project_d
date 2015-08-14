@@ -18,6 +18,7 @@ import com.mirsoft.easyfix.adapters.SectionedOrderAdapter;
 import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.networking.RestClient;
+import com.mirsoft.easyfix.utils.HelperUtils;
 import com.mirsoft.easyfix.views.RecyclerViewSimpleDivider;
 import com.mirsoft.easyfix.adapters.OrderAdapter;
 import com.mirsoft.easyfix.models.Order;
@@ -30,7 +31,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class UserOrderListFragment extends Fragment {
+public class UserOrderListFragment extends BaseFragment {
 
     private RecyclerView rvActive;
     private OrderAdapter mOrderAdapterActive;
@@ -84,8 +85,6 @@ public class UserOrderListFragment extends Fragment {
         rvActive.setItemAnimator(new DefaultItemAnimator());
         rvActive.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        fillDataClient();
-
        // ((TabsActivity)getActivity()).myMastersButton.setEnabled(false);
         setBottomButtonsListeners();
 
@@ -133,18 +132,21 @@ public class UserOrderListFragment extends Fragment {
 
 
     private void fillDataClient() {
+        showProgress(true, "Загрузка...", "Пожалуйста подождите");
         final Settings settings = new Settings(getActivity());
         RestClient.getOrderService(false).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
+                hideProgress();
                 ArrayList<Order> activeOrders = new ArrayList<>();
                 ArrayList<Order> finishedOrders = new ArrayList<>();
                 ArrayList<Order> allOrders = new ArrayList<>();
 
                 for (int i = 0; i < orders.size(); ++i) {
                     Order tempOrder = orders.get(i);
-                    if (tempOrder.getClient().getId() != settings.getUserId()) continue;
-                    if (tempOrder.getStatus() != OrderType.FINISHED && tempOrder.getStatus() != OrderType.CANCELLED) {
+                    if (tempOrder.getClient().getId() != settings.getUserId() || tempOrder.getStatus() == OrderType.CANCELLED) continue;
+
+                    if (tempOrder.getStatus() != OrderType.FINISHED) {
                         activeOrders.add(tempOrder);
                     } else {
                         finishedOrders.add(tempOrder);
@@ -161,8 +163,8 @@ public class UserOrderListFragment extends Fragment {
                 mOrderAdapterActive = new OrderAdapter(allOrders, R.layout.list_item_order, getActivity(), Constants.CLIENT_ORDER_ADAPTER_MODE_ACTIVE);
 
                 List<SectionedOrderAdapter.Section> sections = new ArrayList<>();
-                sections.add(new SectionedOrderAdapter.Section(0, "Active"));
-                sections.add(new SectionedOrderAdapter.Section(activeOrders.size(), "Finished"));
+                sections.add(new SectionedOrderAdapter.Section(0, HelperUtils.getStringById(R.string.active_orders)));
+                sections.add(new SectionedOrderAdapter.Section(activeOrders.size(), HelperUtils.getStringById(R.string.finished_orders)));
 
                 SectionedOrderAdapter.Section[] dummy = new SectionedOrderAdapter.Section[sections.size()];
                 SectionedOrderAdapter mSectionedAdapter = new
@@ -176,23 +178,28 @@ public class UserOrderListFragment extends Fragment {
 
             @Override
             public void failure(RetrofitError error) {
+                hideProgress();
                 Toast.makeText(getActivity(), "Some network error", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void fillDataMaster() {
+        showProgress(true, "Загрузка...", "Пожалуйста подождите");
         final Settings settings = new Settings(getActivity());
-        RestClient.getOrderService(false).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
+        RestClient.getOrderService(true).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
+                hideProgress();
                 ArrayList<Order> activeOrders = new ArrayList<>();
                 ArrayList<Order> finishedOrders = new ArrayList<>();
                 ArrayList<Order> allOrders = new ArrayList<>();
 
                 for (int i = 0; i < orders.size(); ++i) {
                     Order tempOrder = orders.get(i);
-                    if (tempOrder.getContractor() == null || tempOrder.getContractor().getId() != settings.getUserId()) continue;
+                    if (tempOrder.getContractor() == null
+                            || tempOrder.getContractor().getId() != settings.getUserId()
+                            || tempOrder.getStatus() == OrderType.CANCELLED) continue;
                     if (tempOrder.getStatus() != OrderType.FINISHED) {
                         activeOrders.add(tempOrder);
                     } else {
@@ -219,6 +226,7 @@ public class UserOrderListFragment extends Fragment {
 
             @Override
             public void failure(RetrofitError error) {
+                hideProgress();
                 Toast.makeText(getActivity(), "Some network error", Toast.LENGTH_LONG).show();
             }
         });
@@ -226,7 +234,10 @@ public class UserOrderListFragment extends Fragment {
 
     public void onResume(){
         super.onResume();
-        fillDataClient();
+        if (dc.isClientMode)
+            fillDataClient();
+        else
+            fillDataMaster();
     }
 
     @Override

@@ -121,8 +121,8 @@ public class MasterListFragment extends BaseFragment {
         api.getAllByQuery(specialty, new Callback<ArrayList<User>>() {
             @Override
             public void success(ArrayList<User> users, Response response) {
-                showList(users);
                 hideProgress();
+                showList(users);
             }
 
             @Override

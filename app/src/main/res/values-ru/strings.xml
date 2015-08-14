@@ -64,6 +64,13 @@
     <string name="comment_master">Оценить</string>
     <string name="comment">Комментарий</string>
 
+    <!--Button-->
+    <string name="my_adress">Мой адресс</string>
+
+    <!-- Sectioned Recycler View -->
+    <string name="active_orders">Активные</string>
+    <string name="finished_orders">Завершенные</string>
+
 
 
     <string name="my_profile">Мой профиль</string>
@@ -84,6 +91,17 @@
         <item quantity="other">%1$d отзывов</item>
     </plurals>
 
+
+    <!--Title Activity-->
+    <string name="title_activity_test_sign_up">TestSignUpActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_tabs">Заказы</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_order_detail">OrderDetailActivity</string>
+    <string name="title_activity_maps">Карта</string>
+    <string name="title_activity_create_order">Сделать заказ</string>
+    <string name="title_activity_master_info">MasterInfoActivity</string>
+    <string name="title_activity_create_new_order">CreateNewOrder</string>
 
     <!-- Errors -->
     <string name="error_not_empty">Не может быть пустым</string>

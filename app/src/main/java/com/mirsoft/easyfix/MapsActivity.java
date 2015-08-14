@@ -7,12 +7,15 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,13 +24,17 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.utils.LocationAddress;
 
 public class MapsActivity extends AppCompatActivity {
     private MapView mMapView;
     private GoogleMap mGoogleMap;
+
+    Toolbar toolbar;
     TextView tvAddress;
     Button submit;
+    ImageView icMarker;
 
     private double curlat;
     private double curlng;
@@ -38,12 +45,25 @@ public class MapsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        toolbar = (Toolbar)findViewById(R.id.order_create_toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 onBackPressed();
+             }
+         });
+
         mMapView = (MapView)findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
         tvAddress = (TextView)findViewById(R.id.tvAddress);
         submit = (Button)findViewById(R.id.btnSubmit);
-
+        icMarker = (ImageView) findViewById(R.id.my_marker);
         mMapView.onResume();// needed to get the map to display immediately
 
         try {
@@ -94,7 +114,7 @@ public class MapsActivity extends AppCompatActivity {
                 intent.putExtra("lat", curlat);
                 intent.putExtra("lng", curlng);
                 intent.putExtra("address", curaddress);
-                setResult(1, intent);
+                setResult(Constants.OK_RESULT_CODE, intent);
                 finish();
             }
         });
@@ -106,8 +126,9 @@ public class MapsActivity extends AppCompatActivity {
             String locationAddress;
             Bundle bundle = message.getData();
             locationAddress = bundle.getString("address");
-            curaddress = locationAddress;
             tvAddress.setText(locationAddress);
+            curaddress = locationAddress;
+            if (locationAddress != null && locationAddress.toLowerCase().contains("не удалось")) curaddress = "";
         }
     }
 

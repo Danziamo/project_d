@@ -1,7 +1,11 @@
 package com.mirsoft.easyfix.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,9 +18,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -28,6 +35,7 @@ import com.mirsoft.easyfix.adapters.OrderAdapter;
 import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.networking.RestClient;
+import com.mirsoft.easyfix.utils.HelperUtils;
 import com.mirsoft.easyfix.views.RecyclerViewSimpleDivider;
 import com.mirsoft.easyfix.utils.Singleton;
 
@@ -39,7 +47,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindowClickListener{
+public class NewOrdersFragment extends BaseFragment implements GoogleMap.OnInfoWindowClickListener{
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -102,7 +110,30 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
 
         setBottomButtonsListeners();
 
+        getCurrentLocation();
+
         return view;
+    }
+
+    private void getCurrentLocation() {
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+
+        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+        if (location != null)
+        {
+            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(location.getLatitude(), location.getLongitude()), 15));
+
+            dc.curLat = location.getLatitude();
+            dc.curLng = location.getLongitude();
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
+                    .zoom(12)                   // Sets the zoom
+                    .build();                   // Creates a CameraPosition from the builder
+            mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
     }
 
     public void setBottomButtonsListeners(){
@@ -131,11 +162,12 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
     }
 
     public void getData() {
-
+        showProgress(true, "Загрузка...", "Пожалуйста подождите");
         final Settings settings = new Settings(getActivity());
         RestClient.getOrderService(true).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
+                hideProgress();
                 ArrayList<Order> displayList = new ArrayList<>();
                 int userId = settings.getUserId();
                 mOrderMarkerMap = new HashMap<>();
@@ -143,12 +175,16 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
                 for (int i = 0; i < orders.size(); ++i) {
                     Order order = orders.get(i);
                     //Skipping orders where contractor is not null
-                    if (order.getContractor() != null) continue;
+                    if (order.getContractor() != null || !HelperUtils.isNewOrPending(order.getStatus()))  continue;
 
                     LatLng position = order.getLatLng();
                     displayList.add(order);
                     if (position != null) {
-                        Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(order.getLatLng()).title(order.getSpecialty().getName()));
+                        int resId = HelperUtils.getResIdFromSpecialtySlug(order.getSpecialty().getSlug());
+                        Marker marker = mGoogleMap.addMarker(new MarkerOptions()
+                                .position(order.getLatLng())
+                                .title(order.getSpecialty().getName())
+                                .icon(BitmapDescriptorFactory.fromResource(resId)));
                         mOrderMarkerMap.put(marker, order);
                     }
                 }
@@ -157,6 +193,7 @@ public class NewOrdersFragment extends Fragment implements GoogleMap.OnInfoWindo
 
             @Override
             public void failure(RetrofitError error) {
+                hideProgress();
                 Toast.makeText(getActivity(), "Fail", Toast.LENGTH_LONG).show(); //crash
             }
         });

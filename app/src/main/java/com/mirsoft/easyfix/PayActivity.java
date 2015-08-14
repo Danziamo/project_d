@@ -25,13 +25,10 @@ public class PayActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackButtonPressed();
+                onBackPressed();
             }
         });
     }
 
-    public void onBackButtonPressed(){
-        super.onBackPressed();
-    }
 
 }
