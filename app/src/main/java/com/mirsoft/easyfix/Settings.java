@@ -62,9 +62,21 @@ public class Settings {
         putIntValue("user_id", userId);
     }
 
+    public String getUserPhone() { return getStringValue("phone"); }
+
+    public void setUserPhone(String phone) { putStringValue("phone", phone); }
+
     public void setPassword(String password){putStringValue("password", password);}
 
-    public String getPassword(){return getStringValue("password");}
+    public String getPassword(){return getStringValue("password"); }
+
+    public void setSocialProvider (String provider) { putStringValue("socialProvider", provider); }
+
+    public String getSocialProvider () { return getStringValue("socialProvider"); }
+
+    public void setSocialId (String socialId) { putStringValue("socialId", socialId); }
+
+    public String getSocialId () { return getStringValue("socialId"); }
 
     public String getEndpoint() {
         return getStringValue("endpoint");

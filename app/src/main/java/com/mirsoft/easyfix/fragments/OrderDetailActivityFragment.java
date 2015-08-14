@@ -103,7 +103,7 @@ public class OrderDetailActivityFragment extends Fragment {
                     .position(order.getLatLng())
                     .title(order.getSpecialty().getName())
                     .icon(BitmapDescriptorFactory.fromResource(resId)));
-            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(order.getLatLng(), 15));
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(order.getLatLng(), 15));
         }
 
         btnSubmit = (Button)view.findViewById(R.id.btnSubmitOrder);

@@ -31,6 +31,7 @@
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/et_client_address"
+            android:drawableRight="@drawable/ic_search"
             android:hint="@string/adress"
             android:inputType="textCapSentences"
             style="@style/MaterialEditText"/>

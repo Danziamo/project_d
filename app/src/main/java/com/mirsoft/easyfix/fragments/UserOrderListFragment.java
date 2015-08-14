@@ -105,7 +105,6 @@ public class UserOrderListFragment extends BaseFragment {
         ((TabsActivity)getActivity()).myMastersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"myMastersButton",Toast.LENGTH_SHORT).show();
                 fillDataClient();
 
                 dc.isClientMode = true;
@@ -117,7 +116,6 @@ public class UserOrderListFragment extends BaseFragment {
         ((TabsActivity)getActivity()).myClientsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"myClientsButton",Toast.LENGTH_SHORT).show();
                 fillDataMaster();
 
                 dc.isClientMode = false;
@@ -212,8 +210,8 @@ public class UserOrderListFragment extends BaseFragment {
                 mOrderAdapterActive = new OrderAdapter(allOrders, R.layout.list_item_order, getActivity(), Constants.MASTER_ORDER_ADAPTER);
 
                 List<SectionedOrderAdapter.Section> sections = new ArrayList<>();
-                sections.add(new SectionedOrderAdapter.Section(0, "Active"));
-                sections.add(new SectionedOrderAdapter.Section(activeOrders.size(), "Finished"));
+                sections.add(new SectionedOrderAdapter.Section(0, HelperUtils.getStringById(R.string.active_orders)));
+                sections.add(new SectionedOrderAdapter.Section(activeOrders.size(), HelperUtils.getStringById(R.string.finished_orders)));
 
                 SectionedOrderAdapter.Section[] dummy = new SectionedOrderAdapter.Section[sections.size()];
                 SectionedOrderAdapter mSectionedAdapter = new

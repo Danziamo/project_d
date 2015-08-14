@@ -58,6 +58,11 @@ public class LoginFragment extends BaseFragment {
         etPhone = (EditText)view.findViewById(R.id.etLogin);
         etPassword = (EditText)view.findViewById(R.id.etPassword);
 
+        Settings settings = new Settings(getActivity());
+        if (!settings.getUserPhone().isEmpty()) {
+            etPhone.setText(settings.getUserPhone());
+        }
+
         Button btnSignIn = (Button)view.findViewById(R.id.btnSubmit);
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {

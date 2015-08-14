@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.mirsoft.easyfix.OrderDetailActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
+import com.mirsoft.easyfix.SplashActivity;
 import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.adapters.OrderAdapter;
 import com.mirsoft.easyfix.common.Constants;
@@ -39,6 +40,8 @@ import com.mirsoft.easyfix.utils.HelperUtils;
 import com.mirsoft.easyfix.views.RecyclerViewSimpleDivider;
 import com.mirsoft.easyfix.utils.Singleton;
 
+import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -194,7 +197,25 @@ public class NewOrdersFragment extends BaseFragment implements GoogleMap.OnInfoW
             @Override
             public void failure(RetrofitError error) {
                 hideProgress();
-                Toast.makeText(getActivity(), "Fail", Toast.LENGTH_LONG).show(); //crash
+                String errorDescription = "Fail";
+                if (error.getKind() == RetrofitError.Kind.NETWORK) {
+                    if (error.getCause() instanceof SocketTimeoutException) {
+                        errorDescription = "Не удалось подключится к серверу";
+                    } else {
+                        errorDescription = "Проверьте интернет соединение";
+                    }
+                } else if (error.getKind() == RetrofitError.Kind.HTTP) {
+                    Response r = error.getResponse();
+                    if (r == null) {
+                        errorDescription = "Нет ответа от сервера";
+                    } else if (r.getStatus() == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                        errorDescription = "Не авторизированы. Перезайдите";
+                        settings.setAccessToken("");
+                        startActivity(new Intent(getActivity(), SplashActivity.class));
+                        getActivity().finish();
+                    }
+                }
+                Toast.makeText(getActivity(), errorDescription, Toast.LENGTH_LONG).show(); //crash
             }
         });
     }

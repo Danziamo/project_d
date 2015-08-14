@@ -187,6 +187,7 @@ public class CreateBasicOrderFragment extends Fragment {
     }
 
     private boolean validateOrder() {
+        cleanViewsFromError();
         String address = orderAddress.getText().toString();
         String phone = orderPhone.getText().toString();
         String description = orderDescription.getText().toString();
@@ -207,6 +208,12 @@ public class CreateBasicOrderFragment extends Fragment {
         }
 
         return true;
+    }
+
+    private void cleanViewsFromError() {
+        tilOrderAddress.setError(null);
+        tilOrderPhone.setError(null);
+        tilOrderDescription.setError(null);
     }
 
     public CommonOrder initNewCommonOrder(){

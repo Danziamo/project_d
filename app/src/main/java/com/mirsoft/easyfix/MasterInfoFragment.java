@@ -7,6 +7,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -40,6 +41,9 @@ public class MasterInfoFragment extends BaseFragment {
     AppCompatEditText etClientDescription;
     private RatingBar mRaringBar;
     Singleton dc;
+    private double orderLat;
+    private double orderLng;
+
 
     private final static String ARG_MODE = "ARG_MODE";
     private int mode;
@@ -74,6 +78,25 @@ public class MasterInfoFragment extends BaseFragment {
         etClientPhone = (AppCompatEditText)view.findViewById(R.id.et_client_phone);
         etClientAddress = (AppCompatEditText)view.findViewById(R.id.et_client_address);
         etClientDescription = (AppCompatEditText)view.findViewById(R.id.et_client_description);
+
+        etClientAddress.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (etClientAddress.getRight() - etClientAddress.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        Intent callIntent = new Intent(getActivity(), MapsActivity.class);
+                        startActivityForResult(callIntent, Constants.MAPS_REQUEST_CODE);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         AppCompatEditText etLastName = (AppCompatEditText)view.findViewById(R.id.et_last_name);
         AppCompatEditText etFirstName = (AppCompatEditText)view.findViewById(R.id.et_first_name);
@@ -139,6 +162,8 @@ public class MasterInfoFragment extends BaseFragment {
             NOrder order = new NOrder();
             order.address = address;
             order.description = description;
+            order.setLatitude(orderLat);
+            order.setLongitude(orderLng);
             order.contractor = dc.selectedMaster.getId();
             RestClient.getOrderService(false).createOrder(order, settings.getUserId(), new Callback<Order>() {
                 @Override
@@ -171,6 +196,15 @@ public class MasterInfoFragment extends BaseFragment {
                     Toast.makeText(getActivity(), "Failure", Toast.LENGTH_SHORT).show();
                 }
             });
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if( requestCode == Constants.MAPS_REQUEST_CODE && resultCode == Constants.OK_RESULT_CODE ) {
+            etClientAddress.setText(data.getStringExtra("address"));
+            orderLat = data.getDoubleExtra("lat", dc.curLat);
+            orderLng = data.getDoubleExtra("lng", dc.curLng);
         }
     }
 }
