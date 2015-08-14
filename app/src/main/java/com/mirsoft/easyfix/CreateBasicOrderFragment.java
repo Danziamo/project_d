@@ -88,6 +88,9 @@ public class CreateBasicOrderFragment extends Fragment {
         ratingBar = (AppCompatRatingBar)view.findViewById(R.id.llratingbar);
         orderAddress = (EditText)view.findViewById(R.id.order_address);
 
+        orderLat = dc.curLat;
+        orderLng = dc.curLng;
+
         orderAddress.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -356,8 +359,8 @@ public class CreateBasicOrderFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if( requestCode == Constants.MAPS_REQUEST_CODE && resultCode == Constants.OK_RESULT_CODE ) {
             orderAddress.setText(data.getStringExtra("address"));
-            orderLat = data.getDoubleExtra("lat", 0);
-            orderLng = data.getDoubleExtra("lng", 0);
+            orderLat = data.getDoubleExtra("lat", dc.curLat);
+            orderLng = data.getDoubleExtra("lng", dc.curLng);
         }
     }
 

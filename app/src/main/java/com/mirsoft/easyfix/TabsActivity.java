@@ -200,78 +200,6 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
        // viewPager.setCurrentItem(dc.currentSelectedTabPage);
     }
 
-    private void getOrdersList() {
-        progressType = 0;
-        showProgress(true, "Обновление", "Ожидайте");
-        Settings settings = new Settings(TabsActivity.this);
-        OrderApi api = RestClient.createService(OrderApi.class);
-        api.getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
-            @Override
-            public void success(ArrayList<Order> orders, Response response) {
-                hideProgress();
-                if (orders.size() > 0) {
-                    progressType += 1;
-                    mOrderList.clear();
-                    mOrderList = orders;
-                    Intent data = new Intent("update");
-                    TabsActivity.this.sendBroadcast(data);
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                hideProgress();
-                progressType += 1;
-                Toast.makeText(TabsActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-        api.getByUserIdAndStatuses(settings.getUserId(), "finished", new Callback<ArrayList<Order>>() {
-            @Override
-            public void success(ArrayList<Order> orders, Response response) {
-                hideProgress();
-                progressType += 1;
-                mFinishedOrderList.clear();
-                mFinishedOrderList = orders;
-                Intent data = new Intent("updatefinished");
-                TabsActivity.this.sendBroadcast(data);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                hideProgress();
-                progressType += 1;
-            }
-        });
-    }
-
-    public ArrayList<Order> getNewOrders() {
-        ArrayList<Order> list = new ArrayList<>();
-        for (int i = 0; i < mOrderList.size(); ++i) {
-            if (mOrderList.get(i).getStatus() == OrderType.NEW)
-                list.add(mOrderList.get(i));
-        }
-        return list;
-    }
-
-    public ArrayList<Order> getActiveOrders() {
-        ArrayList<Order> list = new ArrayList<>();
-        for (int i = 0; i < mOrderList.size(); ++i) {
-            if (mOrderList.get(i).getStatus() == OrderType.ACTIVE || mOrderList.get(i).getStatus() == OrderType.PENDING)
-                list.add(mOrderList.get(i));
-        }
-        return list;
-    }
-
-    public ArrayList<Order> getFinishedOrders() {
-        ArrayList<Order> list = new ArrayList<>();
-        for (int i = 0; i < mOrderList.size(); ++i) {
-            if (mOrderList.get(i).getStatus() == OrderType.FINISHED)
-                list.add(mOrderList.get(i));
-        }
-        return list;
-    }
-
     private void navigate(final int itemId) {
         // perform the actual navigation logic, updating the main content fragment etc
         switch (itemId) {
@@ -437,6 +365,5 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
             viewPager.setCurrentItem(USER_ORDER_PAGE);
             dc.fromCreateBasicOrderFragment = false;
         }
-        getOrdersList();
     }
 }

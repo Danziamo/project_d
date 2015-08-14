@@ -53,4 +53,7 @@ public class Singleton {
         }
         return position;
     }
+
+    public double curLat;
+    public double curLng;
 }
