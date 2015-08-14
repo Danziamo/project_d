@@ -31,8 +31,8 @@ public interface OrderApi {
     @GET("/users/{userId}/orders/{orderId}/list_contractor_requests")
     void getContractorRequests(@Path("userId") int userId,@Path("orderId") int orderId, Callback<ArrayList<PendingContractor> > callback);
 
-    @GET("/orders/{id}")
-    void getById(@Path("id") int id, Callback<Order> callback);
+    @GET("/users/{userId}/orders/{id}")
+    void getById(@Path("userId") int userId,@Path("id") int id, Callback<Order> callback);
 
     @POST("/users/{userId}/orders/{orderId}/post_contractor_request")
     void postRequest(@Body Object object, @Path("userId") int userId, @Path("orderId") int orderId, Callback<Object> callback);

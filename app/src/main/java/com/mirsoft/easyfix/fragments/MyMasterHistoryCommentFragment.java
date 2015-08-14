@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
+import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.models.UserSpecialty;
 import com.mirsoft.easyfix.networking.RestClient;
@@ -58,6 +59,8 @@ public class MyMasterHistoryCommentFragment extends Fragment {
 
     Singleton singleton;
 
+    Settings settings;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,25 +87,27 @@ public class MyMasterHistoryCommentFragment extends Fragment {
         btnComment = (Button)view.findViewById(R.id.btnCommet);
 
 
-        Settings settings = new Settings(getActivity());
+        settings = new Settings(getActivity());
         userId = settings.getUserId();
         userPassword = settings.getPassword();
 
         UserApi api = RestClient.createService(UserApi.class);
 
-        api.getById(userId, new Callback<User>() {
-            @Override
-            public void success(User user, Response response) {
-                mUser = user;
-                updateCommonViews(user);
-                getSpecialtyOptions();
-            }
+//        api.getById(userId, new Callback<User>() {
+//            @Override
+//            public void success(User user, Response response) {
+//                mUser = user;
+//                updateCommonViews(user);
+//                getUpdatedOrder();
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//                Toast.makeText(getActivity(), "Error:loading master information", Toast.LENGTH_SHORT);
+//            }
+//        });
 
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(getActivity(), "Error:loading master information", Toast.LENGTH_SHORT);
-            }
-        });
+            getUpdatedOrder();
 
 //        api.getSpecialties(singleton.clientSelectedOrder.getContractor().getId(), new Callback<ArrayList<UserSpecialty>>() {
 //            @Override
@@ -148,11 +153,31 @@ public class MyMasterHistoryCommentFragment extends Fragment {
         return view;
     }
 
-    private void getSpecialtyOptions(){
-        RestClient.getUserService(false).getSpecialties(1, new Callback<ArrayList<UserSpecialty>>() {
+    private void getUpdatedOrder(){
+        RestClient.getOrderService(false).getById(settings.getUserId(),singleton.clientSelectedOrder.getId(), new Callback<Order>() {
+            @Override
+            public void success(Order order, Response response) {
+                updateCommonViews(order);
+                getSpecialtyOptions(order);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getActivity(), "Error:loading updated information", Toast.LENGTH_SHORT);
+                error.printStackTrace();
+            }
+        });
+    }
+
+    private void getSpecialtyOptions(final Order order){
+     //   RestClient.getUserService(false).getSpecialties(1, new Callback<ArrayList<UserSpecialty>>() {
+        RestClient.getUserService(false).getSpecialties(singleton.clientSelectedOrder.getContractor().getId(), new Callback<ArrayList<UserSpecialty>>() {
             @Override
             public void success(ArrayList<UserSpecialty> userSpecialties, Response response) {
-                updateView(userSpecialties);
+
+
+                updateView(userSpecialties,order);
+
             }
 
             @Override
@@ -163,14 +188,14 @@ public class MyMasterHistoryCommentFragment extends Fragment {
         });
     }
 
-    private void updateCommonViews(User user){
+    private void updateCommonViews(Order order){
         progressBar.setVisibility(View.GONE);
         llProfileInfoContent.setVisibility(View.VISIBLE);
-        etLastName.setText(user.getLastName());
-        etFirstName.setText(user.getFirstName());
-        ratingBar.setRating(user.getRating());
-        tvFeedbacks.setText(getResources().getQuantityString(R.plurals.feedback_count, user.getReviewsCount(), user.getReviewsCount()));
-        etPhone.setText(user.getPhone());
+        etLastName.setText(order.getContractor().getLastName());
+        etFirstName.setText(order.getContractor().getFirstName());
+        ratingBar.setRating(order.getContractor().getRating());
+        tvFeedbacks.setText(getResources().getQuantityString(R.plurals.feedback_count, order.getContractor().getReviewsCount(), order.getContractor().getReviewsCount()));
+        etPhone.setText(order.getContractor().getPhone());
 
         RoundedTransformation transformation = new RoundedTransformation(10, 5);
         Picasso.with(getActivity())
@@ -184,9 +209,10 @@ public class MyMasterHistoryCommentFragment extends Fragment {
 
     }
 
-    private void updateView(ArrayList<UserSpecialty> specialties){
-        for(int i = 0; i < specialties.size();i++){
-            if(singleton.clientSelectedOrder.getSpecialty().getId() == specialties.get(i).getId()){
+    private void updateView(ArrayList<UserSpecialty> specialties,Order order){
+        for(int i = 0; i < specialties.size();i++)
+        {
+            if(order.getSpecialty().getId() == specialties.get(i).getId()){
                 for(int j = 0; j < singleton.specialtyList.size();j++){
                     if(specialties.get(i).getId() == singleton.specialtyList.get(j).getId())
                         etProfession.setText(singleton.specialtyList.get(j).getName());
