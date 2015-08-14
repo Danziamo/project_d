@@ -33,6 +33,7 @@ public class ClientOrderDetailsActivity extends AppCompatActivity {
         setSupportActionBar(create_order_toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
 
        // servicesSpinner = (Spinner)findViewById(R.id.services_spinner);
 //        ratingBar = (AppCompatRatingBar)findViewById(R.id.llratingbar);

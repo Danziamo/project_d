@@ -107,6 +107,7 @@ public class OrderDetailActivityFragment extends Fragment {
             btnSubmit.setVisibility(View.VISIBLE);
             btnFinish.setVisibility(View.GONE);
             btnCancel.setVisibility(View.GONE);
+
         } else if (order.getStatus() == OrderType.NEW && order.getContractor().getId() == settings.getUserId()) {
             btnSubmit.setVisibility(View.VISIBLE);
             btnFinish.setVisibility(View.GONE);

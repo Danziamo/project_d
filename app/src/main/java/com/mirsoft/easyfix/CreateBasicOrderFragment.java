@@ -169,6 +169,17 @@ public class CreateBasicOrderFragment extends Fragment {
                         .show();
             }
         });
+
+        ((ClientOrderDetailsActivity)getActivity()).create_order_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                ((ClientOrderDetailsActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                ((ClientOrderDetailsActivity) getActivity()).onBackButtonClicked();
+            }
+        });
+
+        ((ClientOrderDetailsActivity)getActivity()).create_order_toolbar.setTitle(getResources().getString(R.string.my_order_history));
+
         return view;
     }
 
@@ -305,6 +316,7 @@ public class CreateBasicOrderFragment extends Fragment {
                 orderNotification.setVisibility(View.GONE);
                 orderBtnChange.setVisibility(View.GONE);
                 orderBtnCancel.setVisibility(View.GONE);
+                ((ClientOrderDetailsActivity)getActivity()).create_order_toolbar.setTitle(getResources().getString(R.string.make_order));
                 break;
             case CHECK_MODE:
                 Toast.makeText(getActivity(), String.valueOf(dc.clientSelectedOrder.getId()), Toast.LENGTH_SHORT).show();
@@ -323,6 +335,7 @@ public class CreateBasicOrderFragment extends Fragment {
                 if(dc.clientSelectedOrder.getStatus() == OrderType.NEW) {
                     getPendingOrders();
                 }
+                ((ClientOrderDetailsActivity)getActivity()).create_order_toolbar.setTitle(getResources().getString(R.string.my_order));
                 break;
             case FINISH_MODE:
                 mastersRequests.setVisibility(View.VISIBLE);
@@ -341,13 +354,14 @@ public class CreateBasicOrderFragment extends Fragment {
                 mastersRequests.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        String backStateName = getActivity().getFragmentManager().getClass().getName();
                         getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.container,new MyMasterHistoryCommentFragment())
-                                .addToBackStack("historyFragment")
+                                .replace(R.id.container, new MyMasterHistoryCommentFragment())
+                                .addToBackStack(backStateName)
                                 .commit();
                     }
                 });
-
+                ((ClientOrderDetailsActivity)getActivity()).create_order_toolbar.setTitle(getResources().getString(R.string.my_order));
                 break;
         }
     }

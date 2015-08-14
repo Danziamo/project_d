@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.mirsoft.easyfix.ClientOrderDetailsActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.models.Order;
@@ -88,10 +89,10 @@ public class MyMasterHistoryCommentFragment extends Fragment {
 
 
         settings = new Settings(getActivity());
-        userId = settings.getUserId();
-        userPassword = settings.getPassword();
+//        userId = settings.getUserId();
+//        userPassword = settings.getPassword();
 
-        UserApi api = RestClient.createService(UserApi.class);
+//        UserApi api = RestClient.createService(UserApi.class);
 
 //        api.getById(userId, new Callback<User>() {
 //            @Override
@@ -149,6 +150,15 @@ public class MyMasterHistoryCommentFragment extends Fragment {
         });
 
 
+        ((ClientOrderDetailsActivity)getActivity()).create_order_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                ((ClientOrderDetailsActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
+        ((ClientOrderDetailsActivity)getActivity()).create_order_toolbar.setTitle(getResources().getString(R.string.my_order_master_history));
 
         return view;
     }

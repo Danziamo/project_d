@@ -93,4 +93,10 @@
     <string name="error_address_empty">Адрес не заполнен</string>
     <string name="error_phone_empty">Телефон не заполнен</string>
     <string name="error_description_empty">Причина не заполнена</string>
+
+    <string name="make_order">Сделать заказ</string>
+    <string name="my_order">Мой заказ</string>
+    <string name="my_order_history">История</string>
+    <string name="my_order_master_history">История:мой мастер</string>
+
 </resources>
