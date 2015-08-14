@@ -30,7 +30,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class UserOrderListFragment extends Fragment {
+public class UserOrderListFragment extends BaseFragment {
 
     private RecyclerView rvActive;
     private OrderAdapter mOrderAdapterActive;
@@ -84,8 +84,6 @@ public class UserOrderListFragment extends Fragment {
         rvActive.setItemAnimator(new DefaultItemAnimator());
         rvActive.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        fillDataClient();
-
        // ((TabsActivity)getActivity()).myMastersButton.setEnabled(false);
         setBottomButtonsListeners();
 
@@ -133,10 +131,12 @@ public class UserOrderListFragment extends Fragment {
 
 
     private void fillDataClient() {
+        showProgress(true, "Загрузка...", "Пожалуйста подождите");
         final Settings settings = new Settings(getActivity());
         RestClient.getOrderService(false).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
+                hideProgress();
                 ArrayList<Order> activeOrders = new ArrayList<>();
                 ArrayList<Order> finishedOrders = new ArrayList<>();
                 ArrayList<Order> allOrders = new ArrayList<>();
@@ -176,16 +176,19 @@ public class UserOrderListFragment extends Fragment {
 
             @Override
             public void failure(RetrofitError error) {
+                hideProgress();
                 Toast.makeText(getActivity(), "Some network error", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void fillDataMaster() {
+        showProgress(true, "Загрузка...", "Пожалуйста подождите");
         final Settings settings = new Settings(getActivity());
         RestClient.getOrderService(true).getByUserId(settings.getUserId(), new Callback<ArrayList<Order>>() {
             @Override
             public void success(ArrayList<Order> orders, Response response) {
+                hideProgress();
                 ArrayList<Order> activeOrders = new ArrayList<>();
                 ArrayList<Order> finishedOrders = new ArrayList<>();
                 ArrayList<Order> allOrders = new ArrayList<>();
@@ -219,6 +222,7 @@ public class UserOrderListFragment extends Fragment {
 
             @Override
             public void failure(RetrofitError error) {
+                hideProgress();
                 Toast.makeText(getActivity(), "Some network error", Toast.LENGTH_LONG).show();
             }
         });
@@ -226,7 +230,10 @@ public class UserOrderListFragment extends Fragment {
 
     public void onResume(){
         super.onResume();
-        fillDataClient();
+        if (dc.isClientMode)
+            fillDataClient();
+        else
+            fillDataMaster();
     }
 
     @Override
