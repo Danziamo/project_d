@@ -15,7 +15,8 @@
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:orientation="vertical"
-           android:id="@+id/linearLayout_history">
+           android:id="@+id/linearLayout_history"
+           android:visibility="gone">
         <include layout="@layout/common_master_info" />
 
         <android.support.design.widget.TextInputLayout
