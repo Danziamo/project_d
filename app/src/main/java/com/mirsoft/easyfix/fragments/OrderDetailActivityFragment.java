@@ -71,8 +71,8 @@ public class OrderDetailActivityFragment extends Fragment {
                 final int DRAWABLE_RIGHT = 2;
                 final int DRAWABLE_BOTTOM = 3;
 
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (tvPhone.getRight() - tvPhone.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (tvPhone.getRight() - tvPhone.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         Intent callIntent = new Intent(Intent.ACTION_CALL);
                         callIntent.setData(Uri.parse("tel:" + order.getClient().getPhone()));
                         startActivity(callIntent);
@@ -115,11 +115,11 @@ public class OrderDetailActivityFragment extends Fragment {
             btnFinish.setVisibility(View.GONE);
             btnCancel.setVisibility(View.GONE);
 
-        } else if (order.getStatus() == OrderType.NEW && order.getContractor().getId() == settings.getUserId()) {
+        } else if (HelperUtils.isNewOrPending(order.getStatus()) && order.getContractor().getId() == settings.getUserId()) {
             btnSubmit.setVisibility(View.VISIBLE);
             btnFinish.setVisibility(View.GONE);
             btnCancel.setVisibility(View.GONE);
-        } else if (order.getStatus() == OrderType.NEW || order.getStatus() == OrderType.ACTIVE || order.getStatus() == OrderType.PENDING) {
+        } else if (order.getStatus() == OrderType.ACTIVE) {
             btnFinish.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
             btnSubmit.setVisibility(View.GONE);
@@ -155,6 +155,7 @@ public class OrderDetailActivityFragment extends Fragment {
                         public void success(Order order, Response response) {
                             if (getActivity() != null)
                                 Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
                         }
 
                         @Override

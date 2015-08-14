@@ -73,6 +73,7 @@ public class MapsActivity extends AppCompatActivity {
         }
 
         mGoogleMap = mMapView.getMap();
+        mGoogleMap.setMyLocationEnabled(true);
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();

@@ -150,7 +150,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             holder.mReasonView.setTextColor(Color.rgb(255, 0, 0));
             if (item.getStatus() == OrderType.ACTIVE)
                 holder.mReasonView.setText("Статус: Клиент вас ждет");
-            if (item.getStatus() == OrderType.NEW)
+            if (item.getStatus() == OrderType.PENDING)
                 holder.mReasonView.setText("Статус: Вы не подтвердили");
             if (item.getStatus() == OrderType.NEW && item.getContractor() == null)
                 holder.mReasonView.setText("Статус: Клиент не подтвердили");
