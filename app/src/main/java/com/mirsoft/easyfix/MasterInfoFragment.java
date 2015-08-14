@@ -165,6 +165,7 @@ public class MasterInfoFragment extends BaseFragment {
             order.setLatitude(orderLat);
             order.setLongitude(orderLng);
             order.contractor = dc.selectedMaster.getId();
+            order.specialty = dc.selectedSpecialty.getId();
             RestClient.getOrderService(false).createOrder(order, settings.getUserId(), new Callback<Order>() {
                 @Override
                 public void success(Order order, Response response) {

@@ -28,6 +28,7 @@ public class Singleton {
 
     public Order clientSelectedOrder;
     public User selectedMaster;
+    public Specialty selectedSpecialty;
 
     public int activeOrdersCount   = -1;
     public int finishedOrdersCount = -1;
