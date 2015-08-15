@@ -267,7 +267,7 @@ public class CreateBasicOrderFragment extends Fragment {
 
     public  void cancelOrder(CommonOrder order){
 
-        order.setStatus(OrderType.CANCELLED);
+        order.setStatus(OrderType.CANCELED);
         RestClient.getOrderService(false).cancelOrder(order, settings.getUserId(), dc.clientSelectedOrder.getId(), new Callback<Order>() {
             @Override
             public void success(Order order, Response response) {

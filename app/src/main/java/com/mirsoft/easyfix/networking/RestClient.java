@@ -2,6 +2,7 @@ package com.mirsoft.easyfix.networking;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mirsoft.easyfix.networking.api.AccountRestoreApi;
 import com.mirsoft.easyfix.networking.api.OrderApi;
 import com.mirsoft.easyfix.networking.api.SessionApi;
 import com.mirsoft.easyfix.networking.api.SessionRequestInterceptor;
@@ -15,7 +16,7 @@ import retrofit.converter.GsonConverter;
 
 public class RestClient {
     private static String ROOT = "http://192.168.0.123:1337/api/v1";
-    private static String MAIN_URI = "http://192.168.0.112:8000/api/v1";
+    private static String MAIN_URI = "http://192.168.0.113:8000/api/v1";
 
     private RestClient() {
     }
@@ -27,7 +28,7 @@ public class RestClient {
                 .create();
 
         RestAdapter.Builder builder = new RestAdapter.Builder()
-                .setEndpoint(ROOT)
+                .setEndpoint(MAIN_URI)
                 .setConverter(new GsonConverter(gson))
                 .setRequestInterceptor(new SessionRequestInterceptor(isContractor))
                 .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -61,5 +62,9 @@ public class RestClient {
 
     public static SpecialtyApi getSpecialtyApi(boolean isContractor) {
         return createService(SpecialtyApi.class, isContractor);
+    }
+
+    public static AccountRestoreApi getAccountRestoreApi() {
+        return createService(AccountRestoreApi.class, false);
     }
 }

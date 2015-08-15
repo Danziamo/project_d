@@ -142,7 +142,7 @@ public class UserOrderListFragment extends BaseFragment {
 
                 for (int i = 0; i < orders.size(); ++i) {
                     Order tempOrder = orders.get(i);
-                    if (tempOrder.getClient().getId() != settings.getUserId() || tempOrder.getStatus() == OrderType.CANCELLED) continue;
+                    if (tempOrder.getClient().getId() != settings.getUserId() || tempOrder.getStatus() == OrderType.CANCELED) continue;
 
                     if (tempOrder.getStatus() != OrderType.FINISHED) {
                         activeOrders.add(tempOrder);
@@ -197,7 +197,7 @@ public class UserOrderListFragment extends BaseFragment {
                     Order tempOrder = orders.get(i);
                     if (tempOrder.getContractor() == null
                             || tempOrder.getContractor().getId() != settings.getUserId()
-                            || tempOrder.getStatus() == OrderType.CANCELLED) continue;
+                            || tempOrder.getStatus() == OrderType.CANCELED) continue;
                     if (tempOrder.getStatus() != OrderType.FINISHED) {
                         activeOrders.add(tempOrder);
                     } else {

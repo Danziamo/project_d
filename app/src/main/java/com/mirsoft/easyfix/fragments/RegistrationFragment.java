@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.mirsoft.easyfix.R;
+import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.networking.api.UserApi;
 import com.mirsoft.easyfix.models.SocialUser;
 import com.mirsoft.easyfix.models.User;
@@ -102,7 +103,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             isError = true;
         }
 
-        if (!password.isEmpty() && password.length() < 6) {
+        if (!password.isEmpty() && password.length() < Constants.PASSWORD_MIN_LENGTH) {
             tilPassword.setError(getActivity().getResources().getString(R.string.error_password_length));
             isError = true;
         }
