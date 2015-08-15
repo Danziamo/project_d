@@ -46,4 +46,6 @@
     <string name="cancel_order">Отменить</string>
     <string name="get_order">Взять заказ</string>
 
+    <string name="gcm_sender_id">797135499539</string>
+
 </resources>

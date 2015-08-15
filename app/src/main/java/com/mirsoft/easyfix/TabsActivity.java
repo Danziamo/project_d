@@ -2,6 +2,7 @@ package com.mirsoft.easyfix;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +25,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.location.LocationServices;
 import com.mirsoft.easyfix.adapters.TabsPagerAdapter;
 import com.mirsoft.easyfix.common.BaseActivity;
 import com.mirsoft.easyfix.networking.api.OrderApi;
@@ -35,6 +42,7 @@ import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.views.RoundedImageView;
 import com.mirsoft.easyfix.utils.Singleton;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.security.auth.Subject;
@@ -77,8 +85,14 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
     private final int MASTRES_BASE_PAGE = 1;
     private final int MY_ORDERS_PAGE    = 2;
 
-
     Singleton dc;
+
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    GoogleApiClient googleApiClient;
+    GoogleCloudMessaging gcm;
+    String gcmRegistrationId;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +123,8 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
                 performCreateNewOrder();
             }
         });
+
+        registrInBackground();
 
         viewPager.setOffscreenPageLimit(3);
         /*String[] titles = new String[]{
@@ -198,6 +214,30 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
         mOrderList = new ArrayList<>();
         mFinishedOrderList = new ArrayList<>();
        // viewPager.setCurrentItem(dc.currentSelectedTabPage);
+    }
+
+    private void registrInBackground(){
+        new AsyncTask<Void,Void,String>(){
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                String message = "";
+                try {
+                    if(gcm == null){
+                        gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
+                    }
+                    gcmRegistrationId = gcm.register(getResources().getString(R.string.gcm_sender_id));
+                    //patchRegistrationId
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return message;
+            }
+            @Override
+            protected void onPostExecute(String msg) {
+              //  Toast.makeText(TabsActivity.this,gcmRegistrationId,Toast.LENGTH_SHORT).show();
+            }
+        }.execute(null, null, null);
     }
 
     private void navigate(final int itemId) {
