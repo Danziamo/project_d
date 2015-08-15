@@ -16,10 +16,12 @@ import android.widget.Toast;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
-import com.mirsoft.easyfix.networking.api.SessionApi;
+import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.models.ActivationCode;
 import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.networking.RestClient;
+
+import java.net.HttpURLConnection;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -28,9 +30,10 @@ import retrofit.client.Response;
 public class AccountRestoringFragment extends Fragment {
 
     EditText et_code_sms;
-    Button btn_authorization;
+    Button btnAuthorization;
     TextInputLayout tilCodeSms;
     TextInputLayout tilPassword;
+    Button btnResend;
 
 
     private static final String SOCIAL_KEY = "IS_SOCIAL";
@@ -83,28 +86,54 @@ public class AccountRestoringFragment extends Fragment {
         tilCodeSms = (TextInputLayout)view.findViewById(R.id.til_activation_code);
         tilPassword = (TextInputLayout)view.findViewById(R.id.til_new_password);
         et_code_sms = (EditText)view.findViewById(R.id.et_code_sms);
-        btn_authorization = (Button)view.findViewById(R.id.btn_authorization);
-        btn_authorization.setOnClickListener(new OnClickListener() {
+        btnAuthorization = (Button)view.findViewById(R.id.btn_authorization);
+        btnAuthorization.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 activate();
             }
         });
 
+        btnResend = (Button)view.findViewById(R.id.btn_resend);
+        btnResend.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resendActivationCode();
+            }
+        });
+
         return view;
+    }
+
+    private void resendActivationCode() {
+        if (isActivation) {
+
+        } else {
+            RestClient.getAccountRestoreApi().sendResetPasswordRequest(phone, new Callback<Object>() {
+                @Override
+                public void success(Object o, Response response) {
+                    Toast.makeText(getActivity(), "Выслан новый код", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(getActivity(), "Не удалось отправить данные на сервер", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private boolean validate() {
         String code = et_code_sms.getText().toString().trim();
         String password = tilPassword.getEditText().getText().toString().trim();
 
-        if (code.length() != 4) {
+        if (code.length() != Constants.ACTIVATION_CODE_LENGTH) {
             tilCodeSms.setError(getActivity().getResources().getString(R.string.error_activation_code_length));
             tilCodeSms.requestFocus();
             return false;
         }
 
-        if (!isActivation && password.length() < 6) {
+        if (!isActivation && password.length() < Constants.PASSWORD_MIN_LENGTH) {
             tilPassword.setError(getActivity().getResources().getString(R.string.error_password_length));
             tilPassword.requestFocus();
             return false;
@@ -121,7 +150,7 @@ public class AccountRestoringFragment extends Fragment {
             ActivationCode activationCode = new ActivationCode();
             activationCode.code = et_code_sms.getText().toString().trim();
             if (isSocial) {
-                RestClient.getSessionApi(false).activateSocial(activationCode, new Callback<Session>() {
+                RestClient.getAccountRestoreApi().activateSocial(activationCode, new Callback<Session>() {
                     @Override
                     public void success(Session session, Response response) {
                         Settings settings = new Settings(getActivity());
@@ -136,7 +165,7 @@ public class AccountRestoringFragment extends Fragment {
                     }
                 });
             } else {
-                RestClient.getSessionApi(false).activate(activationCode, new Callback<Session>() {
+                RestClient.getAccountRestoreApi().activate(activationCode, new Callback<Session>() {
                     @Override
                     public void success(Session session, Response response) {
                         Settings settings = new Settings(getActivity());
@@ -152,9 +181,30 @@ public class AccountRestoringFragment extends Fragment {
                 });
             }
         } else {
-            Toast.makeText(getActivity(), "Here you should restore your password", Toast.LENGTH_SHORT).show();
-            openTabsActivity();
+            if (!validate()) return;
+            ActivationCode code = new ActivationCode();
+            code.code = et_code_sms.getText().toString();
+            code.password = tilPassword.getEditText().getText().toString();
+            code.phone = phone;
+            RestClient.getAccountRestoreApi().sendNewPasswordRequest(code, new Callback<Object>() {
+                @Override
+                public void success(Object o, Response response) {
+                    Toast.makeText(getActivity(), "Пароль изменен", Toast.LENGTH_SHORT).show();
+                    openLogin();
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(getActivity(), "Не удалось отправить данные на сервер", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
+    }
+
+    private void openLogin() {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new LoginFragment())
+                .commit();
     }
 
     private void openTabsActivity(){

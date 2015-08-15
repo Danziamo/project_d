@@ -13,7 +13,7 @@ public enum OrderType implements Serializable {
     ACTIVE,
     @SerializedName("finished")
     FINISHED,
-    @SerializedName("cancelled")
+    @SerializedName("canceled")
     CANCELED;
 
 

@@ -17,6 +17,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.TabsActivity;
+import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.networking.RestClient;
 
@@ -76,14 +77,19 @@ public class LoginFragment extends BaseFragment {
         viewForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), TabsActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                getActivity().finish();
+                goToForgotPassword();
             }
         });
 
         return view;
+    }
+
+    private void goToForgotPassword() {
+        String backStateName = getActivity().getFragmentManager().getClass().getName();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new ForgotPasswordFragment())
+                .addToBackStack(backStateName)
+                .commit();
     }
 
     private void makeLogin() {
@@ -104,7 +110,7 @@ public class LoginFragment extends BaseFragment {
             isError = true;
         }
 
-        if (!password.isEmpty() && password.length() < 6) {
+        if (!password.isEmpty() && password.length() < Constants.PASSWORD_MIN_LENGTH) {
             tilPassword.setError(getActivity().getResources().getString(R.string.error_password_length));
             isError = true;
         }

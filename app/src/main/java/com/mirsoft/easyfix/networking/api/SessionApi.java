@@ -18,9 +18,4 @@ public interface SessionApi {
     @POST("/social-login")
     void login(@Body SocialSession session, Callback<Session> callback);
 
-    @POST("/social-activate")
-    void activateSocial(@Body ActivationCode code, Callback<Session> callback);
-
-    @POST("/activate")
-    void activate(@Body ActivationCode code, Callback<Session> callback);
 }
