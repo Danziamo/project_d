@@ -10,12 +10,15 @@ import android.view.View;
 
 import com.mirsoft.easyfix.adapters.ReviewAdapter;
 import com.mirsoft.easyfix.models.Review;
+import com.mirsoft.easyfix.networking.RestClient;
+import com.mirsoft.easyfix.utils.Singleton;
 import com.mirsoft.easyfix.views.RecyclerViewSimpleDivider;
 
 import java.util.ArrayList;
 
 public class CommentActivity extends AppCompatActivity {
     Toolbar toolbar;
+    Singleton singleton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +26,8 @@ public class CommentActivity extends AppCompatActivity {
 
         toolbar = (Toolbar)findViewById(R.id.order_create_toolbar);
         setSupportActionBar(toolbar);
+
+        singleton = Singleton.getInstance(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -43,11 +48,13 @@ public class CommentActivity extends AppCompatActivity {
     }
 
     private ArrayList<Review> getData() {
-        ArrayList<Review> list = new ArrayList<>();
+//        ArrayList<Review> list = new ArrayList<>();
+//
+//        for (int i = 0; i <= 50; ++i) {
+//            list.add(new Review(i + 1, "Vasya Pupkin", 3.5f, "Polnoe gavno fadsf aslkdf jahsdkjfhaskdjfhaksdjfh asjd fgjaksdhfashdkfhasdkfjhadskjf hakjsd hfkjasdhfkjasdhfkjadhf kjasdh fkjasdhf jaksdhf kjasdhf " + String.valueOf(i)));
+//        }
 
-        for (int i = 0; i <= 50; ++i) {
-            list.add(new Review(i + 1, "Vasya Pupkin", 3.5f, "Polnoe gavno fadsf aslkdf jahsdkjfhaskdjfhaksdjfh asjd fgjaksdhfashdkfhasdkfjhadskjf hakjsd hfkjasdhfkjasdhfkjadhf kjasdh fkjasdhf jaksdhf kjasdhf " + String.valueOf(i)));
-        }
+        RestClient.getOrderService(false).getReviewsByOrderId(singleton.order);
 
         return list;
     }

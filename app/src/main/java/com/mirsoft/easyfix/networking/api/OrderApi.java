@@ -1,7 +1,9 @@
 package com.mirsoft.easyfix.networking.api;
 
+import com.mirsoft.easyfix.models.Comment;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.PendingContractor;
+import com.mirsoft.easyfix.models.Review;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.models.ApproveMasterOrder;
 import com.mirsoft.easyfix.networking.models.CommonOrder;
@@ -57,4 +59,10 @@ public interface OrderApi {
 
     @POST("/users/{userId}/orders/{orderId}/approve_contractor_request")
     void setMaster(@Body ApproveMasterOrder order, @Path("userId") int userId, @Path("orderId") int orderId, Callback<Object> callback);
+
+    @GET("/orders/{orderId}/reviews")
+    void getReviewsByOrderId(@Path("orderId") int orderId,Callback<ArrayList<Comment>> callback);
+
+    @POST("/orders/{orderId}/reviews")
+    void addComment(@Body Comment comment,@Path("orderId") int orderId,Callback<Object> callback);
 }

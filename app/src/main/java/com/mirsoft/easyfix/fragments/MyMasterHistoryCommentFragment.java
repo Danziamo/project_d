@@ -1,7 +1,9 @@
 package com.mirsoft.easyfix.fragments;
 
+import android.graphics.ComposePathEffect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,9 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.mirsoft.easyfix.ClientOrderDetailsActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
+import com.mirsoft.easyfix.models.Comment;
 import com.mirsoft.easyfix.models.Order;
+import com.mirsoft.easyfix.models.Review;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.models.UserSpecialty;
 import com.mirsoft.easyfix.networking.RestClient;
@@ -96,15 +100,19 @@ public class MyMasterHistoryCommentFragment extends BaseFragment {
         btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                final View dialogView = inflater.inflate(R.layout.comment_custom_layout, null);
+
                 new MaterialDialog.Builder(getActivity())
-                        .customView(R.layout.comment_custom_layout, false)
+                        .customView(dialogView, false)
                         .positiveText(R.string.submit)
                         .negativeText(R.string.btn_cancel)
                         .callback(new MaterialDialog.ButtonCallback() {
                             @Override
                             public void onPositive(MaterialDialog dialog) {
                                 super.onPositive(dialog);
-                                Toast.makeText(getActivity(),"Коммент отправлен",Toast.LENGTH_SHORT).show();
+                                AppCompatEditText edit = (AppCompatEditText) dialogView.findViewById(R.id.et_comment);
+                                sendComment(edit.getText().toString());
                             }
 
                             @Override
@@ -127,6 +135,29 @@ public class MyMasterHistoryCommentFragment extends BaseFragment {
         ((ClientOrderDetailsActivity)getActivity()).create_order_toolbar.setTitle(getResources().getString(R.string.my_order_master_history));
 
         return view;
+    }
+
+    public void sendComment(String text){
+
+     //   EditText commentText = (EditText)(getActivity().getLayoutInflater().inflate(R.layout.comment_custom_layout,null)).findViewById(R.id.it_comment);
+
+        Comment comment = new Comment();
+        comment.setUser(singleton.clientSelectedOrder.getClient().getId());
+        comment.setRating(ratingBar.getRating());
+        comment.setDescription(text);
+
+        RestClient.getOrderService(false).addComment(comment, singleton.clientSelectedOrder.getId(),new Callback<Object>() {
+            @Override
+            public void success(Object object, Response response) {
+                Toast.makeText(getActivity(),"Коммент отправлен",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getActivity(),"Failure : send comment",Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+            }
+        });
     }
 //
 //    private void getUpdatedOrder(){
@@ -151,7 +182,7 @@ public class MyMasterHistoryCommentFragment extends BaseFragment {
             public void success(ArrayList<UserSpecialty> userSpecialties, Response response) {
                 hideProgress();
                 updateCommonViews(order);
-                updateView(userSpecialties,order);
+                updateView(userSpecialties, order);
             }
 
             @Override
