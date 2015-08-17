@@ -102,4 +102,58 @@
             style="@style/MaterialEditText"/>
     </android.support.design.widget.TextInputLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/llProfessionInfo"
+        >
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/il_profession"
+            android:theme="@style/TextInputLayoutTheme"
+            style="@style/TextInputLayoutStyle"
+            >
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_profession"
+                android:enabled="false"
+                android:hint="@string/profession"
+                android:inputType="textCapSentences"
+                style="@style/MaterialEditText"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/il_license"
+            android:theme="@style/TextInputLayoutTheme"
+            style="@style/TextInputLayoutStyle"
+            >
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_license"
+                android:enabled="false"
+                android:hint="@string/license"
+                android:inputType="textCapSentences"
+                style="@style/MaterialEditText"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/il_experience"
+            android:theme="@style/TextInputLayoutTheme"
+            style="@style/TextInputLayoutStyle"
+            >
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_experience"
+                android:enabled="false"
+                android:hint="@string/experience"
+                android:inputType="textCapSentences"
+                style="@style/MaterialEditText"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

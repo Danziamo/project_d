@@ -141,7 +141,8 @@
         <android.support.v7.widget.AppCompatButton
             style="@style/Button.DarkGray"
             android:text="@string/locate"
-            android:id="@+id/btnLocate" />
+            android:id="@+id/btnLocate"
+            android:layout_marginBottom="5dp"/>
     </LinearLayout>
 
 

@@ -101,7 +101,8 @@
     <string name="title_activity_order_detail">OrderDetailActivity</string>
     <string name="title_activity_maps">Карта</string>
     <string name="title_activity_create_order">Сделать заказ</string>
-    <string name="title_activity_master_info">MasterInfoActivity</string>
+    <string name="title_activity_master_info">Инфо мастера</string>
+    <string name="title_activity_order_master">Заказ мастеру</string>
     <string name="title_activity_create_new_order">CreateNewOrder</string>
 
     <!-- Errors -->

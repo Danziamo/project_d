@@ -3,6 +3,7 @@ package com.mirsoft.easyfix;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerTitleStrip;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRatingBar;
@@ -10,13 +11,16 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.fragments.BaseFragment;
+import com.mirsoft.easyfix.models.UserSpecialty;
 import com.mirsoft.easyfix.networking.api.OrderApi;
 import com.mirsoft.easyfix.models.Order;
 import com.mirsoft.easyfix.models.User;
@@ -26,6 +30,8 @@ import com.mirsoft.easyfix.networking.models.NOrder;
 import com.mirsoft.easyfix.utils.Singleton;
 import com.mirsoft.easyfix.views.RoundedTransformation;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -39,6 +45,13 @@ public class MasterInfoFragment extends BaseFragment {
     AppCompatEditText etClientAddress;
     AppCompatEditText etClientPhone;
     AppCompatEditText etClientDescription;
+    LinearLayout llMakeOrderView;
+    LinearLayout llProfessionInfo;
+    PagerTitleStrip abName;
+
+    private EditText etProfession;
+    private EditText etLicense;
+    private EditText etExperiance;
     private RatingBar mRaringBar;
     Singleton dc;
     private double orderLat;
@@ -47,6 +60,7 @@ public class MasterInfoFragment extends BaseFragment {
 
     private final static String ARG_MODE = "ARG_MODE";
     private int mode;
+    private boolean isMakeOrder;
 
     public MasterInfoFragment() {
     }
@@ -71,13 +85,21 @@ public class MasterInfoFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_master_info, container, false);
+        getActivity().setTitle(R.string.title_activity_master_info);
 
         mode = getActivity().getIntent().getIntExtra(ARG_MODE, 0);
         dc = Singleton.getInstance(getActivity());
+        isMakeOrder = false;
 
+        llProfessionInfo = (LinearLayout)view.findViewById(R.id.llProfessionInfo);
+        llMakeOrderView = (LinearLayout)view.findViewById(R.id.llMakeOrder);
         etClientPhone = (AppCompatEditText)view.findViewById(R.id.et_client_phone);
         etClientAddress = (AppCompatEditText)view.findViewById(R.id.et_client_address);
         etClientDescription = (AppCompatEditText)view.findViewById(R.id.et_client_description);
+
+        etProfession = (EditText) view.findViewById(R.id.et_profession);
+        etLicense = (EditText) view.findViewById(R.id.et_license);
+        etExperiance = (EditText) view.findViewById(R.id.et_experience);
 
         etClientAddress.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -112,8 +134,15 @@ public class MasterInfoFragment extends BaseFragment {
         ratingBar.setRating(dc.selectedMaster.getRating());
         tvFeedbacks.setText(dc.selectedMaster.getReviewsCount() + " отзывов");
         etPhone.setText(dc.selectedMaster.getPhone());
-
-        etClientAddress.requestFocus();
+        etProfession.setText(dc.selectedSpecialty.getName());
+        if (dc.selectedMaster.is_certified()) {
+            etLicense.setText("Лицензия");
+            etLicense.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check, 0);
+        } else {
+            etLicense.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.false_lic, 0);
+            etLicense.setText("Лицензия");
+        }
+        etExperiance.setText("6 лет");
 
         RoundedTransformation transformation = new RoundedTransformation(10, 5);
         Picasso.with(getActivity())
@@ -125,18 +154,27 @@ public class MasterInfoFragment extends BaseFragment {
                 .transform(transformation)
                 .into(ivProfileInfo);
 
-        AppCompatButton btnSubmit = (AppCompatButton)view.findViewById(R.id.btnSubmit);
+        final AppCompatButton btnSubmit = (AppCompatButton)view.findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createOrderRequest();
+                if (!isMakeOrder) {
+                    getActivity().setTitle(R.string.title_activity_order_master);
+                    btnSubmit.setText(R.string.submit);
+                    llMakeOrderView.setVisibility(View.VISIBLE);
+                    llProfessionInfo.setVisibility(View.GONE);
+                    isMakeOrder = true;
+
+                } else {
+                    createOrderRequest();
+                }
             }
         });
 
         tvFeedbacks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(),CommentActivity.class));
+                startActivity(new Intent(getActivity(), CommentActivity.class));
             }
         });
 
@@ -206,6 +244,28 @@ public class MasterInfoFragment extends BaseFragment {
             etClientAddress.setText(data.getStringExtra("address"));
             orderLat = data.getDoubleExtra("lat", dc.curLat);
             orderLng = data.getDoubleExtra("lng", dc.curLng);
+        }
+    }
+
+
+    private void updateView(ArrayList<UserSpecialty> specialties,Order order){
+        for(int i = 0; i < specialties.size();i++)
+        {
+            if(order.getSpecialty().getId() == specialties.get(i).getId()){
+                for(int j = 0; j < dc.specialtyList.size();j++){
+                    if(specialties.get(i).getId() == dc.specialtyList.get(j).getId())
+                        etProfession.setText(dc.specialtyList.get(j).getName());
+                }
+                if(specialties.get(i).isCertified()) {
+                    etLicense.setText("Лицензия");
+                    etLicense.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check, 0);
+                }
+                else {
+                    etLicense.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.false_lic, 0);
+                    etLicense.setText("Лицензия");
+                }
+                etExperiance.setText("6 лет");
+            }
         }
     }
 }
