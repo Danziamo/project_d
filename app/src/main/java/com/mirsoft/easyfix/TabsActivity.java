@@ -32,6 +32,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.location.LocationServices;
 import com.mirsoft.easyfix.adapters.TabsPagerAdapter;
 import com.mirsoft.easyfix.common.BaseActivity;
+import com.mirsoft.easyfix.fragments.MasterListFragment;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.api.OrderApi;
 import com.mirsoft.easyfix.networking.api.SessionApi;
@@ -220,6 +221,7 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
        // viewPager.setCurrentItem(dc.currentSelectedTabPage);
 
         getCurrentUser();
+
     }
 
     private void getCurrentUser() {
@@ -228,20 +230,7 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
             @Override
             public void success(User user, Response response) {
                 dc.currentUser = user;
-                RoundedTransformation transformation = new RoundedTransformation(10, 5);
-
-                String uri = "https://scontent.xx.fbcdn.net/hphotos-xtf1/v/t1.0-9/10464122_669886999770868_7199669825191714119_n.jpg?oh=3d8b1edf292f4fef440b870a243a864e&oe=565BAFD9";
-                if(user.getPicture() != null) {
-                    uri = user.getPicture();
-                }
-                Picasso.with(TabsActivity.this)
-                        .load(uri)
-                        .resize(150, 150)
-                        .centerCrop()
-                        .placeholder(R.drawable.no_avatar)
-                        .error(R.drawable.no_avatar)
-                        .transform(transformation)
-                        .into(imageView);
+                updateLogo();
             }
 
             @Override
@@ -249,6 +238,18 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
 
             }
         });
+    }
+
+    private void updateLogo(){
+        String uri = "https://scontent.xx.fbcdn.net/hphotos-xtf1/v/t1.0-9/10464122_669886999770868_7199669825191714119_n.jpg?oh=3d8b1edf292f4fef440b870a243a864e&oe=565BAFD9";
+        if(dc.currentUser.getPicture() != null) {
+            uri =  dc.currentUser.getPicture().replace("easyfix.kg","192.168.0.123:1337");
+        }
+        Picasso.with(TabsActivity.this)
+                .load(uri)
+                .placeholder(R.drawable.no_avatar)
+                .error(R.drawable.no_avatar)
+                .into(imageView);
     }
 
     private void registrInBackground(){
@@ -439,6 +440,15 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
         if(dc.fromCreateBasicOrderFragment) {
             viewPager.setCurrentItem(USER_ORDER_PAGE);
             dc.fromCreateBasicOrderFragment = false;
+        }
+
+        if(dc.isUserLogoUpdated == true){
+            updateLogo();
+
+            MasterListFragment fragment = (MasterListFragment) pagerAdapter.getRegisteredFragment(1);
+            fragment.getSpecialties();
+
+            dc.isUserLogoUpdated = false;
         }
     }
 }

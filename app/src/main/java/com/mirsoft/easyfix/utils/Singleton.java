@@ -22,6 +22,8 @@ public class Singleton {
 
     public Boolean fromCreateBasicOrderFragment = false;
 
+    public Boolean isUserLogoUpdated = false;
+
     public  int currentSelectedTabPage = -1 ;
 
     public int indexSelectedOrder  = 0;

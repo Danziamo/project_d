@@ -29,10 +29,12 @@ import android.widget.Toast;
 import com.mirsoft.easyfix.CommentActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
+import com.mirsoft.easyfix.TabsActivity;
 import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.networking.api.UserApi;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
+import com.mirsoft.easyfix.utils.Singleton;
 import com.mirsoft.easyfix.views.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
@@ -69,6 +71,8 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
     private ImageView ivProfileInfo;
     private boolean isImageUpdated;
 
+    Singleton singleton;
+
     private boolean isEditable = false;
 
 
@@ -89,25 +93,27 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_info, container, false);
 
+        singleton = Singleton.getInstance(getActivity());
+
         isImageUpdated = false;
         Settings settings = new Settings(getActivity());
         userId = settings.getUserId();
         userPassword = settings.getPassword();
 
-        UserApi api = RestClient.createService(UserApi.class);
-
-        api.getById(userId, new Callback<User>() {
-            @Override
-            public void success(User user, Response response) {
-                mUser = user;
-                updateViews(user);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                showError(error);
-            }
-        });
+//        UserApi api = RestClient.createService(UserApi.class);
+//
+//        api.getById(userId, new Callback<User>() {
+//            @Override
+//            public void success(User user, Response response) {
+//                mUser = user;
+//                updateViews(user);
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//                showError(error);
+//            }
+//        });
 
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         llProfileInfoContent = (LinearLayout) view.findViewById(R.id.ll_profile_info_content);
@@ -147,6 +153,9 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
             }
         });
 
+        mUser = singleton.currentUser;
+        updateViews(singleton.currentUser);
+
         return view;
     }
 
@@ -165,7 +174,9 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
 
         String uri = "https://scontent.xx.fbcdn.net/hphotos-xtf1/v/t1.0-9/10464122_669886999770868_7199669825191714119_n.jpg?oh=3d8b1edf292f4fef440b870a243a864e&oe=565BAFD9";
         if(user.getPicture() != null) {
-            uri = user.getPicture();
+
+            uri =  user.getPicture().replace("easyfix.kg", "192.168.0.123:1337");
+           // uri = user.getPicture();
         }
         Picasso.with(getActivity())
                 .load(uri)
@@ -175,6 +186,7 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
                 .error(R.drawable.no_avatar)
                 .transform(transformation)
                 .into(ivProfileInfo);
+
     }
 
     @Override
@@ -223,6 +235,12 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
                     userPassword = newPassword;
                     hideProgress();
                     disableViews();
+
+                    singleton.currentUser = user;
+
+                    updateViews(singleton.currentUser);
+
+                    singleton.isUserLogoUpdated = true;
                 }
 
                 @Override

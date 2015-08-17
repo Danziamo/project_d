@@ -134,7 +134,7 @@ public class MasterListFragment extends BaseFragment {
         });
     }
 
-    private void getSpecialties() {
+    public void getSpecialties() {
         RestClient.getSpecialtyApi(false).getSpecialties(new Callback<ArrayList<Specialty>>() {
             @Override
             public void success(ArrayList<Specialty> specialties, Response response) {

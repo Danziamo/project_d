@@ -36,7 +36,8 @@
         android:text="Баланс: 100 сом"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/iVphoto"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"/>
 
 
 </RelativeLayout>
