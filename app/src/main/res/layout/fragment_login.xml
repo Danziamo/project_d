@@ -21,7 +21,7 @@
 
             <android.support.design.widget.TextInputLayout
                 android:theme="@style/TextInputLayoutTheme"
-                android:id="@+id/tilLogin"
+                android:id="@+id/tilPhone"
                 style="@style/TextInputLayoutStyle"
                 >
 

@@ -101,7 +101,7 @@ public class LoginFragment extends BaseFragment {
         boolean isError = false;
 
         if (username.isEmpty()) {
-            tilPhone.setError(getActivity().getResources().getString(R.string.error_not_empty));
+            tilPhone.setError(getActivity().getString(R.string.error_not_empty));
             isError = true;
         }
 
