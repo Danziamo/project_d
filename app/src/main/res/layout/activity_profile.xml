@@ -52,7 +52,7 @@
         android:id="@+id/btnAdd"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="40dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="40dp"
         app:backgroundTint="@color/input_base_blue"
         android:visibility="invisible"
         />

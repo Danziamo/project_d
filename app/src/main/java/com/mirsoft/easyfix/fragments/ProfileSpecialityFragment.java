@@ -16,10 +16,12 @@ import com.mirsoft.easyfix.ProfileActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
 import com.mirsoft.easyfix.adapters.MySpecialityAdapter;
+import com.mirsoft.easyfix.models.SpecialtyDetails;
 import com.mirsoft.easyfix.networking.api.UserApi;
 import com.mirsoft.easyfix.models.Specialty;
 import com.mirsoft.easyfix.models.UserSpecialty;
 import com.mirsoft.easyfix.networking.RestClient;
+import com.mirsoft.easyfix.utils.Singleton;
 
 import java.util.ArrayList;
 
@@ -34,7 +36,7 @@ public class ProfileSpecialityFragment extends BaseFragment implements View.OnCl
 
     private int userId;
     private ArrayList<Specialty> specialtyList;
-    private ArrayList<UserSpecialty> userSpecialtyList;
+    private ArrayList<SpecialtyDetails> userSpecialtyList;
     private MySpecialityAdapter mySpecialityAdapter;
 
     private LinearLayout llProfileSpecialityContent;
@@ -42,6 +44,9 @@ public class ProfileSpecialityFragment extends BaseFragment implements View.OnCl
     private RecyclerView rvUserSpecialties;
     private Button btnSubmit;
 
+    Singleton singleton;
+
+    Settings settings;
 
     public ProfileSpecialityFragment() {
     }
@@ -55,42 +60,18 @@ public class ProfileSpecialityFragment extends BaseFragment implements View.OnCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_speciality, container, false);
 
+        singleton = Singleton.getInstance(getActivity());
+
         llProfileSpecialityContent = (LinearLayout)view.findViewById(R.id.llProfileSpecialityContent);
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         rvUserSpecialties = (RecyclerView)view.findViewById(R.id.rvUserSpecialties);
         btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(this);
 
-       // FloatingActionButton btnAdd = (FloatingActionButton) view.findViewById(R.id.btnAdd);
         ((ProfileActivity)getActivity()).addNewProffestionBtn.setOnClickListener(this);
 
-        Settings settings = new Settings(getActivity());
-        userId = settings.getUserId();
-
-        RestClient.getSpecialtyApi(false).getSpecialties(new Callback<ArrayList<Specialty>>() {
-            @Override
-            public void success(ArrayList<Specialty> specialties, Response response) {
-                specialtyList = specialties;
-                RestClient.createService(UserApi.class, true).getSpecialties(userId, new Callback<ArrayList< UserSpecialty>>(){
-
-                    @Override
-                    public void success(ArrayList<UserSpecialty> userSpecialties, Response response) {
-                        userSpecialtyList = userSpecialties;
-                        updateViews();
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        showError(error);
-                    }
-                });
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(getActivity(), "Error fetching specialties from server", Toast.LENGTH_SHORT).show();
-            }
-        });
+        userSpecialtyList = singleton.currentUser.getUserSpecialties() ;
+        updateViews();
 
         return view;
     }
@@ -105,7 +86,13 @@ public class ProfileSpecialityFragment extends BaseFragment implements View.OnCl
         llProfileSpecialityContent.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
 
-        mySpecialityAdapter = new MySpecialityAdapter(userSpecialtyList, specialtyList, R.layout.list_item_profile_speciality);
+        ArrayList<SpecialtyDetails> filteredList = new ArrayList<>();
+        settings = new Settings(getActivity());
+        for(int i = 0; i<userSpecialtyList.size(); i++){
+            if(userSpecialtyList.get(i).getUserId() == settings.getUserId()) filteredList.add(userSpecialtyList.get(i));
+        }
+
+        mySpecialityAdapter = new MySpecialityAdapter(filteredList, singleton.specialtyList, R.layout.list_item_profile_speciality);
         rvUserSpecialties.setAdapter(mySpecialityAdapter);
         rvUserSpecialties.setItemAnimator(new DefaultItemAnimator());
         rvUserSpecialties.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -122,10 +109,10 @@ public class ProfileSpecialityFragment extends BaseFragment implements View.OnCl
         int id = v.getId();
 
         if(id == R.id.btnAdd){
-         //   if(mySpecialityAdapter.getItemCount() < 3) {
-                mySpecialityAdapter.addItem(new UserSpecialty());
+            if(mySpecialityAdapter.getItemCount() < 3) {
+                mySpecialityAdapter.addItem(new SpecialtyDetails());
                 btnSubmit.setVisibility(View.VISIBLE);
-         //   }
+            }
         }else if(id == R.id.btnSubmit){
 
         }

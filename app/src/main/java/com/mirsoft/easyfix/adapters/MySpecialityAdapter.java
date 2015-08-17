@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.models.Specialty;
+import com.mirsoft.easyfix.models.SpecialtyDetails;
 import com.mirsoft.easyfix.models.UserSpecialty;
 
 import java.util.ArrayList;
@@ -22,12 +23,12 @@ import java.util.ArrayList;
  */
 public class MySpecialityAdapter extends RecyclerView.Adapter<MySpecialityAdapter.ViewHolder>{
 
-    private ArrayList<UserSpecialty> items;
+    private ArrayList<SpecialtyDetails> items;
     private ArrayList<Specialty> specialties;
     private int itemLayout;
     private boolean isEditable = false;
 
-    public MySpecialityAdapter(ArrayList<UserSpecialty> items, ArrayList<Specialty> specialties, int layout) {
+    public MySpecialityAdapter(ArrayList<SpecialtyDetails> items, ArrayList<Specialty> specialties, int layout) {
         this.items = items;
         this.specialties = specialties;
         this.itemLayout = layout;
@@ -45,7 +46,7 @@ public class MySpecialityAdapter extends RecyclerView.Adapter<MySpecialityAdapte
         return index;
     }
 
-    public void addItem(UserSpecialty item){
+    public void addItem(SpecialtyDetails item){
         items.add(item);
         notifyDataSetChanged();
     }
@@ -55,11 +56,11 @@ public class MySpecialityAdapter extends RecyclerView.Adapter<MySpecialityAdapte
         notifyDataSetChanged();
     }
 
-    public ArrayList<UserSpecialty> getItems(){
+    public ArrayList<SpecialtyDetails> getItems(){
         return items;
     }
 
-    public void setItems(ArrayList<UserSpecialty> items) {
+    public void setItems(ArrayList<SpecialtyDetails> items) {
         this.items = items;
         notifyDataSetChanged();
     }
@@ -73,11 +74,11 @@ public class MySpecialityAdapter extends RecyclerView.Adapter<MySpecialityAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final UserSpecialty item = items.get(position);
+        final SpecialtyDetails item = items.get(position);
         int itemPositionSpecialtyIndex = getSpecialtyIndexById(holder.spProfession, item.getSpecialtyId());
         holder.spProfession.setSelection(itemPositionSpecialtyIndex); //@TODO item.getSpecialtyId()
 
-        holder.cbLicense.setChecked(item.isCertified());
+        holder.cbLicense.setChecked(item.is_certified());
 
         if(item.getId() == 0 || isEditable){
             holder.spProfession.setClickable(true);
@@ -101,7 +102,7 @@ public class MySpecialityAdapter extends RecyclerView.Adapter<MySpecialityAdapte
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                item.setIsCertified(isChecked);
+                item.setIs_certified(isChecked);
             }
         });
     }

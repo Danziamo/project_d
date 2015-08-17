@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable{
     @Expose
@@ -43,6 +44,18 @@ public class User implements Serializable{
 
     @Expose
     private String picture;
+
+    @Expose
+    @SerializedName("specialties")
+    private ArrayList<SpecialtyDetails> userSpecialties;
+
+    public ArrayList<SpecialtyDetails> getUserSpecialties() {
+        return userSpecialties;
+    }
+
+    public void setUserSpecialties(ArrayList<SpecialtyDetails> userSpecialties) {
+        this.userSpecialties = userSpecialties;
+    }
 
     public boolean is_certified() {
         return is_certified;
