@@ -41,6 +41,9 @@ public class User implements Serializable{
     @Expose
     private String certificate_detail;
 
+    @Expose
+    private String picture;
+
     public boolean is_certified() {
         return is_certified;
     }
@@ -168,6 +171,14 @@ public class User implements Serializable{
 
     public void setReviewsCount(int reviewsCount) {
         this.reviewsCount = reviewsCount;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     @Override

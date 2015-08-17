@@ -22,4 +22,7 @@ public interface AccountRestoreApi {
 
     @POST("/activate")
     void activate(@Body ActivationCode code, Callback<Session> callback);
+
+    @POST("/users/resend_activation_code")
+    void resendActivationCode(@Body ActivationCode code, Callback<Object> callback);
 }

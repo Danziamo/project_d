@@ -28,4 +28,8 @@ public class Constants {
     public static final int PASSWORD_MIN_LENGTH = 6;
     public static final int ACTIVATION_CODE_LENGTH = 4;
 
+
+    public static final String ROOT = "http://192.168.0.123:1337/api/v1";
+    public static final String MAIN_URI = "http://192.168.0.113:8000/api/v1";
+
 }

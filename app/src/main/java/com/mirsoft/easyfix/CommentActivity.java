@@ -48,13 +48,13 @@ public class CommentActivity extends AppCompatActivity {
     }
 
     private ArrayList<Review> getData() {
-//        ArrayList<Review> list = new ArrayList<>();
-//
-//        for (int i = 0; i <= 50; ++i) {
-//            list.add(new Review(i + 1, "Vasya Pupkin", 3.5f, "Polnoe gavno fadsf aslkdf jahsdkjfhaskdjfhaksdjfh asjd fgjaksdhfashdkfhasdkfjhadskjf hakjsd hfkjasdhfkjasdhfkjadhf kjasdh fkjasdhf jaksdhf kjasdhf " + String.valueOf(i)));
-//        }
+        ArrayList<Review> list = new ArrayList<>();
 
-        RestClient.getOrderService(false).getReviewsByOrderId(singleton.order);
+        for (int i = 0; i <= 50; ++i) {
+            list.add(new Review(i + 1, "Vasya Pupkin", 3.5f, "Polnoe gavno fadsf aslkdf jahsdkjfhaskdjfhaksdjfh asjd fgjaksdhfashdkfhasdkfjhadskjf hakjsd hfkjasdhfkjasdhfkjadhf kjasdh fkjasdhf jaksdhf kjasdhf " + String.valueOf(i)));
+        }
+
+        //RestClient.getOrderService(false).getReviewsByOrderId(singleton.order);
 
         return list;
     }

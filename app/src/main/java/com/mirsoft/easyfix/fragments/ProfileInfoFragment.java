@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.mirsoft.easyfix.CommentActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
+import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.networking.api.UserApi;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
@@ -42,6 +43,7 @@ import java.io.FileOutputStream;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.mime.TypedFile;
 
 /**
  * Created by mbt on 7/27/15.
@@ -65,6 +67,7 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
     private EditText etPassword;
     private Button btnSubmit;
     private ImageView ivProfileInfo;
+    private boolean isImageUpdated;
 
     private boolean isEditable = false;
 
@@ -86,6 +89,7 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_info, container, false);
 
+        isImageUpdated = false;
         Settings settings = new Settings(getActivity());
         userId = settings.getUserId();
         userPassword = settings.getPassword();
@@ -117,17 +121,6 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
         btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
 
         btnSubmit.setOnClickListener(this);
-
-        RoundedTransformation transformation = new RoundedTransformation(10, 5);
-
-        Picasso.with(getActivity())
-                .load("https://scontent.xx.fbcdn.net/hphotos-xtf1/v/t1.0-9/10464122_669886999770868_7199669825191714119_n.jpg?oh=3d8b1edf292f4fef440b870a243a864e&oe=565BAFD9")
-                .resize(150, 150)
-                .centerCrop()
-                .placeholder(R.drawable.no_avatar)
-                .error(R.drawable.no_avatar)
-                .transform(transformation)
-                .into(ivProfileInfo);
 
         ivProfileInfo.setOnClickListener(this);
         registerForContextMenu(ivProfileInfo);
@@ -167,6 +160,21 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
         tvFeedbacks.setText(getResources().getQuantityString(R.plurals.feedback_count, user.getReviewsCount(), user.getReviewsCount()));
         etPhone.setText(user.getPhone());
         etPassword.setText(userPassword);
+
+        RoundedTransformation transformation = new RoundedTransformation(10, 5);
+
+        String uri = "https://scontent.xx.fbcdn.net/hphotos-xtf1/v/t1.0-9/10464122_669886999770868_7199669825191714119_n.jpg?oh=3d8b1edf292f4fef440b870a243a864e&oe=565BAFD9";
+        if(user.getPicture() != null) {
+            uri = user.getPicture();
+        }
+        Picasso.with(getActivity())
+                .load(uri)
+                .resize(150, 150)
+                .centerCrop()
+                .placeholder(R.drawable.no_avatar)
+                .error(R.drawable.no_avatar)
+                .transform(transformation)
+                .into(ivProfileInfo);
     }
 
     @Override
@@ -225,7 +233,8 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
                 }
             });
         }else if (id == R.id.profile_photo){
-            getActivity().openContextMenu(ivProfileInfo);
+            if (isEditable)
+                getActivity().openContextMenu(ivProfileInfo);
         }
     }
 
@@ -299,6 +308,7 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
 
             if(requestCode == RESULT_CHOOSE_FROM_GALLERY ) {
                 if (resultCode == Activity.RESULT_OK && data != null) {
+                    isImageUpdated = true;
                     Uri selectedImage = data.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
@@ -316,6 +326,7 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
                 }
             }else if(requestCode == RESULT_CAPTURE_IMAGE){
                 if(resultCode == Activity.RESULT_OK){
+                    isImageUpdated = true;
                     imagePath = imageUri.getPath();
                     showProgress(true, "Upload start", "Upload start");
                     convertImageToByte();
@@ -372,6 +383,22 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
     public void uploadImage() throws Exception{
 
         tmpChangeImage();
+        TypedFile typedImage = new TypedFile("application/octet-stream", imageFile);
+
+        Settings settings = new Settings(getActivity());
+        RestClient.getUserService(false).uploadPicture(settings.getUserId(), typedImage, new Callback<Object>() {
+            @Override
+            public void success(Object o, Response response) {
+                hideProgress();
+                Toast.makeText(getActivity(), "Success uploading", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                hideProgress();
+                Toast.makeText(getActivity(), "Failed to upload", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         hideProgress();
 

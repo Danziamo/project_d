@@ -32,6 +32,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.location.LocationServices;
 import com.mirsoft.easyfix.adapters.TabsPagerAdapter;
 import com.mirsoft.easyfix.common.BaseActivity;
+import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.api.OrderApi;
 import com.mirsoft.easyfix.networking.api.SessionApi;
 import com.mirsoft.easyfix.common.OrderType;
@@ -41,6 +42,8 @@ import com.mirsoft.easyfix.models.Session;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.views.RoundedImageView;
 import com.mirsoft.easyfix.utils.Singleton;
+import com.mirsoft.easyfix.views.RoundedTransformation;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,6 +62,7 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
     ViewPager viewPager;
     TabLayout tabLayout;
     NavigationView navigationView;
+    RoundedImageView imageView;
     public FloatingActionButton btnCreateOrder;
 
     private ArrayList<Order> mOrderList;
@@ -191,7 +195,7 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
         navigationView.setNavigationItemSelectedListener(this);
 
         View header = navigationView.inflateHeaderView(R.layout.custom_drawer);
-        RoundedImageView imageView = (RoundedImageView)header.findViewById(R.id.iVphoto);
+        imageView = (RoundedImageView)header.findViewById(R.id.iVphoto);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,6 +218,37 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
         mOrderList = new ArrayList<>();
         mFinishedOrderList = new ArrayList<>();
        // viewPager.setCurrentItem(dc.currentSelectedTabPage);
+
+        getCurrentUser();
+    }
+
+    private void getCurrentUser() {
+        Settings settings = new Settings(TabsActivity.this);
+        RestClient.getUserService(false).getById(settings.getUserId(), new Callback<User>() {
+            @Override
+            public void success(User user, Response response) {
+                dc.currentUser = user;
+                RoundedTransformation transformation = new RoundedTransformation(10, 5);
+
+                String uri = "https://scontent.xx.fbcdn.net/hphotos-xtf1/v/t1.0-9/10464122_669886999770868_7199669825191714119_n.jpg?oh=3d8b1edf292f4fef440b870a243a864e&oe=565BAFD9";
+                if(user.getPicture() != null) {
+                    uri = user.getPicture();
+                }
+                Picasso.with(TabsActivity.this)
+                        .load(uri)
+                        .resize(150, 150)
+                        .centerCrop()
+                        .placeholder(R.drawable.no_avatar)
+                        .error(R.drawable.no_avatar)
+                        .transform(transformation)
+                        .into(imageView);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 
     private void registrInBackground(){

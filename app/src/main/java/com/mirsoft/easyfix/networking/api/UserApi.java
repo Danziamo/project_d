@@ -4,16 +4,20 @@ import com.mirsoft.easyfix.models.SocialUser;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.models.UserSpecialty;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
+import retrofit.http.Multipart;
 import retrofit.http.PATCH;
 import retrofit.http.POST;
+import retrofit.http.Part;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import retrofit.mime.TypedFile;
 
 public interface UserApi {
     @POST("/users")
@@ -37,13 +41,9 @@ public interface UserApi {
     @GET("/users/{id}/user-specialties")
     void getSpecialties(@Path("id") int id, Callback<ArrayList<UserSpecialty>> callback);
 
-    //@TODO
-//    @Multipart
-//    @PUT("/api/users/{id}/")
-//    void setAvatar(@Path("id") int id,
-//                   @Part("avatar") TypedFile file,
-//                   @Part("username") String username,
-//                   @Part("phone") String phone,
-//                   @Part("description") String description,
-//                   Callback<String> cb);
+    @Multipart
+    @POST("/users/{userId}/upload_picture")
+    void uploadPicture(@Path("userId") int userId,
+                   @Part("picture") TypedFile picture,
+                   Callback<Object> cb);
 }

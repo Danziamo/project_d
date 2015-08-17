@@ -33,6 +33,8 @@ public class Singleton {
     public int activeOrdersCount   = -1;
     public int finishedOrdersCount = -1;
 
+    public User currentUser;
+
 
     public static Singleton getInstance(Context context) {
         if(instance == null) instance = new Singleton(context);

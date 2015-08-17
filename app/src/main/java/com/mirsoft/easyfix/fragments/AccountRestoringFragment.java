@@ -107,7 +107,19 @@ public class AccountRestoringFragment extends Fragment {
 
     private void resendActivationCode() {
         if (isActivation) {
+            ActivationCode code = new ActivationCode();
+            code.phone = phone;
+            RestClient.getAccountRestoreApi().resendActivationCode(code, new Callback<Object>() {
+                @Override
+                public void success(Object o, Response response) {
+                    Toast.makeText(getActivity(), "Выслан новый код", Toast.LENGTH_SHORT).show();
+                }
 
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(getActivity(), "Не удалось отправить данные на сервер", Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
             RestClient.getAccountRestoreApi().sendResetPasswordRequest(phone, new Callback<Object>() {
                 @Override
