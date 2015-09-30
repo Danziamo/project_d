@@ -346,7 +346,7 @@ public class CreateBasicOrderFragment extends Fragment {
                 if(dc.clientSelectedOrder.getStatus() == OrderType.NEW) {
                     getPendingOrders();
                 }
-                ((ClientOrderDetailsActivity)getActivity()).create_order_toolbar.setTitle(getResources().getString(R.string.my_order));
+                ((ClientOrderDetailsActivity)getActivity()).create_order_toolbar.setTitle(  getResources().getString(R.string.my_order));
                 break;
             case FINISH_MODE:
                 mastersRequests.setVisibility(View.VISIBLE);
