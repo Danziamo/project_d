@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -65,6 +66,10 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
     TabLayout tabLayout;
     NavigationView navigationView;
     RoundedImageView imageView;
+
+    TextView tvCurrentUserPhone;
+    TextView tvCurrentUserBalance;
+
     public FloatingActionButton btnCreateOrder;
 
     private ArrayList<Order> mOrderList;
@@ -205,6 +210,8 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
                 startActivity(intent);
             }
         });
+        tvCurrentUserPhone = (TextView) header.findViewById(R.id.tvCurrentUserPhone);
+        tvCurrentUserBalance = (TextView) header.findViewById(R.id.tvCurrentUserBalance);
 
         // select the correct nav menu item
         navigationView.getMenu().findItem(mNavItemId).setChecked(true);
@@ -231,6 +238,9 @@ public class TabsActivity extends BaseActivity implements NavigationView.OnNavig
             @Override
             public void success(User user, Response response) {
                 dc.currentUser = user;
+                tvCurrentUserPhone.setText(dc.currentUser.getPhone());
+                int balance = 120; //@TODO get balance from user object
+                tvCurrentUserBalance.setText(String.format(getString(R.string.current_user_balance), balance));
                 updateLogo();
             }
 

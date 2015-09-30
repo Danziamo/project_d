@@ -17,7 +17,7 @@
     <TextView
         style="@style/TextTitle"
         android:text="+996-555-555-555"
-        android:id="@+id/tVaccount"
+        android:id="@+id/tvCurrentUserPhone"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/tvTextTitle"
         android:layout_centerHorizontal="true" />
@@ -27,13 +27,14 @@
         android:layout_height="60dp"
         android:id="@+id/iVphoto"
         android:src="@drawable/foto"
-        android:layout_below="@+id/tVaccount"
+        android:layout_below="@+id/tvCurrentUserPhone"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp" />
 
     <TextView
+        android:id="@+id/tvCurrentUserBalance"
         style="@style/TextTitle"
-        android:text="Баланс: 100 сом"
+        android:text="@string/current_user_balance"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/iVphoto"
         android:layout_centerHorizontal="true"

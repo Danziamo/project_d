@@ -119,4 +119,6 @@
     <string name="my_order_history">История</string>
     <string name="my_order_master_history">История:мой мастер</string>
 
+    <string name="current_user_balance">Баланс: %02d</string>
+
 </resources>
