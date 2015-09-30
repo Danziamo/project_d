@@ -27,6 +27,7 @@ import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.models.UserSpecialty;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.networking.api.UserApi;
+import com.mirsoft.easyfix.utils.HelperUtils;
 import com.mirsoft.easyfix.utils.Singleton;
 import com.mirsoft.easyfix.views.RoundedTransformation;
 import com.squareup.picasso.Picasso;
@@ -203,15 +204,11 @@ public class MyMasterHistoryCommentFragment extends BaseFragment {
         etPhone.setText(order.getContractor().getPhone());
 
         RoundedTransformation transformation = new RoundedTransformation(10, 5);
-        Picasso.with(getActivity())
-                .load("https://scontent.xx.fbcdn.net/hphotos-xtf1/v/t1.0-9/10464122_669886999770868_7199669825191714119_n.jpg?oh=3d8b1edf292f4fef440b870a243a864e&oe=565BAFD9")
+
+        HelperUtils.getUserPhotoRequestCreator(getActivity(), order.getContractor().getPicture())
                 .resize(150, 150)
-                .centerCrop()
-                .placeholder(R.drawable.no_avatar)
-                .error(R.drawable.no_avatar)
                 .transform(transformation)
                 .into(ivProfileInfo);
-
     }
 
     private void updateView(ArrayList<UserSpecialty> specialties,Order order){

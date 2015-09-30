@@ -3,10 +3,12 @@ package com.mirsoft.easyfix.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by parviz on 8/17/15.
  */
-public class SpecialtyDetails {
+public class SpecialtyDetails implements Serializable{
 
     @Expose
     private int id;

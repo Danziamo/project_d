@@ -260,9 +260,10 @@ public class NewOrdersFragment extends BaseFragment implements GoogleMap.OnInfoW
     public void onInfoWindowClick(Marker marker) {
         Order order = mOrderMarkerMap.get(marker);
         Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
-        Bundle bundle = new Bundle();
+        intent.putExtra("ORDER", order);
+        /*Bundle bundle = new Bundle();
         bundle.putSerializable("ORDER", order);
-        intent.putExtra("bundle", bundle);
+        intent.putExtra("bundle", bundle);*/
         getActivity().startActivity(intent);
     }
 }

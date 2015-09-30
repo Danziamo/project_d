@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
+import com.mirsoft.easyfix.common.Constants;
 import com.mirsoft.easyfix.common.OrderType;
 import com.mirsoft.easyfix.networking.api.OrderApi;
 import com.mirsoft.easyfix.models.Order;
@@ -56,8 +57,8 @@ public class OrderDetailActivityFragment extends Fragment {
         final EditText tvPhone = (EditText)view.findViewById(R.id.tvPhone);
         EditText tvAddress = (EditText)view.findViewById(R.id.tvAddress);
 
-        Bundle bundle = getActivity().getIntent().getBundleExtra("bundle");
-        order = (Order)bundle.getSerializable("ORDER");
+        Intent intent = getActivity().getIntent();
+        order = (Order) intent.getSerializableExtra(Constants.EXTRA_KEY_ORDER);
         Settings settings = new Settings(getActivity());
         Toast.makeText(getActivity(), String.valueOf(order.getId()), Toast.LENGTH_SHORT).show();
 

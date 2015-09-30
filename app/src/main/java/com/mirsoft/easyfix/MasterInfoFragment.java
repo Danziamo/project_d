@@ -27,9 +27,11 @@ import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
 import com.mirsoft.easyfix.networking.models.ApproveMasterOrder;
 import com.mirsoft.easyfix.networking.models.NOrder;
+import com.mirsoft.easyfix.utils.HelperUtils;
 import com.mirsoft.easyfix.utils.Singleton;
 import com.mirsoft.easyfix.views.RoundedTransformation;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import java.util.ArrayList;
 
@@ -145,13 +147,8 @@ public class MasterInfoFragment extends BaseFragment {
         etExperiance.setText("6 лет");
 
         RoundedTransformation transformation = new RoundedTransformation(10, 5);
-        Picasso.with(getActivity())
-                .load(dc.currentUser.getPicture().replace("easyfix.kg","192.168.0.123:1337"))
-                //.load("https://scontent.xx.fbcdn.net/hphotos-xtf1/v/t1.0-9/10464122_669886999770868_7199669825191714119_n.jpg?oh=3d8b1edf292f4fef440b870a243a864e&oe=565BAFD9")
+        HelperUtils.getUserPhotoRequestCreator(getActivity(), dc.selectedMaster.getPicture())
                 .resize(150, 150)
-                .centerCrop()
-                .placeholder(R.drawable.no_avatar)
-                .error(R.drawable.no_avatar)
                 .transform(transformation)
                 .into(ivProfileInfo);
 

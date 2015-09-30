@@ -22,6 +22,8 @@ public class Constants {
     /**     Result Codes     **/
     public static final int OK_RESULT_CODE = 1;
 
+    /**     Intent/Bundle keys**/
+    public static final String EXTRA_KEY_ORDER = "ORDER";
 
     /**    GLOBAL constants       **/
 

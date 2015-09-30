@@ -29,11 +29,10 @@ import android.widget.Toast;
 import com.mirsoft.easyfix.CommentActivity;
 import com.mirsoft.easyfix.R;
 import com.mirsoft.easyfix.Settings;
-import com.mirsoft.easyfix.TabsActivity;
-import com.mirsoft.easyfix.common.Constants;
-import com.mirsoft.easyfix.networking.api.UserApi;
 import com.mirsoft.easyfix.models.User;
 import com.mirsoft.easyfix.networking.RestClient;
+import com.mirsoft.easyfix.networking.api.UserApi;
+import com.mirsoft.easyfix.utils.HelperUtils;
 import com.mirsoft.easyfix.utils.Singleton;
 import com.mirsoft.easyfix.views.RoundedTransformation;
 import com.squareup.picasso.Picasso;
@@ -171,19 +170,8 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
         etPassword.setText(userPassword);
 
         RoundedTransformation transformation = new RoundedTransformation(10, 5);
-
-        String uri = "https://scontent.xx.fbcdn.net/hphotos-xtf1/v/t1.0-9/10464122_669886999770868_7199669825191714119_n.jpg?oh=3d8b1edf292f4fef440b870a243a864e&oe=565BAFD9";
-        if(user.getPicture() != null) {
-
-            uri =  user.getPicture().replace("easyfix.kg", "192.168.0.123:1337");
-           // uri = user.getPicture();
-        }
-        Picasso.with(getActivity())
-                .load(uri)
+        HelperUtils.getUserPhotoRequestCreator(getActivity(), user.getPicture())
                 .resize(150, 150)
-                .centerCrop()
-                .placeholder(R.drawable.no_avatar)
-                .error(R.drawable.no_avatar)
                 .transform(transformation)
                 .into(ivProfileInfo);
 
@@ -452,12 +440,8 @@ public class ProfileInfoFragment extends BaseFragment implements View.OnClickLis
 
         String url = "file://" + imageFile.getAbsolutePath();
 
-        Picasso.with(getActivity())
-                .load(url)
+        HelperUtils.getUserPhotoRequestCreator(getActivity(), url)
                 .resize(150, 150)
-                .centerCrop()
-                .placeholder(R.drawable.no_avatar)
-                .error(R.drawable.no_avatar)
                 .transform(transformation)
                 .into(ivProfileInfo);
     }

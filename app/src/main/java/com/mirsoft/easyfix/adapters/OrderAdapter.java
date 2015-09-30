@@ -63,10 +63,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                     if (mode == Constants.CLIENT_ORDER_ADAPTER_MODE_NEW) {
                         Order order = (Order) v.getTag();
                         if (order.getClient().getId() == settings.getUserId()) return;
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("ORDER", order);
                         Intent intent = new Intent(mContext, OrderDetailActivity.class);
-                        intent.putExtra("bundle", bundle);
+                        intent.putExtra(Constants.EXTRA_KEY_ORDER, order);
                         mContext.startActivity(intent);
                     } else if (singleton.isClientMode) {
                         Intent intent = new Intent(mContext, ClientOrderDetailsActivity.class);
@@ -85,10 +83,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
                     } else {
                         Order order = (Order) v.getTag();
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("ORDER", order);
                         Intent intent = new Intent(mContext, OrderDetailActivity.class);
-                        intent.putExtra("bundle", bundle);
+                        intent.putExtra(Constants.EXTRA_KEY_ORDER, order);
                         mContext.startActivity(intent);
                     }
                 }
