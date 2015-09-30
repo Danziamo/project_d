@@ -327,6 +327,7 @@ public class CreateBasicOrderFragment extends Fragment {
                 orderNotification.setVisibility(View.GONE);
                 orderBtnChange.setVisibility(View.GONE);
                 orderBtnCancel.setVisibility(View.GONE);
+                orderPhone.setText(dc.currentUser.getPhone());
                 ((ClientOrderDetailsActivity)getActivity()).create_order_toolbar.setTitle(getResources().getString(R.string.make_order));
                 break;
             case CHECK_MODE:
